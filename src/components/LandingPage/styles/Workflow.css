@@ -1,0 +1,182 @@
+/* filepath: /workspaces/To-do-App-FE/src/components/LandingPage/styles/Workflow.css */
+.workflow-section {
+  padding: var(--space-xxl) var(--space-xl);
+  background-color: white;
+  position: relative;
+}
+
+.workflow-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.workflow-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.workflow-badge {
+  display: inline-block;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+}
+
+.workflow-header h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.workflow-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+.workflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  margin-top: var(--space-xxl);
+  position: relative;
+}
+
+.workflow-steps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50px;
+  width: 3px;
+  background-color: rgba(99, 102, 241, 0.1);
+  z-index: 0;
+}
+
+.workflow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  box-shadow: 0 8px 15px rgba(99, 102, 241, 0.2);
+}
+
+.step-content {
+  flex: 1;
+  background-color: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: var(--border-thin-black);
+  margin-right: var(--space-lg);
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.step-content p {
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(99, 102, 241, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: var(--border-thin-black);
+}
+
+.step-icon span {
+  font-size: 2rem;
+}
+
+.workflow-bottom {
+  margin-top: var(--space-xxl);
+  text-align: center;
+}
+
+.workflow-quote {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.workflow-quote::before {
+  content: '"';
+  font-size: 8rem;
+  position: absolute;
+  top: -80px;
+  left: -30px;
+  color: rgba(99, 102, 241, 0.1);
+  font-family: Georgia, serif;
+}
+
+.workflow-quote blockquote {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--gray-700);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .workflow-section {
+    padding: var(--space-xl) var(--space-md);
+  }
+  
+  .workflow-steps::before {
+    left: 25px;
+  }
+  
+  .workflow-step {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    margin-right: 0;
+  }
+  
+  .step-content {
+    width: 100%;
+    margin-right: 0;
+  }
+  
+  .step-icon {
+    display: none;
+  }
+}

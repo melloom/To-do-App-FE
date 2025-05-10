@@ -1,0 +1,15 @@
+/* Main CSS entry point that imports all component styles */
+@import './variables.css';
+@import './global.css';
+@import './components/Header.css';
+@import './components/TodoModal.css';
+@import './components/TodoStats.css';
+@import './components/SearchFilters.css';
+@import './components/TodoForm.css';
+@import './components/TodoList.css';
+@import './components/TodoItem.css';
+@import './components/UserRegistration.css';
+@import './components/Sidebar.css';
+@import './components/LandingPage.css';
+@import './components/animations.css';
+@import './components/responsive.css';

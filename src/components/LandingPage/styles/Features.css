@@ -1,0 +1,98 @@
+/* filepath: /workspaces/To-do-App-FE/src/components/LandingPage/styles/Features.css */
+.features-section {
+  padding: var(--space-xxl) var(--space-xl);
+  background-color: white;
+}
+
+.features-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.features-badge {
+  display: inline-block;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+}
+
+.features-header h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.features-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.feature-card {
+  background-color: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: var(--border-thin-black);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-light);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: var(--border-thin-black);
+}
+
+.feature-icon span {
+  font-size: 1.8rem;
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.feature-description {
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .features-section {
+    padding: var(--space-xl) var(--space-md);
+  }
+}

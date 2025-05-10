@@ -1,0 +1,331 @@
+/* Todo Item */
+.todo-item {
+  padding: 0;
+  border-bottom: 1px solid var(--gray-200);
+  position: relative;
+  transition: background-color var(--transition-normal);
+  border-left: var(--border-thin-black);
+  border-right: var(--border-thin-black);
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item:hover {
+  background-color: var(--gray-50);
+}
+
+.todo-item-main {
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  cursor: pointer;
+  position: relative;
+}
+
+.todo-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.todo-item:hover .todo-checkbox {
+  border-color: var(--primary-color);
+}
+
+.todo-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-text {
+  font-size: 1rem;
+  word-break: break-word;
+  display: block;
+  font-weight: 500;
+  color: var(--gray-800);
+  transition: color var(--transition-normal);
+}
+
+.todo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.todo-due-date {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  padding: 0.15rem 0.5rem;
+  background-color: var(--gray-100);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.todo-due-date:before {
+  content: "🗓️";
+  font-size: 0.85em;
+}
+
+.category-tag {
+  background-color: var(--primary-light);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.priority-indicator {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+}
+
+.priority-indicator[data-priority="high"] {
+  background-color: var(--danger-color);
+}
+
+.priority-indicator[data-priority="medium"] {
+  background-color: var(--warning-color);
+}
+
+.priority-indicator[data-priority="low"] {
+  background-color: var(--success-color);
+}
+
+.todo-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.todo-action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.todo-action-btn:hover {
+  background-color: var(--gray-200);
+  transform: translateY(-1px);
+}
+
+.details-btn:hover {
+  color: var(--primary-color);
+}
+
+.edit-btn:hover {
+  color: var(--primary-color);
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.todo-details {
+  padding: var(--space-lg);
+  background-color: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  animation: slideDown 250ms ease-out;
+}
+
+.todo-notes {
+  margin-bottom: var(--space-lg);
+}
+
+.todo-notes h4, .todo-subtasks h4 {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.todo-notes p {
+  font-size: 0.95rem;
+  white-space: pre-line;
+  padding: var(--space-md);
+  background-color: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+}
+
+.add-subtask-form {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.add-subtask-form input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  outline: none;
+  background-color: white;
+}
+
+.add-subtask-form input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.add-subtask-form button {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.add-subtask-form button:before {
+  content: "+";
+  font-size: 1em;
+}
+
+.add-subtask-form button:hover {
+  background-color: var(--primary-dark);
+}
+
+.subtask-item {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 1px solid var(--gray-200);
+  transition: background-color var(--transition-normal);
+}
+
+.subtask-item:hover {
+  background-color: var(--gray-50);
+}
+
+.subtask-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+}
+
+.subtask-item:hover .subtask-checkbox {
+  border-color: var(--primary-color);
+}
+
+.subtask-item.completed {
+  text-decoration: line-through;
+  color: var(--gray-500);
+}
+
+.subtask-item.completed .subtask-checkbox {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  position: relative;
+}
+
+.subtask-item.completed .subtask-checkbox::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.75rem;
+}
+
+.no-subtasks {
+  color: var(--gray-500);
+  font-style: italic;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: var(--space-md);
+  background-color: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+}
+
+.completion-info {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--gray-300);
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.completion-info:before {
+  content: "✅";
+  font-size: 0.9em;
+}
+
+/* Completed Todo */
+.todo-item.completed .todo-checkbox {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  position: relative;
+}
+
+.todo-item.completed .todo-checkbox::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.9rem;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--gray-500);
+}
+
+/* Overdue Todo */
+.todo-item.overdue .todo-due-date {
+  color: white;
+  background-color: var(--danger-color);
+}
+
+.todo-item.overdue .todo-due-date:before {
+  content: "⚠️";
+}

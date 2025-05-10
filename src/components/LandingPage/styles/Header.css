@@ -1,0 +1,155 @@
+/* Landing Header Styles */
+.landing-header {
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: var(--border-thin-black);
+}
+
+.landing-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.landing-logo .logo-bubble {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.landing-logo h1 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--gray-800);
+}
+
+.landing-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
+.landing-nav li {
+  position: relative;
+  margin: 0 2px;
+}
+
+.landing-nav a {
+  color: var(--gray-700);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: var(--border-thin-black);
+  white-space: nowrap;
+}
+
+.landing-nav a:hover {
+  color: var(--primary-color);
+  background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.about-nav-link {
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+  border: 1px solid var(--primary-color);
+  background-color: rgba(91, 94, 244, 0.05);
+  z-index: 100;
+  position: relative;
+  padding: 8px 14px;
+}
+
+.about-nav-link:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  cursor: pointer;
+  transform: translateY(-2px);
+}
+
+.landing-nav a[href="#faq"] {
+  font-weight: 600;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 14px;
+}
+
+.landing-nav a[href="#faq"]:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.action-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: var(--space-sm) var(--space-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.2);
+}
+
+@media (max-width: 768px) {
+  .landing-header {
+    padding: var(--space-md);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .landing-nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .landing-nav ul {
+    justify-content: flex-start;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .landing-nav ul::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+  }
+
+  .landing-nav ul {
+    justify-content: center;
+  }
+
+  .landing-nav a {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
+
+/* Active state for navigation items */
+.landing-nav a.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}

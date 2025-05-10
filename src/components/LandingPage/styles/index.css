@@ -1,0 +1,13 @@
+/* Main styles index that imports all component styles */
+@import './Layout.css';
+@import './Header.css';
+@import './Hero.css';
+@import './BrandLogos.css';
+@import './Features.css';
+@import './Workflow.css';
+@import './Showcase.css';
+@import './Testimonials.css';
+@import './CTA.css';
+@import './Footer.css';
+@import './additional.css';
+@import './cross-browser-fixes.css';

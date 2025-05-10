@@ -1,0 +1,307 @@
+/* filepath: /workspaces/To-do-App-FE/src/components/LandingPage/styles/Showcase.css */
+.showcase-section {
+  padding: var(--space-xxl) var(--space-xl);
+  background-color: var(--gray-50);
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.showcase-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.showcase-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.showcase-badge {
+  display: inline-block;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+}
+
+.showcase-header h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.showcase-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+.showcase-mockup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  margin: var(--space-xxl) 0;
+  flex-wrap: wrap;
+}
+
+.showcase-phone {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  height: 580px;
+  background-color: #111;
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  position: relative;
+  margin: 0 auto;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 25px;
+  background-color: #111;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  z-index: 2;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.app-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  padding: var(--space-md) var(--space-md);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.preview-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.preview-content {
+  flex: 1;
+  padding: var(--space-md);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.preview-category h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.preview-task {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  transition: all 0.3s ease;
+}
+
+.preview-task:hover {
+  transform: translateX(5px);
+}
+
+.task-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-400);
+  flex-shrink: 0;
+}
+
+.preview-task.completed .task-dot {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  position: relative;
+}
+
+.preview-task.completed .task-dot::after {
+  content: '✓';
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.preview-task.completed p {
+  text-decoration: line-through;
+  color: var(--gray-400);
+}
+
+.preview-task.highlight {
+  background-color: rgba(99, 102, 241, 0.05);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-sm);
+  margin-left: calc(-1 * var(--space-sm));
+  margin-right: calc(-1 * var(--space-sm));
+}
+
+.preview-task.highlight .task-dot {
+  border-color: var(--primary-color);
+}
+
+.preview-task.highlight p {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.preview-task p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+.preview-footer {
+  padding: var(--space-md);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: center;
+}
+
+.preview-add-button {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preview-add-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.showcase-features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-width: 280px;
+}
+
+.showcase-feature {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: var(--border-thin-black);
+  transition: all 0.3s ease;
+}
+
+.showcase-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-light);
+}
+
+.showcase-feature h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--gray-800);
+}
+
+.showcase-feature p {
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.showcase-cta {
+  text-align: center;
+  margin-top: var(--space-xxl);
+}
+
+.showcase-cta h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  color: var(--gray-800);
+}
+
+.showcase-button {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+.showcase-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+}
+
+@media (max-width: 768px) {
+  .showcase-section {
+    padding: var(--space-xl) var(--space-md);
+  }
+  
+  .showcase-mockup {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+  
+  .showcase-phone {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .showcase-features {
+    width: 100%;
+  }
+}

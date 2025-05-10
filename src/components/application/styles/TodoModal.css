@@ -1,0 +1,513 @@
+/* Modal Styles for Task Creation */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-md);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-container {
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  border-radius: var(--bubble-radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glass-shadow);
+  border: var(--glass-border);
+  animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--gray-700);
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close-btn:hover {
+  background-color: white;
+  transform: scale(1.1) rotate(90deg);
+}
+
+.modal-content {
+  overflow-y: auto;
+  max-height: 90vh;
+  padding-bottom: var(--space-md);
+}
+
+/* Success animation */
+.success-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.success-icon {
+  font-size: 5rem;
+  color: var(--success-color);
+  margin-bottom: var(--space-md);
+  animation: successPop 0.5s ease-out forwards;
+}
+
+.success-message {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  text-align: center;
+  animation: fadeSlideUp 0.5s 0.2s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Step-by-step style enhancements */
+.modal-step-indicator {
+  background-color: var(--gray-50);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--gray-200);
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-sm);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.step-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.step-indicator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-lg);
+  background-color: var(--gray-50);
+  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-lg);
+}
+
+.step-guide-text {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.step-guide-text h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: var(--space-xs);
+}
+
+.step-guide-text p {
+  color: var(--gray-700);
+}
+
+.step-indicators {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--gray-300);
+  transition: all var(--transition-normal);
+}
+
+.step-dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.step-dot.completed {
+  background-color: var(--success-color);
+}
+
+/* Enhanced modal styling for step-by-step flow */
+.modal-container {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Make the form steps visually distinct */
+.form-step {
+  padding: var(--space-lg);
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-lg);
+  transition: all var(--transition-normal);
+}
+
+/* Step navigation buttons */
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-lg);
+}
+
+.prev-button, .next-button {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.prev-button {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+  border: none;
+}
+
+.prev-button:hover {
+  background-color: var(--gray-300);
+}
+
+.next-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.next-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.submit-button {
+  background-color: var(--success-color);
+  color: white;
+  width: 100%;
+  padding: var(--space-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.submit-button:hover {
+  background-color: #0ea371; /* Darker success color */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Bubble Modal Styles */
+.bubble-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-lg);
+  animation: bubbleFadeIn 0.3s ease-out;
+}
+
+.bubble-modal-container {
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  animation: bubblePopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(231, 234, 255, 0.7);
+}
+
+.bubble-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--gray-100);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--gray-700);
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.bubble-close-btn:hover {
+  background-color: var(--gray-200);
+  transform: rotate(90deg);
+}
+
+.bubble-step-indicator {
+  padding: var(--space-lg);
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
+  text-align: center;
+}
+
+.bubble-progress {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 15px;
+  position: relative;
+  max-width: 400px;
+}
+
+.bubble-progress:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  right: 30px;
+  height: 2px;
+  background-color: var(--gray-200);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.bubble-step {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.bubble-step.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.2);
+}
+
+.bubble-step.completed {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: white;
+}
+
+.bubble-step-number {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.bubble-step-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-top: var(--space-md);
+}
+
+.bubble-modal-content {
+  padding: var(--space-md);
+  overflow-y: auto;
+  max-height: calc(90vh - 150px);
+}
+
+/* Button styles for bubble UI */
+.bubble-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+}
+
+.bubble-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(99, 102, 241, 0.25);
+}
+
+.bubble-btn:active {
+  transform: translateY(-1px);
+}
+
+.bubble-btn-secondary {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.bubble-btn-secondary:hover {
+  background-color: var(--gray-300);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form field styles for bubble UI */
+.bubble-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid var(--gray-200);
+  border-radius: 16px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.bubble-input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  outline: none;
+}
+
+.bubble-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Input group */
+.bubble-input-group {
+  margin-bottom: 20px;
+}
+
+.bubble-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--gray-700);
+  font-size: 0.95rem;
+}
+
+/* Step navigation buttons */
+.bubble-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-lg);
+}
+
+.bubble-prev-btn, .bubble-next-btn {
+  min-width: 120px;
+}
+
+.bubble-next-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.bubble-prev-btn {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .bubble-step {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .bubble-step-title {
+    font-size: 1rem;
+  }
+  
+  .bubble-modal-container {
+    max-height: 95vh;
+    border-radius: 20px;
+  }
+}
+
+/* Animations */
+@keyframes bubbleFadeIn {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+  }
+}
+
+@keyframes bubblePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

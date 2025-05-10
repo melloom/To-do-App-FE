@@ -1,0 +1,60 @@
+/* filepath: /workspaces/To-do-App-FE/src/components/LandingPage/styles/BrandLogos.css */
+.brand-logos-section {
+  padding: var(--space-xl) var(--space-xl);
+  background-color: var(--gray-50);
+  border-top: var(--border-thin-black);
+  border-bottom: var(--border-thin-black);
+}
+
+.brand-logos-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.trusted-by {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+}
+
+.logo-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+
+.logo-item {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.logo-item:hover {
+  opacity: 1;
+}
+
+.company-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-600);
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .brand-logos-section {
+    padding: var(--space-lg) var(--space-md);
+  }
+  
+  .logo-grid {
+    gap: var(--space-md);
+  }
+  
+  .company-logo {
+    font-size: 1.2rem;
+  }
+}
