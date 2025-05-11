@@ -10,15 +10,15 @@ import { debugLog, inspectElements } from './utils/debug';
 function App() {
   useEffect(() => {
     debugLog('App', 'Application initialized');
-    
+
     // Check for class vs className issues
     setTimeout(() => {
       inspectElements('[class]');
-      
+
       // Look for the Hero component's elements specifically
       debugLog('App', 'Checking Hero component elements');
       inspectElements('.hero-section, .hero-section *');
-      
+
       // Debug any navigation links
       debugLog('App', 'Checking navigation elements');
       inspectElements('a, button');
@@ -27,10 +27,10 @@ function App() {
 
   return (
     <Router>
-      <div style={{ position: 'fixed', top: '10px', right: '10px', zIndex: 9999 }}>
-        <Link to="/" style={{ margin: '0 10px', color: 'blue' }}>Home</Link>
-        <Link to="/about" style={{ margin: '0 10px', color: 'blue' }}>About</Link>
-        <Link to="/app" style={{ margin: '0 10px', color: 'blue' }}>App</Link>
+      <div className="global-navigation" style={{ position: 'fixed', top: '10px', right: '10px', zIndex: 9999, background: 'rgba(255,255,255,0.9)', padding: '8px 12px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+        <Link to="/" style={{ margin: '0 10px', color: '#4338ca', fontWeight: 'bold', fontSize: '16px' }}>Home</Link>
+        <Link to="/about" style={{ margin: '0 10px', color: '#4338ca', fontWeight: 'bold', fontSize: '16px' }}>About</Link>
+        <Link to="/app" style={{ margin: '0 10px', color: '#4338ca', fontWeight: 'bold', fontSize: '16px' }}>App</Link>
       </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />

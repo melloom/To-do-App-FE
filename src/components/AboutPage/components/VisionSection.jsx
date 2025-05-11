@@ -1,44 +1,67 @@
 import React from 'react';
-import { ReactComponent as VisionSVG } from '../assets/vision-illustration.svg';
 import '../styles/VisionSection.css';
 
 const VisionSection = () => {
-  // Since we can't create actual SVG files, we'll simulate them with a placeholder component
+  // Enhanced illustration with more visual elements
   const VisionIllustration = () => (
     <div className="vision-illustration">
-      <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8"/>
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.9"/>
-          </linearGradient>
-        </defs>
-        <path d="M50,250 Q200,50 350,250" stroke="url(#grad1)" strokeWidth="10" fill="none"/>
-        <circle cx="50" cy="250" r="20" fill="#6366f1"/>
-        <circle cx="200" cy="80" r="30" fill="#818cf8"/>
-        <circle cx="350" cy="250" r="20" fill="#8b5cf6"/>
-        <text x="180" y="40" fontFamily="Arial" fontSize="16" fill="#4f46e5">Vision Path</text>
-      </svg>
+      <div className="vision-graphic">
+        <div className="orbit-container">
+          <div className="orbit orbit-1">
+            <div className="satellite satellite-1">
+              <span>🔒</span>
+            </div>
+          </div>
+          <div className="orbit orbit-2">
+            <div className="satellite satellite-2">
+              <span>⚡</span>
+            </div>
+          </div>
+          <div className="orbit orbit-3">
+            <div className="satellite satellite-3">
+              <span>🎯</span>
+            </div>
+          </div>
+          <div className="core-circle">
+            <span>✓</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
   return (
     <section className="vision-section">
+      <div className="vision-hero">
+        <div className="vision-headline-new">
+          <div className="vision-title-container">
+            <span className="vision-title-icon">🚀</span>
+            <h2 className="vision-title-text">The Tasklio Approach</h2>
+          </div>
+          <p className="vision-subtitle">Redefining productivity through thoughtful design</p>
+          <div className="vision-title-underline"></div>
+        </div>
+      </div>
+
       <div className="vision-content">
         <div className="vision-text">
-          <h2>Our Vision</h2>
-          <p className="vision-intro">
-            Tasklio was born from a single question: <span className="highlight">Why are task managers so complicated?</span>
-          </p>
-          <p>
-            The mission was simple: create a task manager that gets out of your way and lets you focus on what really matters -
-            completing your tasks, not spending hours organizing them.
-          </p>
-          <p>
-            I believe task management should be accessible to everyone, which is why Tasklio is
-            completely <span className="highlight">free</span>, <span className="highlight">privacy-focused</span>, and
-            <span className="highlight"> straightforward</span> to use.
-          </p>
+          <div className="vision-intro-card">
+            <p className="vision-intro">
+              Tasklio was born from a single question: <span className="highlight">Why are task managers so complicated?</span>
+            </p>
+          </div>
+
+          <div className="vision-story">
+            <p>
+              The mission was simple: create a task manager that gets out of your way and lets you focus on what really matters -
+              completing your tasks, not spending hours organizing them.
+            </p>
+            <p>
+              I believe task management should be accessible to everyone, which is why Tasklio is
+              completely <span className="highlight">free</span>, <span className="highlight">privacy-focused</span>, and
+              <span className="highlight"> straightforward</span> to use.
+            </p>
+          </div>
 
           <div className="mission-statement">
             <h3>The Mission</h3>
@@ -61,22 +84,42 @@ const VisionSection = () => {
             <div className="principle-icon">🎯</div>
             <h4>Simplicity First</h4>
             <p>No feature bloat or unnecessary complexity</p>
+            <div className="principle-card-decoration"></div>
           </div>
           <div className="principle-card">
             <div className="principle-icon">🔒</div>
             <h4>Privacy by Design</h4>
             <p>Your data stays on your device, always</p>
+            <div className="principle-card-decoration"></div>
           </div>
           <div className="principle-card">
             <div className="principle-icon">⚡</div>
             <h4>Performance Matters</h4>
             <p>Fast, responsive, and reliable</p>
+            <div className="principle-card-decoration"></div>
           </div>
           <div className="principle-card">
             <div className="principle-icon">👐</div>
             <h4>Free Forever</h4>
             <p>No premium features or hidden costs</p>
+            <div className="principle-card-decoration"></div>
           </div>
+        </div>
+      </div>
+
+      {/* Replace the simple blue-container with a more stylized version */}
+      <div className="vision-statement-showcase">
+        <div className="vision-statement-card">
+          <div className="vision-quote-marks">&ldquo;</div>
+          <h3 className="vision-statement-title">Our Philosophy</h3>
+          <p className="vision-statement-text">
+            <span className="vision-highlight">Tasklio is not just a task manager.</span>
+            <br/>
+            It's a commitment to <span className="vision-value">simplicity</span>,
+            <span className="vision-value">privacy</span>, and
+            <span className="vision-value">making your life easier</span>.
+          </p>
+          <div className="vision-quote-marks closing">&rdquo;</div>
         </div>
       </div>
     </section>

@@ -5,7 +5,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  margin: 60px 0;
+  margin: 32px 0; /* reduced from 60px 0 */
 }
 
 .cta-bg-element {
@@ -44,7 +44,7 @@
 
 .cta-content p {
   font-size: 1.2rem;
-  color: var(--gray-600);
+  color: var(--white);
   margin-bottom: 32px;
 }
 
@@ -117,4 +117,109 @@
   .cta-actions {
     flex-direction: column;
   }
+}
+
+.about-cta-remake {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0 24px 0; /* reduced top padding from 32px to 12px */
+  background: #f8fafc;
+  margin-top: -2rem; /* added negative margin to pull it closer to the section above */
+}
+
+.cta-content {
+  background: #2563eb;
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(37,99,235,0.08);
+  padding: 40px 32px 32px 32px;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.cta-icon {
+  font-size: 2.6rem;
+  background: #fff;
+  color: #2563eb;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.09);
+}
+
+.cta-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 0;
+  color: #fff; /* force pure white */
+}
+
+.cta-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 28px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.cta-brand {
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.cta-primary-btn {
+  background: #fff;
+  color: #2563eb;
+  font-weight: 600;
+  padding: 13px 0;
+  border-radius: 7px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+
+.cta-primary-btn:hover {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.cta-secondary-btn {
+  background: transparent;
+  color: #fff;
+  font-weight: 400;
+  padding: 10px 0;
+  border-radius: 7px;
+  font-size: 1rem;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.cta-secondary-btn:hover {
+  color: #dbeafe;
+}
+
+.cta-footer {
+  margin-top: 10px;
+  font-size: 0.98rem;
+  color: #dbeafe;
+  opacity: 0.95;
+  letter-spacing: 0.01em;
 }

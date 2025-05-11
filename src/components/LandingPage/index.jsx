@@ -11,6 +11,7 @@ import Pricing from './Pricing';
 import FAQ from './FAQ';
 import CTA from './CTA';
 import Footer from './Footer';
+import BackToTop from './BackToTop'; // Add the BackToTop import
 
 const LandingPage = () => {
   // Handle hash navigation when the page loads
@@ -54,6 +55,7 @@ const LandingPage = () => {
         <CTA /> {/* Make sure CTA is included and not conditionally hidden */}
       </main>
       <Footer />
+      <BackToTop /> {/* Add the BackToTop component */}
     </div>
   );
 };

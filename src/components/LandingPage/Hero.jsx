@@ -31,7 +31,7 @@ const Hero = () => {
           <Link to="/app" className="cta-button">
             Get Started <span className="cta-arrow">→</span>
           </Link>
-          <button onClick={scrollToFeatures} className="cta-button secondary">
+          <button onClick={scrollToFeatures} className="cta-button secondary" style={{ color: 'white' }}>
             Learn More
           </button>
         </div>
