@@ -3,7 +3,7 @@
   padding: var(--space-xl) max(var(--space-xl), calc((100% - 1280px) / 2));
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%); /* Updated to cleaner gradient */
   min-height: 90vh;
   position: relative;
   overflow: hidden;
@@ -12,14 +12,15 @@
 
 .hero-content {
   flex: 1;
-  padding-right: var(--space-xl);
+  padding: var(--space-xl);
   position: relative;
   z-index: 2;
   border: var(--border-thin-black);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  max-width: 650px;
 }
 
 .hero-badge {
@@ -38,36 +39,35 @@
   font-weight: 800;
   margin-bottom: var(--space-md);
   line-height: 1.1;
-  color: #0000FF !important; /* Pure blue for maximum visibility */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: var(--gray-800); /* Changed to standard color from the new version */
   padding: 10px;
   border-radius: 5px;
   background-color: rgba(0, 0, 255, 0.05);
 }
 
 .brand-name {
-  color: #0000FF !important; /* Pure blue for maximum visibility */
   position: relative;
+  color: var(--primary-color);
+  font-weight: 800;
+  padding: 0 8px;
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0px 2px 5px rgba(91, 94, 244, 0.3);
   display: inline-block;
-  font-weight: 900 !important; /* Extra bold */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-  font-size: 1.1em !important;
-  background-color: rgba(0, 0, 255, 0.1) !important;
-  padding: 0 10px !important;
-  border-radius: 5px !important;
-  border: 2px solid #0000FF !important;
+  transform: translateY(-2px);
 }
 
 .brand-name::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
   width: 100%;
-  height: 6px;
-  background-color: #0000FF;
-  opacity: 0.6;
-  border-radius: var(--radius-sm);
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #5b5ef4 0%, #7a7cf5 100%);
 }
 
 .hero-subtitle {
@@ -81,7 +81,7 @@
 .hero-cta-group {
   display: flex;
   gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   flex-wrap: wrap;
 }
 
@@ -130,7 +130,7 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* New Hero Metrics Styling - Maximum Visibility Version */
+/* Update Hero Metrics to use a cleaner design but maintain distinctiveness */
 .hero-metrics-container {
   width: 100%;
   margin-top: var(--space-xl);
@@ -140,11 +140,11 @@
   display: flex;
   justify-content: space-around;
   gap: 25px;
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  border: 5px solid white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--gray-200);
 }
 
 .metric {
@@ -157,25 +157,25 @@
   min-width: 220px;
   position: relative;
   background-color: white;
-  border: 5px solid;
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  border: 2px solid;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .metric-free {
-  border-color: #00FFFF;
+  border-color: var(--primary-color);
 }
 
 .metric-private {
-  border-color: #00FF00;
+  border-color: var(--primary-dark);
 }
 
 .metric-simple {
-  border-color: #FFFF00;
+  border-color: var(--success-color);
 }
 
 .metric:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .metric-icon {
@@ -207,26 +207,19 @@
   font-size: 2.2rem;
   font-weight: 900;
   margin-bottom: 12px;
-  color: white;
-  letter-spacing: 1px;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000,
-    0 0 10px rgba(255, 255, 255, 0.5);
+  color: var(--primary-color);
 }
 
 .metric-free .metric-number {
-  color: #00FFFF;
+  color: var(--primary-color);
 }
 
 .metric-private .metric-number {
-  color: #00FF00;
+  color: var(--primary-dark);
 }
 
 .metric-simple .metric-number {
-  color: #FFFF00;
+  color: var(--success-color);
 }
 
 .metric-label {
@@ -234,12 +227,7 @@
   font-weight: 800;
   text-align: center;
   line-height: 1.4;
-  color: white;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+  color: var(--gray-700);
 }
 
 .hero-image {
@@ -260,7 +248,7 @@
   max-width: 500px;
 }
 
-/* Animated app mockup */
+/* Animated app mockup - update to maintain perspective but use Y rotation from new version */
 .animated-app-mockup {
   width: 100%;
   background-color: white;
@@ -269,13 +257,14 @@
   overflow: hidden;
   z-index: 2;
   position: relative;
-  transform: perspective(1000px) rotateY(-5deg);
-  transition: all 0.5s ease;
-  border: 1px solid var(--gray-200);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transform: perspective(1000px) rotateY(-5deg); /* Changed to Y rotation from new version */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .animated-app-mockup:hover {
-  transform: perspective(1000px) rotateY(0deg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: perspective(1000px) rotateY(0deg); /* Changed to match new version */
 }
 
 .mockup-header {
@@ -305,7 +294,8 @@
 }
 
 .mockup-body {
-  padding: 16px;
+  padding: 12px;
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -319,17 +309,50 @@
   align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .task-item:hover {
+  border-color: rgba(99, 102, 241, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .task-item.highlighted {
   background-color: rgba(99, 102, 241, 0.05);
   border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 102, 241, 0.08);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.task-item:hover::before {
+  transform: translateX(0);
+}
+
+.task-item.highlighted::before {
+  background-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Ensure content stays above the fill effect */
+.task-checkbox,
+.task-content,
+.task-priority {
+  position: relative;
+  z-index: 1;
 }
 
 .task-checkbox {
@@ -339,6 +362,7 @@
   border: 2px solid var(--gray-400);
   flex-shrink: 0;
   transition: all 0.2s ease;
+  border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .task-checkbox.completed {
@@ -395,6 +419,7 @@
   border-top: 1px solid var(--gray-100);
   display: flex;
   justify-content: center;
+  padding: var(--space-sm);
 }
 
 .mockup-add-button {
@@ -411,6 +436,15 @@
   transition: all 0.3s ease;
   white-space: nowrap; /* Prevent text wrapping */
   z-index: 2; /* Ensure it's above other elements */
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(91, 94, 244, 0.25);
 }
 
 .mockup-add-button:hover {
@@ -421,12 +455,14 @@
 .add-icon {
   font-weight: bold;
   display: inline-block; /* Ensure icon is visible */
+  margin-right: 4px;
 }
 
 .add-text {
   display: inline-block; /* Ensure text is visible */
   opacity: 1; /* Make sure text is not transparent */
   visibility: visible; /* Ensure text is visible */
+  font-weight: 600;
 }
 
 /* Make the New Task button more visible */
@@ -453,41 +489,6 @@
 
 .new-task-button .plus-icon {
   font-weight: bold;
-}
-
-/* Enhance visibility of the New Task button in the mock model */
-.new-task-button {
-  color: white !important;
-  background-color: rgba(99, 102, 241, 0.8) !important; /* Brighter with primary color */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 1 !important; /* Ensure visibility */
-  position: relative;
-  z-index: 10; /* Ensure it appears above other elements */
-}
-
-.new-task-button.visible {
-  visibility: visible !important;
-  display: inline-flex !important;
-}
-
-.new-task-button:hover {
-  background-color: var(--primary-color) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-}
-
-.plus-icon {
-  font-weight: bold;
-  font-size: 1.2rem;
 }
 
 /* Floating elements */
@@ -684,4 +685,210 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Remove or comment out the old hero-features and feature-pill styles */
+/*
+.hero-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 0.7rem;
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 4px 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid;
+  font-size: 0.75rem;
+}
+*/
+
+/* Task mockup enhancements */
+.animated-app-mockup {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: perspective(1000px) rotateX(2deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animated-app-mockup:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: perspective(1000px) rotateX(2deg) translateY(-5px);
+}
+
+.task-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+}
+
+.task-item:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 102, 241, 0.08);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.task-item:hover::before {
+  transform: translateX(0);
+}
+
+.task-item.highlighted::before {
+  background-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Ensure content stays above the fill effect */
+.task-checkbox,
+.task-content,
+.task-priority {
+  position: relative;
+  z-index: 1;
+}
+
+.task-checkbox {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease;
+}
+
+.task-item:hover .task-checkbox {
+  border-color: var(--primary-color);
+}
+
+/* Updated Hero tag */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+  z-index: 1;
+}
+
+.hero-tag-icon {
+  margin-right: 8px;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag-text {
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.5px;
+}
+
+/* Updated Hero title */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+  line-height: 1.1;
+  color: var(--gray-800);
+  position: relative;
+  background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Updated subtitle */
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+  max-width: 620px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Add these styles to your Hero.css file */
+
+.feature-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.free-pill {
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.private-pill {
+  background: white;
+  color: var(--gray-800);
+  border: 1px solid var(--gray-200);
+}
+
+.simple-pill {
+  background: #f9f9ff;
+  color: var(--primary-color);
+  border: 1px solid rgba(91, 94, 244, 0.2);
+}
+
+.pill-icon {
+  font-size: 1.1rem;
 }

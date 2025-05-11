@@ -2,69 +2,55 @@ import React from 'react';
 import './styles/Testimonials.css';
 
 const Testimonials = () => {
+  const testimonials = [
+    {
+      id: 1,
+      text: "Tasklio has completely transformed how I manage my daily workload. The intuitive interface makes it so easy to prioritize tasks and stay focused throughout the day.",
+      name: "Michael Chen",
+      title: "Software Developer at TechCorp",
+      avatar: "MC"
+    },
+    {
+      id: 2,
+      text: "As a freelance designer juggling multiple clients, I needed something flexible yet powerful. Tasklio strikes that perfect balance and has become an essential part of my workflow.",
+      name: "Olivia Rodriguez",
+      title: "Freelance UX Designer",
+      avatar: "OR"
+    },
+    {
+      id: 3,
+      text: "The ability to organize tasks by priority and category has been a game-changer for our small team. We've seen a 30% boost in productivity since switching to Tasklio.",
+      name: "David Patel",
+      title: "Project Manager, Innovate Solutions",
+      avatar: "DP"
+    }
+  ];
+
   return (
     <section className="testimonials-section" id="testimonials">
-      <div className="testimonials-container section-container">
-        <div className="testimonials-header">
-          <div className="testimonials-badge">Testimonials</div>
-          <h2>What our users are saying</h2>
-          <p>Thousands of individuals and teams love using Tasklio for their task management needs.</p>
+      <div className="section-container section-spacing">
+        <div className="section-header">
+          <div className="section-badge">User Stories</div>
+          <h2 className="section-title">What Our Users Say</h2>
+          <p className="section-subtitle">
+            Join thousands of satisfied users who have improved their productivity with Tasklio.
+          </p>
         </div>
-        
+
         <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <div className="testimonial-content">
-              <p>"Tasklio has completely transformed how I manage my daily tasks. The interface is clean and it's so easy to use!"</p>
-            </div>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar">JD</div>
-              <div className="testimonial-info">
-                <h4>Jane Doe</h4>
-                <p>Freelance Designer</p>
+          {testimonials.map((testimonial) => (
+            <div className="testimonial-card" key={testimonial.id}>
+              <div className="quote-mark">"</div>
+              <p className="testimonial-text">{testimonial.text}</p>
+              <div className="testimonial-author">
+                <div className="author-avatar">{testimonial.avatar}</div>
+                <div className="author-info">
+                  <div className="author-name">{testimonial.name}</div>
+                  <div className="author-title">{testimonial.title}</div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="testimonial-card featured">
-            <div className="testimonial-content">
-              <p>"I've tried many task management apps, but Tasklio is by far the best. It has the perfect balance of features without being overwhelming."</p>
-            </div>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar">JS</div>
-              <div className="testimonial-info">
-                <h4>John Smith</h4>
-                <p>Project Manager</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="testimonial-card">
-            <div className="testimonial-content">
-              <p>"Our team productivity increased by 35% after we started using Tasklio. The collaborative features are excellent!"</p>
-            </div>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar">AR</div>
-              <div className="testimonial-info">
-                <h4>Alice Rodriguez</h4>
-                <p>Team Lead</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="testimonials-stats">
-          <div className="stat-item">
-            <div className="stat-number">10k+</div>
-            <div className="stat-label">Active Users</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">4.9</div>
-            <div className="stat-label">Average Rating</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">1M+</div>
-            <div className="stat-label">Tasks Completed</div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 /* filepath: /workspaces/To-do-App-FE/src/components/LandingPage/styles/Workflow.css */
 .workflow-section {
   padding: var(--space-xxl) var(--space-xl);
-  background-color: white;
+  background-color: #f7f9fc;
   position: relative;
 }
 
@@ -66,6 +66,17 @@
   gap: var(--space-xl);
   position: relative;
   z-index: 1;
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.workflow-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .step-number {
@@ -85,12 +96,22 @@
 
 .step-content {
   flex: 1;
-  background-color: var(--gray-50);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  border: var(--border-thin-black);
-  margin-right: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.step-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+  background-color: rgba(99, 102, 241, 0.08);
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .step-content h3 {
@@ -105,20 +126,24 @@
   line-height: 1.5;
 }
 
-.step-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: rgba(99, 102, 241, 0.05);
+.step-image {
+  flex-shrink: 0;
+  width: 300px;
+  height: 280px;
+  background-color: white;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border: var(--border-thin-black);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
 }
 
-.step-icon span {
-  font-size: 2rem;
+.step-image img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
 }
 
 .workflow-bottom {
@@ -154,29 +179,286 @@
   .workflow-section {
     padding: var(--space-xl) var(--space-md);
   }
-  
+
   .workflow-steps::before {
     left: 25px;
   }
-  
+
   .workflow-step {
     flex-direction: column;
     gap: var(--space-md);
   }
-  
+
   .step-number {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
     margin-right: 0;
   }
-  
-  .step-content {
+
+  .step-image {
     width: 100%;
-    margin-right: 0;
+    height: auto;
+    min-height: 280px;
   }
-  
-  .step-icon {
-    display: none;
-  }
+}
+
+/* New app mockup styles */
+.app-mockup {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fafbff;
+}
+
+.mockup-header {
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.mockup-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 12px;
+}
+
+.mockup-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.mockup-title {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mockup-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Create task mockup */
+.mockup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mockup-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mockup-input label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.input-field {
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #1f2937;
+}
+
+.input-field.textarea {
+  height: 60px;
+}
+
+.mockup-row {
+  display: flex;
+  gap: 10px;
+}
+
+.mockup-input.half {
+  flex: 1;
+}
+
+.input-field.date {
+  color: #4b5563;
+}
+
+.input-field.priority {
+  position: relative;
+  padding-left: 24px;
+}
+
+.input-field.priority:before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.input-field.priority.high:before {
+  background-color: #ef4444;
+}
+
+.mockup-button {
+  background-color: #6366f1;
+  color: white;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* Organize mockup */
+.mockup-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 14px;
+}
+
+.tab {
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #6b7280;
+  cursor: default;
+}
+
+.tab.active {
+  color: #6366f1;
+  font-weight: 500;
+  border-bottom: 2px solid #6366f1;
+}
+
+.mockup-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mockup-task {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  border-left: 3px solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.mockup-task.high {
+  border-left-color: #ef4444;
+}
+
+.mockup-task.medium {
+  border-left-color: #f59e0b;
+}
+
+.mockup-task.low {
+  border-left-color: #10b981;
+}
+
+.mockup-task.completed {
+  border-left-color: #6366f1;
+  opacity: 0.8;
+}
+
+.task-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  margin-right: 10px;
+  flex-shrink: 0;
+  background-color: white;
+}
+
+.task-checkbox.checked {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-title {
+  font-size: 13px;
+  color: #1f2937;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.task-meta {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.task-drag {
+  color: #9ca3af;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+/* Complete mockup */
+.mockup-progress {
+  background-color: white;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 75%;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  border-radius: 4px;
+}
+
+.completed-tasks {
+  opacity: 0.8;
 }

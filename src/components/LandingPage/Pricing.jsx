@@ -1,111 +1,152 @@
 import React from 'react';
+import './styles/Pricing.css';
+import { Link } from 'react-router-dom';
 
 const Pricing = () => {
   return (
     <section className="pricing-section" id="pricing">
       <div className="pricing-container">
         <div className="pricing-header">
-          <div className="pricing-badge">100% Free Forever</div>
-          <h2>What Others Charge For, We Offer Free</h2>
+          <div className="pricing-badge">No Subscriptions Ever</div>
+          <h2>Free Forever, Without Compromise</h2>
           <p>
-            Tasklio provides premium task management features without the premium price tag. 
-            No subscriptions, no hidden fees, no limitations.
+            Tasklio believes in giving you powerful tools without the price tag.
+            We're changing task management by proving premium features don't require premium pricing.
           </p>
         </div>
-        
-        <div className="pricing-comparison">
-          <div className="pricing-card tasklio">
-            <div className="pricing-card-header">
-              <div className="pricing-logo">📋 Tasklio</div>
-              <div className="pricing-price">$0</div>
-              <div className="pricing-period">Forever Free</div>
-            </div>
-            <div className="pricing-features">
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">Unlimited Tasks</span>
-              </div>
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">Task Categories</span>
-              </div>
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">Priority Levels</span>
-              </div>
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">Due Dates & Reminders</span>
-              </div>
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">Complete Privacy</span>
-              </div>
-              <div className="pricing-feature">
-                <span className="pricing-feature-icon">✓</span>
-                <span className="pricing-feature-text">No Ads or Tracking</span>
-              </div>
+
+        <div className="pricing-highlight">
+          <span className="highlight-text">
+            Most task managers make you pay for advanced features.
+            We give them to you for free.
+          </span>
+        </div>
+
+        <div className="pricing-comparison-wrapper">
+          <div className="price-tag-decoration">
+            <div className="price-tag">
+              <span className="price-amount">$0</span>
+              <span className="price-period">Forever</span>
             </div>
           </div>
-          
-          <div className="pricing-card competitors">
-            <div className="pricing-card-header">
-              <div className="pricing-logo">Typical Competitors</div>
-              <div className="pricing-price">$5-15</div>
-              <div className="pricing-period">Per Month</div>
+
+          <div className="pricing-comparison">
+            <div className="pricing-card tasklio">
+              <div className="pricing-card-header">
+                <div className="pricing-logo">
+                  <span className="logo-icon">📋</span>
+                  <span className="logo-text">Tasklio</span>
+                </div>
+                <div className="pricing-card-badge">Recommended</div>
+              </div>
+              <div className="pricing-features">
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">Unlimited Tasks & Projects</span>
+                </div>
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">Custom Categories & Tags</span>
+                </div>
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">Priority Levels & Sorting</span>
+                </div>
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">Smart Reminders & Due Dates</span>
+                </div>
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">100% Private Local Storage</span>
+                </div>
+                <div className="pricing-feature">
+                  <span className="pricing-feature-icon">✓</span>
+                  <span className="pricing-feature-text">No Ads or User Tracking</span>
+                </div>
+              </div>
+              <div className="pricing-cta">
+                <Link to="/app" className="cta-button">Get Started Free</Link>
+              </div>
             </div>
-            <div className="pricing-features">
-              <div className="pricing-feature premium">
-                <span className="pricing-feature-icon">$</span>
-                <span className="pricing-feature-text">Limited Tasks (Free Tier)</span>
+
+            <div className="vs-divider">
+              <span>VS</span>
+            </div>
+
+            <div className="pricing-card competitors">
+              <div className="pricing-card-header">
+                <div className="pricing-logo">
+                  <span className="logo-text">Typical Paid Apps</span>
+                </div>
+                <div className="pricing-price">$5-15<span>/month</span></div>
               </div>
-              <div className="pricing-feature premium">
-                <span className="pricing-feature-icon">$</span>
-                <span className="pricing-feature-text">Basic Organization</span>
-              </div>
-              <div className="pricing-feature premium">
-                <span className="pricing-feature-icon">$</span>
-                <span className="pricing-feature-text">Limited Priority Options</span>
-              </div>
-              <div className="pricing-feature premium">
-                <span className="pricing-feature-icon">$</span>
-                <span className="pricing-feature-text">Premium Reminder Features</span>
-              </div>
-              <div className="pricing-feature negative">
-                <span className="pricing-feature-icon">✕</span>
-                <span className="pricing-feature-text">Cloud Storage (Privacy Risk)</span>
-              </div>
-              <div className="pricing-feature negative">
-                <span className="pricing-feature-icon">✕</span>
-                <span className="pricing-feature-text">Ads or Data Collection</span>
+              <div className="pricing-features">
+                <div className="pricing-feature limited">
+                  <span className="pricing-feature-icon">⚠️</span>
+                  <span className="pricing-feature-text">Limited Tasks (50-100 in Free Tier)</span>
+                </div>
+                <div className="pricing-feature limited">
+                  <span className="pricing-feature-icon">⚠️</span>
+                  <span className="pricing-feature-text">Basic Organizational Tools</span>
+                </div>
+                <div className="pricing-feature limited">
+                  <span className="pricing-feature-icon">⚠️</span>
+                  <span className="pricing-feature-text">Basic Priority Settings</span>
+                </div>
+                <div className="pricing-feature limited">
+                  <span className="pricing-feature-icon">⚠️</span>
+                  <span className="pricing-feature-text">Limited Reminder Features</span>
+                </div>
+                <div className="pricing-feature negative">
+                  <span className="pricing-feature-icon">✕</span>
+                  <span className="pricing-feature-text">Required Cloud Storage (Privacy Risk)</span>
+                </div>
+                <div className="pricing-feature negative">
+                  <span className="pricing-feature-icon">✕</span>
+                  <span className="pricing-feature-text">Data Collection & Targeted Ads</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
-        <div className="pricing-callout">
-          Why pay for less control and less privacy?
+
+        <div className="pricing-question">
+          <h3>Why would you pay for less?</h3>
         </div>
-        
-        <h3 className="reasons-title">Why Tasklio Is Completely Free</h3>
-        <div className="reasons-grid">
-          <div className="reason-card">
-            <span className="reason-icon">❤️</span>
-            <h4>Made With Passion</h4>
-            <p>Created by developers who believe task management should be accessible to everyone.</p>
+
+        <div className="free-promise">
+          <div className="promise-header">
+            <h3>Our Free Forever Promise</h3>
+            <p>Tasklio will always remain 100% free. Here's why:</p>
           </div>
-          
-          <div className="reason-card">
-            <span className="reason-icon">🛡️</span>
-            <h4>Privacy First</h4>
-            <p>We don't collect your data, so we don't need to monetize it. Your information stays on your device.</p>
+
+          <div className="reasons-grid">
+            <div className="reason-card">
+              <span className="reason-icon">❤️</span>
+              <h4>Built With Purpose</h4>
+              <p>Created by Alexander Wright and Sophia Lin, who believe productivity tools should be accessible to everyone, not just those who can afford them.</p>
+            </div>
+
+            <div className="reason-card">
+              <span className="reason-icon">🛡️</span>
+              <h4>Privacy as a Right</h4>
+              <p>We reject the data harvesting business model. Your tasks and personal information remain private and stored only on your device.</p>
+            </div>
+
+            <div className="reason-card">
+              <span className="reason-icon">💪</span>
+              <h4>Community Driven</h4>
+              <p>Supported by a thriving community of 10,000+ users who contribute, suggest features, and help others experience truly free productivity.</p>
+            </div>
           </div>
-          
-          <div className="reason-card">
-            <span className="reason-icon">💪</span>
-            <h4>Community Supported</h4>
-            <p>Maintained by users who value simplicity and privacy in productivity tools.</p>
-          </div>
+        </div>
+
+        <div className="pricing-testimonial">
+          <blockquote>
+            "I switched from a $10/month task manager to Tasklio and got more features for free. It's shocking how much better the free option is."
+          </blockquote>
+          <cite>— Jamie Rivera, Marketing Director</cite>
         </div>
       </div>
     </section>

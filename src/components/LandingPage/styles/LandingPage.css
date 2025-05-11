@@ -259,15 +259,15 @@
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .step {
     flex-direction: column !important;
   }
-  
+
   .step:nth-child(even) {
     flex-direction: column !important;
   }
-  
+
   .step-image {
     width: 100%;
   }
@@ -276,12 +276,12 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .testimonial-card {
     min-width: auto;
     width: 100%;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: center;

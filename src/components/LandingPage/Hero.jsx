@@ -3,52 +3,55 @@ import { Link } from 'react-router-dom';
 import './styles/Hero.css';
 
 const Hero = () => {
+  const scrollToFeatures = (e) => {
+    e.preventDefault();
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="landing-hero" id="hero">
       <div className="hero-content">
-        <div className="hero-badge">Productivity Tool</div>
-        <h1>Simplify your tasks with <span className="brand-name">Tasklio</span></h1>
+        <div className="hero-tag">
+          <span className="hero-tag-icon">⚡</span>
+          <span className="hero-tag-text">Task Management Simplified</span>
+        </div>
+
+        <h1 className="hero-title">
+          Take control of your day with <span className="brand-name">Tasklio</span>
+        </h1>
+
         <p className="hero-subtitle">
-          A powerful, yet simple task management app that helps you organize your life and boost productivity.
+          The intelligent task manager that helps you organize, prioritize, and accomplish more—without the complexity.
         </p>
+
         <div className="hero-cta-group">
           <Link to="/app" className="cta-button">
             Get Started <span className="cta-arrow">→</span>
           </Link>
-          <a href="#features" className="cta-button secondary">
+          <button onClick={scrollToFeatures} className="cta-button secondary">
             Learn More
-          </a>
+          </button>
         </div>
-        
-        <div className="hero-metrics-container">
-          <div className="hero-metrics">
-            <div className="metric metric-free">
-              <div className="metric-icon">🚀</div>
-              <div className="metric-content">
-                <div className="metric-number">100%</div>
-                <div className="metric-label">Free to Use</div>
-              </div>
-            </div>
-            
-            <div className="metric metric-private">
-              <div className="metric-icon">🔒</div>
-              <div className="metric-content">
-                <div className="metric-number">Private</div>
-                <div className="metric-label">No Account Needed</div>
-              </div>
-            </div>
-            
-            <div className="metric metric-simple">
-              <div className="metric-icon">⚡</div>
-              <div className="metric-content">
-                <div className="metric-number">Simple</div>
-                <div className="metric-label">Easy to Start</div>
-              </div>
-            </div>
+
+        <div className="feature-pills-container">
+          <div className="feature-pill">
+            <span className="pill-icon">🚀</span>
+            <span className="pill-text">100% Free to Use</span>
+          </div>
+          <div className="feature-pill">
+            <span className="pill-icon">🔒</span>
+            <span className="pill-text">Private • No Account Needed</span>
+          </div>
+          <div className="feature-pill">
+            <span className="pill-icon">⚡</span>
+            <span className="pill-text">Simple & Easy to Start</span>
           </div>
         </div>
       </div>
-      
+
       <div className="hero-image">
         <div className="hero-image-wrapper">
           <div className="animated-app-mockup">
@@ -59,7 +62,7 @@ const Hero = () => {
                 <div className="mockup-action"></div>
               </div>
             </div>
-            
+
             <div className="mockup-body">
               <div className="task-item highlighted">
                 <div className="task-checkbox"></div>
@@ -69,7 +72,7 @@ const Hero = () => {
                 </div>
                 <div className="task-priority high"></div>
               </div>
-              
+
               <div className="task-item">
                 <div className="task-checkbox completed"></div>
                 <div className="task-content">
@@ -78,7 +81,7 @@ const Hero = () => {
                 </div>
                 <div className="task-priority medium"></div>
               </div>
-              
+
               <div className="task-item">
                 <div className="task-checkbox"></div>
                 <div className="task-content">
@@ -87,7 +90,7 @@ const Hero = () => {
                 </div>
                 <div className="task-priority low"></div>
               </div>
-              
+
               <div className="task-item">
                 <div className="task-checkbox"></div>
                 <div className="task-content">
@@ -97,7 +100,7 @@ const Hero = () => {
                 <div className="task-priority medium"></div>
               </div>
             </div>
-            
+
             <div className="mockup-footer">
               <div className="mockup-add-button visible">
                 <span className="add-icon">+</span>
@@ -105,12 +108,12 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="floating-element calendar">
             <div className="calendar-header"></div>
             <div className="calendar-body"></div>
           </div>
-          
+
           <div className="floating-element notification">
             <div className="notification-icon">🔔</div>
             <div className="notification-content">
@@ -120,7 +123,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="hero-decoration circle-1"></div>
       <div className="hero-decoration circle-2"></div>
       <div className="hero-decoration dots"></div>

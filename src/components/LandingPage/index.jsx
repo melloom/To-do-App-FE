@@ -18,12 +18,24 @@ const LandingPage = () => {
     // Check if there's a hash in the URL
     if (window.location.hash) {
       const id = window.location.hash.substring(1); // Remove the # character
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100); // Small delay to ensure the page is fully loaded
+
+      // Check if this is a fresh page load or navigation within the app
+      const isPageRefresh = !window.performance.getEntriesByType('navigation')
+        .map((nav) => nav.type)
+        .includes('navigate');
+
+      // Only scroll to the element if it's not a page refresh
+      if (!isPageRefresh) {
+        setTimeout(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100); // Small delay to ensure the page is fully loaded
+      } else {
+        // If it's a page refresh, clear the hash to prevent automatic scrolling
+        window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+      }
     }
   }, []);
 
@@ -39,7 +51,7 @@ const LandingPage = () => {
         <Testimonials />
         <Pricing />
         <FAQ />
-        <CTA />
+        <CTA /> {/* Make sure CTA is included and not conditionally hidden */}
       </main>
       <Footer />
     </div>

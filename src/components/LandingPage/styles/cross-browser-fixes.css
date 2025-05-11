@@ -25,6 +25,18 @@
     display: -webkit-flex;
     display: flex;
   }
+  
+  /* Ensure feature pills are properly sized in Safari */
+  .feature-pill {
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .feature-icon {
+    font-size: 1.1rem !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
 }
 
 /* Firefox-specific fixes */

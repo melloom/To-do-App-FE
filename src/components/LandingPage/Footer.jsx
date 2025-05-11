@@ -3,68 +3,105 @@ import { Link } from 'react-router-dom';
 import './styles/Footer.css';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="landing-footer">
-      <div className="footer-container section-container">
-        <div className="footer-grid">
-          <div className="footer-main">
-            <div className="footer-logo">
-              <div className="footer-logo-img">T</div>
-              <h3 className="footer-logo-text">Tasklio</h3>
+      <div className="footer-top">
+        <div className="footer-container">
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <Link to="/" className="footer-logo">
+                <div className="logo-bubble">T</div>
+                <h3>Tasklio</h3>
+              </Link>
+              <p className="footer-tagline">
+                The intelligent task manager that helps you organize, prioritize, and accomplish more.
+              </p>
+              <div className="footer-social">
+                <a href="#" className="social-icon" aria-label="Twitter">
+                  <i className="fa-brands fa-twitter"></i>
+                </a>
+                <a href="#" className="social-icon" aria-label="GitHub">
+                  <i className="fa-brands fa-github"></i>
+                </a>
+                <a href="#" className="social-icon" aria-label="LinkedIn">
+                  <i className="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="#" className="social-icon" aria-label="Instagram">
+                  <i className="fa-brands fa-instagram"></i>
+                </a>
+              </div>
             </div>
-            <p className="footer-tagline">Simplify your tasks. Boost your productivity.</p>
-            <div className="footer-social">
-              <a href="#" className="social-icon">🐦</a>
-              <a href="#" className="social-icon">💻</a>
-              <a href="#" className="social-icon">📱</a>
+
+            <div className="footer-links-group">
+              <div className="footer-links-column">
+                <h4>Product</h4>
+                <ul className="footer-links">
+                  <li><a href="#features">Features</a></li>
+                  <li><a href="#pricing">Pricing</a></li>
+                  <li><a href="#testimonials">Testimonials</a></li>
+                  <li><Link to="/app">Launch App</Link></li>
+                </ul>
+              </div>
+
+              <div className="footer-links-column">
+                <h4>Company</h4>
+                <ul className="footer-links">
+                  <li><Link to="/about">About Us</Link></li>
+                  <li><a href="#team">Our Team</a></li>
+                  <li><a href="#blog">Blog</a></li>
+                  <li><a href="#careers">Careers</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-links-column">
+                <h4>Resources</h4>
+                <ul className="footer-links">
+                  <li><a href="#help">Help Center</a></li>
+                  <li><a href="#faq">FAQ</a></li>
+                  <li><a href="#contact">Contact Us</a></li>
+                  <li><a href="#community">Community</a></li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className="footer-column">
-          <h3>Product</h3>
-          <div className="footer-links">
-            <a href="#features" className="footer-link">Features</a>
-            <a href="#pricing" className="footer-link">Pricing</a>
-            <a href="#how-it-works" className="footer-link">How It Works</a>
-            <Link to="/app" className="footer-link">Launch App</Link>
-          </div>
-        </div>
-
-        <div className="footer-column">
-          <h3>Resources</h3>
-          <div className="footer-links">
-            <Link to="/about" className="footer-link">About Us</Link>
-            <a href="#faq" className="footer-link">FAQ</a>
-            <a href="#" className="footer-link">Blog</a>
-            <a href="#" className="footer-link">Support</a>
-          </div>
-        </div>
-
-        <div className="footer-column">
-          <h3>Stay Updated</h3>
-          <p className="newsletter-text">
-            Subscribe to our newsletter for updates, tips, and productivity insights.
-          </p>
-          <div className="newsletter-form">
-            <input
-              type="email"
-              className="newsletter-input"
-              placeholder="Your email"
-            />
-            <button className="newsletter-button">Subscribe</button>
+            <div className="footer-newsletter">
+              <h4>Stay Updated</h4>
+              <p>Get productivity tips and Tasklio updates delivered to your inbox.</p>
+              <form className="newsletter-form">
+                <div className="newsletter-input-group">
+                  <input type="email" placeholder="Enter your email" required />
+                  <button type="submit">Subscribe</button>
+                </div>
+                <div className="newsletter-disclaimer">
+                  We respect your privacy. Unsubscribe at any time.
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <div className="footer-copyright">
-          &copy; {new Date().getFullYear()} Tasklio. All rights reserved.
-        </div>
-        <div className="footer-legal">
-          <a href="#" className="legal-link">Privacy Policy</a>
-          <a href="#" className="legal-link">Terms of Service</a>
-          <a href="#" className="legal-link">Cookies</a>
+        <div className="footer-container">
+          <div className="footer-bottom-content">
+            <div className="footer-copyright">
+              © {currentYear} Tasklio. All rights reserved.
+            </div>
+
+            <div className="footer-legal-links">
+              <a href="#terms">Terms of Service</a>
+              <a href="#privacy">Privacy Policy</a>
+              <a href="#cookies">Cookie Policy</a>
+            </div>
+
+            <div className="footer-app-badge">
+              <span className="badge-text">Made with</span>
+              <span className="badge-heart">♥</span>
+              <span className="badge-text">for productivity</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
