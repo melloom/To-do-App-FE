@@ -300,12 +300,12 @@
     max-width: 100%;
     transform: none;
   }
-  
+
   .timer-circle {
     width: 140px;
     height: 140px;
   }
-  
+
   .timer-time {
     font-size: 24px;
   }

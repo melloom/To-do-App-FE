@@ -118,8 +118,8 @@ const RegistrationMockups = () => {
                   <div className="chart-visual">
                     {['M','T','W','T','F','S','S'].map((day, i) => (
                       <div className="chart-bar-wrapper" key={i}>
-                        <div 
-                          className={`chart-bar ${i === 4 ? 'active' : i > 4 ? 'upcoming' : ''}`} 
+                        <div
+                          className={`chart-bar ${i === 4 ? 'active' : i > 4 ? 'upcoming' : ''}`}
                           style={{height: `${[65, 45, 85, 70, 75, 20, 10][i]}%`}}
                         ></div>
                         <div className="day-label">{day}</div>
@@ -147,7 +147,7 @@ const RegistrationMockups = () => {
             </div>
           )}
         </div>
-        
+
         {/* Removed the mockup pagination indicators */}
       </div>
     </div>

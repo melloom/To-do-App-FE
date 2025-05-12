@@ -33,20 +33,20 @@ const ProductivityInsights = () => {
         <div className="insight-icon">📊</div>
         <h3 className="insight-title">Your Productivity Insights</h3>
       </div>
-      
+
       <div className="insight-content">
         <div className="weekly-chart">
           <div className="chart-title">
             <span className="chart-label">Weekly Progress</span>
             <span className="chart-value">78% Complete</span>
           </div>
-          
+
           <div className="day-columns">
             {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) => (
               <div className="day-column" key={index}>
                 <div className="bar-container">
-                  <div 
-                    ref={dayBarsRef.current[index]} 
+                  <div
+                    ref={dayBarsRef.current[index]}
                     className={`day-bar ${index === 2 ? 'highlight' : ''}`}
                   ></div>
                 </div>
@@ -55,7 +55,7 @@ const ProductivityInsights = () => {
             ))}
           </div>
         </div>
-        
+
         <div className="insight-metrics">
           <div className="metric-item">
             <div className="metric-icon peak">⚡</div>
@@ -64,7 +64,7 @@ const ProductivityInsights = () => {
               <div className="metric-value">10am - 12pm</div>
             </div>
           </div>
-          
+
           <div className="metric-item">
             <div className="metric-icon star">🏆</div>
             <div className="metric-details">
@@ -73,7 +73,7 @@ const ProductivityInsights = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="goal-progress">
           <div className="goal-text">
             <span className="goal-icon">🎯</span>

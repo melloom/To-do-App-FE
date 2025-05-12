@@ -369,9 +369,9 @@ const RegisterPage = () => {
   // Add a new function to handle navigation away from the form
   const handleNavigateAway = (e) => {
     // Only show warning if user has entered data and is on step 2 or higher
-    if (currentStep >= 2 || 
-        (formData.firstName?.trim() || 
-        formData.lastName?.trim() || 
+    if (currentStep >= 2 ||
+        (formData.firstName?.trim() ||
+        formData.lastName?.trim() ||
         formData.email?.trim())) {
       e.preventDefault();
       setShowLeaveWarning(true);
@@ -381,9 +381,9 @@ const RegisterPage = () => {
   // Add useEffect for handling browser back button
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      if (currentStep >= 2 || 
-          (formData.firstName?.trim() || 
-          formData.lastName?.trim() || 
+      if (currentStep >= 2 ||
+          (formData.firstName?.trim() ||
+          formData.lastName?.trim() ||
           formData.email?.trim())) {
         e.preventDefault();
         e.returnValue = '';

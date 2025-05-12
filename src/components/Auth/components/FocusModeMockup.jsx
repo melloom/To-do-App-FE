@@ -7,7 +7,7 @@ const FocusModeMockup = () => {
 
   useEffect(() => {
     let interval = null;
-    
+
     if (!isPaused) {
       interval = setInterval(() => {
         setSeconds(prevSeconds => {
@@ -19,7 +19,7 @@ const FocusModeMockup = () => {
         });
       }, 1000);
     }
-    
+
     return () => clearInterval(interval);
   }, [isPaused]);
 

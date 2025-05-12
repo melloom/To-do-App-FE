@@ -566,7 +566,7 @@ const AccountSetupPage = () => {
             <h2>Just a few more steps!</h2>
             <p>Complete your profile to get the most out of Tasklio.</p>
           </div>
-          
+
           {/* Add the ProductivityInsights component */}
           <ProductivityInsights />
         </div>
