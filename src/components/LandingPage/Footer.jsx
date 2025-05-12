@@ -31,16 +31,16 @@ const Footer = () => {
             <ul>
               <li><Link to="/app">App</Link></li>
               <li><Link to="/about">About</Link></li>
-              <li><Link to="/about#features">Features</Link></li>
-              <li><Link to="/about#roadmap">Roadmap</Link></li>
+              <li><Link to="/about">Features</Link></li>
+              <li><Link to="/about">Roadmap</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h4>Resources</h4>
             <ul>
-              <li><Link to="/about#codebase">Codebase</Link></li>
-              <li><Link to="/about#developer">Developer</Link></li>
+              <li><Link to="/about">Codebase</Link></li>
+              <li><Link to="/about">Developer</Link></li>
               <li><a href="https://github.com/yourusername/tasklio" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
           </div>

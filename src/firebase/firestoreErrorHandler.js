@@ -36,6 +36,12 @@ export const executeWithTimeout = async (operation, operationName = 'Firestore o
     } else if (error.code === 'unauthenticated') {
       console.error('Authentication required for Firestore operation.');
       error.message = 'Authentication is required for this operation.';
+
+      // Add additional handling for authentication errors
+      if (error.message.includes('token expired')) {
+        error.requiresReauthentication = true;
+        error.message = 'Your session has expired. Please sign in again.';
+      }
     }
 
     throw error;
@@ -73,6 +79,43 @@ export const retryOperation = async (operation, maxRetries = 3) => {
   }
 
   throw lastError;
+};
+
+/**
+ * Handle authentication-specific errors
+ * @param {Error} error - The error object to handle
+ * @returns {Object} Processed error with user-friendly message
+ */
+export const handleAuthError = (error) => {
+  let processedError = {
+    message: error.message || 'An authentication error occurred',
+    code: error.code,
+    requiresAction: false
+  };
+
+  switch (error.code) {
+    case 'auth/requires-recent-login':
+      processedError.message = 'For security reasons, please sign in again to continue.';
+      processedError.requiresAction = 'reauthenticate';
+      break;
+    case 'auth/user-not-found':
+      processedError.message = 'No account found with this email address.';
+      break;
+    case 'auth/wrong-password':
+      processedError.message = 'Incorrect password. Please try again.';
+      break;
+    case 'auth/email-already-in-use':
+      processedError.message = 'This email is already associated with an account.';
+      break;
+    case 'auth/account-exists-with-different-credential':
+      processedError.message = 'An account already exists with the same email but different sign-in credentials.';
+      processedError.requiresAction = 'link-accounts';
+      break;
+    default:
+      // Keep the original error message
+  }
+
+  return processedError;
 };
 
 export default {

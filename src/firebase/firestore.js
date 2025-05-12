@@ -71,6 +71,37 @@ export const updateUserData = async (userId, data) => {
   }
 };
 
+/**
+ * Creates a user profile in Firestore only when registration is fully complete
+ * @param {Object} userData Complete user data
+ * @returns {Promise<Object>} The created user profile
+ */
+export const createUserProfile = async (userData) => {
+  try {
+    if (!userData || !userData.uid) {
+      throw new Error('Invalid user data provided');
+    }
+
+    // Remove the temporary flag before saving
+    const { isTemporary, ...userDataToSave } = userData;
+
+    // Add creation timestamp
+    const userWithTimestamp = {
+      ...userDataToSave,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    // Use setDoc with the user's UID as the document ID for consistency
+    await setDoc(doc(firestore, 'users', userData.uid), userWithTimestamp);
+
+    return userWithTimestamp;
+  } catch (error) {
+    console.error('Error creating user profile:', error);
+    throw error;
+  }
+};
+
 // ===== Task operations =====
 
 // Get user tasks
@@ -152,5 +183,18 @@ export const deleteTask = async (taskId) => {
     return true;
   } catch (error) {
     throw error;
+  }
+};
+
+/**
+ * Debug authentication flow
+ * @param {string} stage - Current stage in the auth flow
+ * @param {object} data - Relevant data for this stage
+ */
+export const debugAuth = (stage, data = {}) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.group(`Auth Flow: ${stage}`);
+    console.log(data);
+    console.groupEnd();
   }
 };

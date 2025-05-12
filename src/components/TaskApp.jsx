@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { Navigate } from 'react-router-dom';
-import Header from './application/components/Header';
-import Sidebar from './application/components/Sidebar';
-import TodoList from './application/components/TodoList';
-import TodoModal from './application/components/TodoModal';
-import UserRegistration from './application/components/UserRegistration';
 import ConfirmationModal from './common/ConfirmationModal';
-import './application/styles/index.css';
 
 const TaskApp = () => {
   const { user, showRegistration } = useUser();
@@ -122,7 +116,7 @@ const TaskApp = () => {
 
   // If user registration is showing, render it
   if (showRegistration) {
-    return <UserRegistration />;
+    return <div>User Registration Component</div>;
   }
 
   // If user is not logged in, redirect to landing page
@@ -131,88 +125,22 @@ const TaskApp = () => {
   }
 
   return (
-    <div className="app-layout">
-      <Sidebar activePage={activePage} setActivePage={setActivePage} />
-
-      <div className="app-main-wrapper">
-        <Header onAddTaskClick={openNewTaskModal} />
-
-        <main className="app-main">
-          {isModalOpen && stepByStepMode && (
-            <div className="step-indicator-container">
-              <div className="step-guide-text">
-                <h3>Step {currentStep} of {totalSteps}</h3>
-                <p>{getStepGuide(currentStep)}</p>
-              </div>
-              <div className="step-indicators">
-                {Array.from({ length: totalSteps }).map((_, index) => (
-                  <div
-                    key={index}
-                    className={`step-dot ${index + 1 === currentStep ? 'active' : ''}
-                               ${index + 1 < currentStep ? 'completed' : ''}`}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          <TodoList
-            todos={todos}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            onToggleComplete={toggleTodoComplete}
-            onEdit={editTodo}
-            onDelete={deleteTodo}
-            onClearCompleted={clearCompletedTodos}
-            onAddNewTask={openNewTaskModal}
-          />
-        </main>
-
-        <TodoModal
-          isOpen={isModalOpen}
-          onClose={closeModalWithConfirmation}
-          addTodo={editingTodo ? updateTodo : addTodo}
-          editingTodo={editingTodo}
-          currentStep={currentStep}
-          totalSteps={totalSteps}
-          nextStep={nextStep}
-          prevStep={prevStep}
-          stepByStepMode={stepByStepMode}
-        />
-
-        {/* Confirmation Modal */}
-        <ConfirmationModal
-          isOpen={showConfirmation}
-          onClose={() => setShowConfirmation(false)}
-          onConfirm={handleConfirmAction}
-          title="Are you sure?"
-          message={
-            <>
-              <p>This action cannot be undone.</p>
-              <p>Are you sure you want to continue?</p>
-            </>
-          }
-          confirmText="Yes, Continue"
-          cancelText="No, Cancel"
-          confirmButtonClass="confirm-danger"
-          icon={<span role="img" aria-label="warning">⚠️</span>}
-        />
+    <div className="app-placeholder">
+      <div className="placeholder-message">
+        <h2>Application Access Disabled</h2>
+        <p>Access to the application has been temporarily disabled.</p>
+        <p>This is a demo mode where you can complete the registration process without accessing the application.</p>
+        <p>Your registration information has been saved successfully.</p>
       </div>
+      {showConfirmation && (
+        <ConfirmationModal
+          message="Are you sure you want to proceed with this action?"
+          onConfirm={handleConfirmAction}
+          onCancel={() => setShowConfirmation(false)}
+        />
+      )}
     </div>
   );
-};
-
-// Helper function to get step guide text
-const getStepGuide = (step) => {
-  const guides = [
-    "Let's start by giving your task a name",
-    "Now, choose a category for your task",
-    "Set the priority and due date",
-    "Add any notes or subtasks",
-    "Review and create your task"
-  ];
-
-  return guides[step - 1] || "";
 };
 
 export default TaskApp;

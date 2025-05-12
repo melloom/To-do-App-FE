@@ -515,12 +515,13 @@ html, body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+  color: white;
 }
 
 .auth-logo-favicon {
-  filter: brightness(0) invert(1);
-  width: 20px;
-  height: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
 .register-welcome {

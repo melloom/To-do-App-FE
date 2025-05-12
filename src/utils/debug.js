@@ -9,6 +9,14 @@ export const debugLog = (component, message, data) => {
   }
 };
 
+// Enhanced debug log with timestamp
+export const debugLogWithTime = (component, message, data) => {
+  if (process.env.NODE_ENV === 'development') {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] [${component}] ${message}`, data || '');
+  }
+};
+
 // Inspect DOM elements and log issues
 export const inspectElements = (selector) => {
   if (process.env.NODE_ENV === 'development') {
@@ -17,7 +25,7 @@ export const inspectElements = (selector) => {
       console.log(`No elements found matching selector: ${selector}`);
     } else {
       console.log(`Found ${elements.length} elements matching selector: ${selector}`, elements);
-      
+
       // Check for potential issues
       elements.forEach(el => {
         // Check for class attribute instead of className
@@ -54,5 +62,62 @@ export const debugEvent = (component, eventName, event) => {
       id: event.target.id,
       className: event.target.className
     });
+  }
+};
+
+/**
+ * Debug authentication flow
+ * @param {string} stage - Current stage in the auth flow
+ * @param {object} data - Relevant data for this stage
+ */
+export const debugAuth = (stage, data = {}) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.group(`Auth Flow: ${stage}`);
+    console.log(data);
+    console.groupEnd();
+  }
+};
+
+/**
+ * Debug user profile completion
+ * @param {string} stage - Current stage in profile completion
+ * @param {object} data - Profile data at this stage
+ */
+export const debugProfile = (stage, data = {}) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.group(`Profile Completion: ${stage}`);
+    console.log(data);
+    console.groupEnd();
+  }
+};
+
+/**
+ * Debug registration process
+ * @param {number} step - Current registration step
+ * @param {string} action - Action being performed
+ * @param {object} data - Form data at current step
+ */
+export const debugRegistration = (step, action, data = {}) => {
+  if (process.env.NODE_ENV === 'development') {
+    debugLogWithTime('Registration', `Step ${step}: ${action}`, {
+      ...(data && typeof data === 'object' ? data : { data })
+    });
+  }
+};
+
+/**
+ * Debug Google authentication flow specifically
+ * @param {string} stage - Current stage in Google auth flow
+ * @param {object} data - Relevant user data at this stage
+ */
+export const debugGoogleAuth = (stage, data = {}) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.group(`Google Auth Flow: ${stage}`);
+    // Filter sensitive data for safer logging
+    const filteredData = {...data};
+    if (filteredData.token) filteredData.token = '***FILTERED***';
+    if (filteredData.idToken) filteredData.idToken = '***FILTERED***';
+    console.log(filteredData);
+    console.groupEnd();
   }
 };

@@ -6,11 +6,11 @@ import './styles/Hero.css';
 const Hero = () => {
   const navigate = useNavigate();
 
-  const navigateToAboutCodebase = (e) => {
+  const navigateToAbout = (e) => {
     e.preventDefault();
-    // Navigate to the About page with the codebase hash
-    // This will navigate directly to the codebase section
-    navigate('/about#codebase');
+    // Navigate to the About page without any hash
+    // This will take the user to the top of the About page
+    navigate('/about');
   };
 
   return (
@@ -33,7 +33,7 @@ const Hero = () => {
           <Link to="/register" className="cta-button">
             Get Started <span className="cta-arrow">→</span>
           </Link>
-          <button onClick={navigateToAboutCodebase} className="cta-button secondary" style={{ color: 'white' }}>
+          <button onClick={navigateToAbout} className="cta-button secondary" style={{ color: 'white' }}>
             Learn More
           </button>
         </div>

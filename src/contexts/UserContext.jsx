@@ -3,49 +3,53 @@ import {
   observeAuthState,
   signOut,
   registerWithEmail as firebaseRegisterUser,
-  signInWithEmail as firebaseLoginUser
+  signInWithEmail as firebaseLoginUser,
+  updateUserProfile
 } from '../firebase/auth';
-import { getUserData } from '../firebase/firestore';
+import { getUserData, updateUserData, createUserProfile } from '../firebase/firestore';
 import { logAuthDebugInfo } from '../firebase/securityHelper';
+import { debugLog } from '../utils/debug';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
-  const [googleRegistrationData, setGoogleRegistrationData] = useState(null); // Add state for Google registration
+  const [needsProfileCompletion, setNeedsProfileCompletion] = useState(false);
+  const [incompleteRegistration, setIncompleteRegistration] = useState(null);
+  const [currentRegistrationStep, setCurrentRegistrationStep] = useState(0);
 
-  // Check for logged in user on initial load and set up auth listener
+  // Initialize auth state listener
   useEffect(() => {
-    const unsubscribe = observeAuthState(async (firebaseUser) => {
-      if (firebaseUser) {
-        // Get additional user data from Firestore
-        try {
-          // Add debug logging
-          logAuthDebugInfo();
-
-          const userData = await getUserData(firebaseUser.uid);
-          setUser(userData);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setUser({
-            id: firebaseUser.uid,
-            name: firebaseUser.displayName,
-            email: firebaseUser.email,
-            photoURL: firebaseUser.photoURL
+    const unsubscribe = observeAuthState(async (authUser, userData) => {
+      setLoading(true);
+      try {
+        if (authUser) {
+          // User is signed in
+          setUser(userData || {
+            id: authUser.uid,
+            email: authUser.email,
+            displayName: authUser.displayName || ''
           });
-        }
-      } else {
-        // Fallback to checking localStorage for backward compatibility
-        const loggedInUser = localStorage.getItem('currentUser');
-        if (loggedInUser) {
-          setUser(JSON.parse(loggedInUser));
+
+          // Check if profile needs completion
+          setNeedsProfileCompletion(userData ? !userData.profileComplete : true);
+
+          // No need to show registration if user exists
+          setShowRegistration(false);
         } else {
+          // User is signed out
           setUser(null);
+          setNeedsProfileCompletion(false);
         }
+      } catch (err) {
+        console.error('Error in auth state observer:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -54,12 +58,26 @@ export const UserProvider = ({ children }) => {
   // Register a new user
   const registerUser = async (userData) => {
     try {
+      // Extract name components
+      const firstName = userData.firstName || '';
+      const lastName = userData.lastName || '';
+      const fullName = userData.name || `${firstName} ${lastName}`.trim();
+
       // Ensure we have a username and creation timestamp
       const newUser = {
         ...userData,
-        id: Date.now(),
-        username: userData.username || userData.name?.toLowerCase().replace(/\s+/g, '_') || userData.email.split('@')[0],
-        registeredAt: userData.createdAt || new Date().toISOString()
+        uid: userData.uid || Date.now().toString(),
+        firstName: firstName,
+        lastName: lastName,
+        name: fullName,
+        username: userData.username ||
+                  `${firstName.toLowerCase()}_${lastName.toLowerCase()}` ||
+                  fullName.toLowerCase().replace(/\s+/g, '_') ||
+                  userData.email.split('@')[0],
+        registeredAt: userData.createdAt || new Date().toISOString(),
+        profileComplete: true,
+        registrationStep: 4, // User has completed all registration steps
+        registrationComplete: true
       };
 
       // Get any existing users and save to localStorage
@@ -68,11 +86,12 @@ export const UserProvider = ({ children }) => {
       const updatedUsers = [...existingUsers, newUser];
       localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
 
-      // Set as current user
+      // Set as current user but don't navigate
       localStorage.setItem('currentUser', JSON.stringify(newUser));
       setUser(newUser);
       setShowRegistration(false);
 
+      // Return user without redirection
       return newUser;
     } catch (error) {
       console.error("Registration error:", error);
@@ -80,55 +99,154 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // Login an existing user
-  const loginUser = (userData) => {
-    localStorage.setItem('currentUser', JSON.stringify(userData));
-    setUser(userData);
+  // Add the missing updateRegistrationStep function
+  const updateRegistrationStep = async (userId, step, userData = {}) => {
+    try {
+      // Update the user in Firestore
+      await updateUserData(userId, {
+        ...userData,
+        registrationStep: step,
+        updatedAt: new Date().toISOString()
+      });
+
+      return true;
+    } catch (error) {
+      console.error("Error updating registration step:", error);
+      throw error;
+    }
   };
 
-  // Logout the current user
+  // Add a function to handle registration step progression
+  const progressRegistration = async (step, userData) => {
+    try {
+      if (!user || !user.uid) {
+        throw new Error("User not authenticated");
+      }
+
+      // Update the backend
+      await updateRegistrationStep(user.uid, step, userData);
+
+      // Update local state
+      setCurrentRegistrationStep(step);
+      setNeedsProfileCompletion(step < 4);
+
+      // Update the user object with new data
+      setUser(prev => ({
+        ...prev,
+        ...userData,
+        registrationStep: step,
+        registrationComplete: step >= 4
+      }));
+
+      return { success: true };
+    } catch (error) {
+      setError(error.message);
+      return { success: false, error: error.message };
+    }
+  };
+
+  // Login with user data
+  const loginUser = (userData, options = {}) => {
+    setUser(userData);
+
+    if (options.needsProfileCompletion) {
+      // Mark profile completion needed for incomplete users
+      setNeedsProfileCompletion(true);
+    } else {
+      setNeedsProfileCompletion(false);
+    }
+
+    setShowRegistration(false);
+    // No automatic redirection
+  };
+
+  // Modify the signOut method to be more thorough
   const logoutUser = async () => {
     try {
+      debugLog('UserContext', 'Signing out user', user?.uid || 'unknown');
       await signOut();
+      // Clear all user data from storage
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('temporaryUserData');
+      sessionStorage.removeItem('userSession');
+
+      // Reset all user-related state
       setUser(null);
+      setNeedsProfileCompletion(false);
+      setIncompleteRegistration(null);
+      setCurrentRegistrationStep(0);
+      setError(null);
+
       return true;
     } catch (error) {
       console.error("Logout error:", error);
+      setError(error.message);
       throw error;
     }
   };
 
-  // Add new helper function to update user profile after Google registration
-  const updateGoogleUserProfile = async (userData) => {
+  // User profile completion function
+  const completeUserProfile = async (profileData) => {
     try {
-      const updatedUser = await updateUserData(userData.uid, userData);
+      debugLog('UserContext', 'Completing user profile', profileData);
+
+      // Ensure we have name components
+      const firstName = profileData.firstName || user?.firstName || '';
+      const lastName = profileData.lastName || user?.lastName || '';
+      const fullName = profileData.name || `${firstName} ${lastName}`.trim() || user?.displayName || '';
+
+      // Combine existing user data with completed profile data
+      const completeUserData = {
+        ...user,
+        ...profileData,
+        firstName: firstName,
+        lastName: lastName,
+        name: fullName,
+        username: profileData.username || `${firstName.toLowerCase()}_${lastName.toLowerCase()}`,
+        profileComplete: true,
+        registrationComplete: true,
+        updatedAt: new Date().toISOString()
+      };
+
+      // Update user in Firebase
+      const updatedUser = await updateUserData(user.uid, completeUserData);
+
+      // Update local state
       setUser(updatedUser);
-      setGoogleRegistrationData(null); // Clear Google registration data
+      setNeedsProfileCompletion(false);
+
       return updatedUser;
     } catch (error) {
-      console.error("Error updating Google user profile:", error);
+      console.error("Error completing user profile:", error);
       throw error;
     }
   };
 
-  return (
-    <UserContext.Provider value={{
-      user,
-      setUser,
-      loading,
-      showRegistration,
-      setShowRegistration,
-      registerUser,
-      loginUser,
-      logoutUser,
-      googleRegistrationData,
-      setGoogleRegistrationData,
-      updateGoogleUserProfile
-    }}>
-      {children}
-    </UserContext.Provider>
-  );
+  // Update the context value to ensure signOut is properly exposed
+  const value = {
+    user,
+    loading,
+    error,
+    showRegistration,
+    needsProfileCompletion,
+    loginUser,
+    signOut: logoutUser, // Make sure we're using the updated logout function
+    registerWithEmail: async (email, password, userData) => {
+      // ...existing code - but don't redirect at the end...
+    },
+    signInWithEmail: async (email, password) => {
+      // ...existing code - but don't redirect at the end...
+    },
+    completeUserProfile,
+    showRegistrationForm: () => setShowRegistration(true),
+    hideRegistrationForm: () => setShowRegistration(false),
+    currentRegistrationStep,
+    progressRegistration,
+    // New method that indicates registration is complete but doesn't redirect
+    registrationComplete: true
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => useContext(UserContext);

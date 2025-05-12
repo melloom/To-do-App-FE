@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmail, signInWithGoogle, resetPassword } from '../../firebase/auth';
+import { signInWithEmail, resetPassword } from '../../firebase/auth';
 import { useUser } from '../../contexts/UserContext';
+import { getFirebaseAuthDomainInstructions } from '../../firebase/configHelper';
 import './styles/AuthPages.css';
-import './styles/Login.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -13,26 +12,16 @@ const LoginPage = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-  const { user, loginUser } = useUser() || { user: null, loginUser: () => {} };
+  const { user, loginUser } = useUser();
   const navigate = useNavigate();
 
-  // Redirect if already logged in and handle loading state
+  // Redirect if already logged in
   useEffect(() => {
-    try {
-      setIsLoading(true);
-      if (user) {
-        navigate('/app');
-      }
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error in navigation/auth check:", error);
-      setIsLoading(false);
+    if (user) {
+      navigate('/app');
     }
   }, [user, navigate]);
 
@@ -82,45 +71,13 @@ const LoginPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Will throw an error because the application is unavailable
-      const isApplicationAvailable = false; // Set to false as per requirements
-      if (!isApplicationAvailable) {
-        throw new Error('Application is currently unavailable. Please try again later.');
-      }
-
-      const result = await signInWithEmail(formData.email, formData.password, rememberMe);
-      if (result && result.userData) {
-        loginUser(result.userData);
-        navigate('/app');
-      } else {
-        throw new Error("Invalid login response from server");
-      }
+      const result = await signInWithEmail(formData.email, formData.password);
+      loginUser(result.userData);
+      navigate('/app');
     } catch (error) {
       console.error("Login error:", error);
       setFormErrors({
         auth: error.message || 'Failed to log in. Please check your credentials.'
-      });
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    setIsSubmitting(true);
-
-    try {
-      const result = await signInWithGoogle();
-      // Check if the app is available before proceeding
-      const isApplicationAvailable = false; // Set to false as per requirements
-      if (!isApplicationAvailable) {
-        throw new Error('Application is currently unavailable. Please try again later.');
-      }
-
-      loginUser(result.user);
-      navigate('/app');
-    } catch (error) {
-      console.error("Google sign-in error:", error);
-      setFormErrors({
-        auth: error.message || 'Failed to log in with Google.'
       });
       setIsSubmitting(false);
     }
@@ -153,30 +110,16 @@ const LoginPage = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="auth-page">
-        <div className="auth-loading">
-          <div className="loading-spinner"></div>
-          <p>Loading your account...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="auth-page">
       <div className="auth-container login-container">
         <div className="auth-header">
-          <div className="back-to-home">
-            <Link to="/" className="back-button">
-              <span className="back-icon">←</span>
-              <span>Back to Home</span>
-            </Link>
-          </div>
-
+          <Link to="/" className="back-to-home">
+            <span className="back-icon">←</span>
+            <span>Back to Home</span>
+          </Link>
           <div className="auth-logo">
-            <img src="/favicon-32x32.png" alt="Tasklio Logo" className="auth-logo-favicon" />
+            <img src="/favicon-32x32.png" alt="Tasklio Logo" className="auth-logo-img" />
             <h2>Tasklio</h2>
           </div>
         </div>
@@ -189,6 +132,9 @@ const LoginPage = () => {
             {formErrors.auth && (
               <div className="auth-error-banner">
                 {formErrors.auth}
+                {formErrors.configInstructions && (
+                  <pre className="config-instructions">{formErrors.configInstructions}</pre>
+                )}
               </div>
             )}
 
@@ -245,19 +191,6 @@ const LoginPage = () => {
               </div>
             ) : (
               <>
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="google-auth-button"
-                  disabled={isSubmitting}
-                >
-                  <span className="google-icon">G</span>
-                  Continue with Google
-                </button>
-
-                <div className="auth-divider">
-                  <span>OR</span>
-                </div>
-
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="email">Email Address</label>
@@ -274,47 +207,26 @@ const LoginPage = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="password-field">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Enter your password"
-                        className="auth-input"
-                      />
+                    <div className="password-label-row">
+                      <label htmlFor="password">Password</label>
                       <button
                         type="button"
-                        className="password-toggle"
-                        onClick={() => setShowPassword(!showPassword)}
-                        tabIndex="-1"
-                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        className="forgot-password-link"
+                        onClick={() => setShowResetPassword(true)}
                       >
-                        {showPassword ? "🙈" : "👁️"}
+                        Forgot password?
                       </button>
                     </div>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="Enter your password"
+                      className="auth-input"
+                    />
                     {formErrors.password && <div className="auth-error">{formErrors.password}</div>}
-                    <button
-                      type="button"
-                      className="forgot-password-link"
-                      onClick={() => setShowResetPassword(true)}
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
-
-                  <div className="login-options">
-                    <div className="remember-me">
-                      <input
-                        type="checkbox"
-                        id="rememberMe"
-                        checked={rememberMe}
-                        onChange={() => setRememberMe(!rememberMe)}
-                      />
-                      <label htmlFor="rememberMe">Remember me</label>
-                    </div>
                   </div>
 
                   <div className="auth-buttons">
@@ -340,15 +252,6 @@ const LoginPage = () => {
       </div>
 
       <div className="auth-decoration">
-        <div className="geometric-shape"></div>
-        <div className="geometric-shape"></div>
-        <div className="particles">
-          <span className="particle"></span>
-          <span className="particle"></span>
-          <span className="particle"></span>
-          <span className="particle"></span>
-          <span className="particle"></span>
-        </div>
         <div className="auth-illustration">
           <div className="floating-task task-1">
             <div className="task-checkbox completed"></div>
@@ -371,22 +274,10 @@ const LoginPage = () => {
               <div className="task-date">Yesterday</div>
             </div>
           </div>
-          <div className="floating-task task-4 priority">
-            <div className="task-checkbox"></div>
-            <div className="task-content">
-              <div className="task-title">Client presentation</div>
-              <div className="task-date">In 2 days</div>
-            </div>
-          </div>
-          <div className="welcome-message">
-            <div className="welcome-bubble">
-              <span className="welcome-icon">👋</span>
-              <span className="welcome-text">Welcome back!</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default LoginPage;

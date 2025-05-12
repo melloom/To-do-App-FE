@@ -49,20 +49,81 @@ export const checkAuthScopes = () => {
     return { hasAllScopes: false, scopes: [] };
   }
 
+  // Extract first and last name more reliably
+  const displayNameParts = googleProvider.displayName ? googleProvider.displayName.split(' ') : ['', ''];
+  const firstName = displayNameParts[0] || '';
+  const lastName = displayNameParts.length > 1 ? displayNameParts.slice(1).join(' ') : '';
+
   // Enhanced Google provider info with additional useful data
   const enhancedProviderInfo = {
     ...googleProvider,
-    firstName: googleProvider.displayName ? googleProvider.displayName.split(' ')[0] : '',
-    lastName: googleProvider.displayName ? googleProvider.displayName.split(' ').slice(1).join(' ') : '',
-    isGoogleAccount: true
+    firstName: firstName,
+    lastName: lastName,
+    name: googleProvider.displayName || '',
+    isGoogleAccount: true,
+    verified: !!googleProvider.email && googleProvider.email.includes('@'),
+    registrationTimestamp: new Date().toISOString()
   };
 
-  // Log provider info for debugging
-  console.log('Google provider data:', enhancedProviderInfo);
+  // Log provider info for debugging but reduce noise in production
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Google provider data:', enhancedProviderInfo);
+  }
 
   return {
     hasAllScopes: true,
     provider: enhancedProviderInfo
+  };
+};
+
+/**
+ * Verify Google Account information and enrich with additional data
+ * @param {Object} googleUserInfo - Google user information
+ * @returns {Object} Enhanced and verified user data
+ */
+export const verifyGoogleAccountInfo = (googleUserInfo) => {
+  if (!googleUserInfo || !googleUserInfo.uid) {
+    throw new Error("Invalid Google account information");
+  }
+
+  // Extract name components from display name
+  let firstName = '';
+  let lastName = '';
+
+  if (googleUserInfo.displayName) {
+    const nameParts = googleUserInfo.displayName.split(' ');
+    firstName = nameParts[0] || '';
+    lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+  }
+
+  // Generate a username from display name or email
+  let username = '';
+  if (googleUserInfo.displayName) {
+    username = googleUserInfo.displayName.toLowerCase().replace(/\s+/g, '_');
+  } else if (googleUserInfo.email) {
+    username = googleUserInfo.email.split('@')[0];
+  } else {
+    username = `user_${Date.now()}`;
+  }
+
+  // Remove any special characters from username
+  username = username.replace(/[^a-z0-9_]/g, '');
+
+  // Ensure username is unique by adding a timestamp if needed
+  if (username.length < 3) {
+    username = `user_${Date.now()}`;
+  }
+
+  return {
+    ...googleUserInfo,
+    firstName,
+    lastName,
+    fullName: googleUserInfo.displayName || '',
+    username,
+    profileComplete: false,
+    isGoogleAccount: true,
+    requiresProfileCompletion: true,
+    verificationTimestamp: new Date().toISOString()
   };
 };
 
@@ -146,6 +207,79 @@ export const diagnoseGoogleAuth = async () => {
 };
 
 /**
+ * Diagnose permission issues with Google sign-in
+ * @param {string} userId - User ID to check
+ * @returns {Promise<Object>} Diagnostic information
+ */
+export const diagnosePermissionIssues = async (userId) => {
+  try {
+    console.group('Firebase Permission Diagnostics');
+
+    // Check if user is authenticated
+    const currentUser = auth.currentUser;
+    console.log('Current auth user:', currentUser ? {
+      uid: currentUser.uid,
+      email: currentUser.email,
+      provider: currentUser.providerData[0]?.providerId
+    } : 'Not authenticated');
+
+    if (!currentUser) {
+      console.error('No authenticated user found');
+      console.groupEnd();
+      return { success: false, error: 'No authenticated user' };
+    }
+
+    // Check if user document exists
+    try {
+      const userRef = doc(firestore, 'users', userId || currentUser.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        console.log('User document exists with fields:', Object.keys(userData));
+
+        // Check for required fields
+        const requiredFields = [
+          'uid', 'email', 'firstName', 'lastName', 'name',
+          'username', 'authProvider', 'createdAt', 'updatedAt',
+          'color', 'profileVisibility'
+        ];
+
+        const missingFields = requiredFields.filter(field => !userData[field]);
+
+        if (missingFields.length > 0) {
+          console.warn('Missing required fields:', missingFields);
+          return {
+            success: true,
+            docExists: true,
+            hasMissingFields: true,
+            missingFields
+          };
+        }
+
+        return { success: true, docExists: true, hasMissingFields: false };
+      } else {
+        console.error('User document does not exist');
+        return { success: true, docExists: false };
+      }
+    } catch (error) {
+      console.error('Error accessing user document:', error);
+      return {
+        success: false,
+        error: error.message,
+        code: error.code
+      };
+    }
+  } catch (error) {
+    console.error('Diagnostic error:', error);
+    console.groupEnd();
+    return { success: false, error: error.message };
+  } finally {
+    console.groupEnd();
+  }
+};
+
+/**
  * Handles Firebase permission errors with helpful messages
  */
 export const handlePermissionError = (error, operation = 'operation') => {
@@ -199,6 +333,54 @@ export const verifyPermissions = async (collectionPath, action = 'read') => {
     return true;
   } catch (error) {
     console.error('Permission verification failed:', error);
+    return false;
+  }
+};
+
+/**
+ * Verify if the current authenticated user matches the requested user ID
+ * @param {string} requestedUserId - The user ID being accessed
+ * @returns {Promise<boolean>} Whether access is authorized
+ */
+export const verifyUserAuthorization = async (requestedUserId) => {
+  try {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      return false; // No authenticated user
+    }
+
+    // Direct ID match check
+    if (currentUser.uid === requestedUserId) {
+      return true;
+    }
+
+    // Could add additional checks here for admin roles if needed
+
+    return false;
+  } catch (error) {
+    console.error('Authorization verification error:', error);
+    return false;
+  }
+};
+
+/**
+ * Check if user has completed profile setup
+ * @returns {Promise<boolean>} Whether profile is complete
+ */
+export const checkProfileComplete = async () => {
+  try {
+    const currentUser = auth.currentUser;
+    if (!currentUser) return false;
+
+    const userRef = doc(firestore, 'users', currentUser.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) return false;
+
+    return !!userSnap.data().profileComplete;
+  } catch (error) {
+    console.error('Error checking profile completion:', error);
     return false;
   }
 };

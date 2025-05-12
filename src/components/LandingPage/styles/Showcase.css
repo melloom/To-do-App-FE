@@ -92,7 +92,7 @@
   background-color: #111;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  z-index: 2;
+  z-index: 20;  /* Increased to prevent overlapping */
 }
 
 .phone-screen {
@@ -317,4 +317,16 @@
   .showcase-features {
     width: 100%;
   }
+}
+
+/* Floating elements need better z-index management */
+.team-startup-element {
+  position: relative;
+  z-index: 10;  /* Ensure it's above the background but below headers */
+}
+
+/* For other floating elements */
+.floating-element {
+  position: absolute;
+  z-index: 5;  /* Default z-index for floating elements */
 }

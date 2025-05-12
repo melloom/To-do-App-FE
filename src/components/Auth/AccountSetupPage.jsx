@@ -1,42 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerWithEmail } from '../../firebase/auth';
+import { updateUserProfile } from '../../firebase/auth';
 import { useUser } from '../../contexts/UserContext';
 import './styles/Register.css';
-import RegistrationMockups from './components/RegistrationMockups';
 
-const RegisterPage = () => {
+const AccountSetupPage = () => {
+  const { user, updateUserData } = useUser();
+  const navigate = useNavigate();
+  const formRef = useRef(null);
+
   // Form state management
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    color: '#5b5ef4',
-    agreeToTerms: false,
-    // New fields for Discovery step
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    color: user?.color || '#5b5ef4',
+    // Fields for Discovery step
     referralSource: '',
     referralCode: '',
     usagePurpose: '',
-    // New fields for Profile step
-    username: '',
-    bio: '',
-    profileVisibility: 'public'
+    // Fields for Profile step
+    username: user?.username || '',
+    bio: user?.bio || '',
+    profileVisibility: user?.profileVisibility || 'public'
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState(0);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [showLeaveWarning, setShowLeaveWarning] = useState(false);
-  const [pendingAction, setPendingAction] = useState(null);
   const [formIsDirty, setFormIsDirty] = useState(false);
 
-  const { user, loginUser } = useUser();
-  const navigate = useNavigate();
-  const formRef = useRef(null);
+  // Redirect if user is not logged in
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   // Predefined avatar colors
   const colors = [
@@ -70,30 +67,6 @@ const RegisterPage = () => {
     'Other'
   ];
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      navigate('/app');
-    }
-  }, [user, navigate]);
-
-  // Add warning when user tries to leave the page with unsaved changes
-  useEffect(() => {
-    if (formIsDirty && currentStep > 1) {
-      const handleBeforeUnload = (e) => {
-        const message = "You haven't completed your registration. Your information won't be saved. Are you sure you want to leave?";
-        e.returnValue = message;
-        return message;
-      };
-
-      window.addEventListener('beforeunload', handleBeforeUnload);
-
-      return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
-      };
-    }
-  }, [formIsDirty, currentStep]);
-
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -114,41 +87,6 @@ const RegisterPage = () => {
         [name]: ''
       }));
     }
-
-    // Password strength check
-    if (name === 'password') {
-      calculatePasswordStrength(value);
-    }
-  };
-
-  // Calculate password strength
-  const calculatePasswordStrength = (password) => {
-    let strength = 0;
-
-    if (password.length >= 8) strength += 1;
-    if (/[A-Z]/.test(password)) strength += 1;
-    if (/[0-9]/.test(password)) strength += 1;
-    if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-
-    setPasswordStrength(strength);
-  };
-
-  // Get password strength label
-  const getStrengthLabel = () => {
-    if (passwordStrength === 0) return '';
-    if (passwordStrength === 1) return 'Weak';
-    if (passwordStrength === 2) return 'Fair';
-    if (passwordStrength === 3) return 'Good';
-    return 'Strong';
-  };
-
-  // Get password strength color
-  const getStrengthColor = () => {
-    if (passwordStrength === 1) return '#ef4444';
-    if (passwordStrength === 2) return '#f59e0b';
-    if (passwordStrength === 3) return '#10b981';
-    if (passwordStrength === 4) return '#3b82f6';
-    return '#e5e7eb';
   };
 
   // Handle color selection
@@ -171,40 +109,11 @@ const RegisterPage = () => {
       errors.lastName = 'Please enter your last name';
     }
 
-    if (!formData.email.trim()) {
-      errors.email = 'Please enter your email address';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Please enter a valid email address';
-    }
-
     return errors;
   };
 
-  // Validate Step 2 (Security)
+  // Validate Step 2 (Discovery)
   const validateStep2 = () => {
-    const errors = {};
-
-    if (!formData.password) {
-      errors.password = 'Please create a password';
-    } else if (formData.password.length < 8) {
-      errors.password = 'Password must be at least 8 characters';
-    }
-
-    if (!formData.confirmPassword) {
-      errors.confirmPassword = 'Please confirm your password';
-    } else if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match';
-    }
-
-    if (!formData.agreeToTerms) {
-      errors.agreeToTerms = 'You must agree to the Terms of Service';
-    }
-
-    return errors;
-  };
-
-  // Validate Step 3 (Discovery)
-  const validateStep3 = () => {
     const errors = {};
 
     if (!formData.referralSource) {
@@ -218,8 +127,8 @@ const RegisterPage = () => {
     return errors;
   };
 
-  // Validate Step 4 (Profile)
-  const validateStep4 = () => {
+  // Validate Step 3 (Profile)
+  const validateStep3 = () => {
     const errors = {};
 
     if (!formData.username.trim()) {
@@ -235,7 +144,7 @@ const RegisterPage = () => {
     return errors;
   };
 
-  // Handle next step button with leave warning
+  // Handle next step button
   const handleNextStep = (e) => {
     e.preventDefault();
 
@@ -246,8 +155,6 @@ const RegisterPage = () => {
       errors = validateStep1();
     } else if (currentStep === 2) {
       errors = validateStep2();
-    } else if (currentStep === 3) {
-      errors = validateStep3();
     }
 
     if (Object.keys(errors).length > 0) {
@@ -260,85 +167,10 @@ const RegisterPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle previous step button with warning if needed
+  // Handle previous step button
   const handlePrevStep = (e) => {
     e.preventDefault();
-
-    // If we're beyond step 2, show warning before going back
-    if (currentStep > 2) {
-      setPendingAction(() => () => {
-        setCurrentStep(prev => prev - 1);
-      });
-      setShowLeaveWarning(true);
-    } else {
-      setCurrentStep(prev => prev - 1);
-    }
-  };
-
-  // Handle confirming or canceling an action after warning
-  const handleConfirmAction = (confirm) => {
-    if (confirm && pendingAction) {
-      pendingAction();
-    }
-    setPendingAction(null);
-    setShowLeaveWarning(false);
-  };
-
-  // Handle navigating away from registration
-  const handleLeaveRegistration = () => {
-    navigate('/');
-  };
-
-  // Form submission handler
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const errors = validateStep4();
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      shakeForm();
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const userData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        color: formData.color,
-        username: formData.username,
-        bio: formData.bio || '',
-        profileVisibility: formData.profileVisibility,
-        referralSource: formData.referralSource,
-        usagePurpose: formData.usagePurpose,
-        referralCode: formData.referralCode || '',
-        registrationComplete: true // Add this flag to indicate complete registration
-      };
-
-      await registerWithEmail(formData.email, formData.password, userData);
-      loginUser(userData);
-
-      // Navigate to app after successful registration
-      navigate('/app');
-    } catch (error) {
-      console.error("Registration error:", error);
-
-      // Handle duplicate account errors
-      if (error.code === 'auth/email-already-in-use') {
-        setFormErrors({
-          auth: 'This email is already registered. Please log in instead or use a different email.'
-        });
-      } else {
-        setFormErrors({
-          auth: error.message || 'Registration failed. Please try again.'
-        });
-      }
-
-      setIsSubmitting(false);
-      shakeForm();
-    }
+    setCurrentStep(prev => prev - 1);
   };
 
   // Animate form shake on error
@@ -351,12 +183,58 @@ const RegisterPage = () => {
     }
   };
 
-  // Get user initial for avatar - keep this for use elsewhere
+  // Form submission handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = validateStep3();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      shakeForm();
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        color: formData.color,
+        username: formData.username,
+        bio: formData.bio || '',
+        profileVisibility: formData.profileVisibility,
+        referralSource: formData.referralSource,
+        usagePurpose: formData.usagePurpose,
+        referralCode: formData.referralCode || '',
+        registrationComplete: true,
+        needsProfileCompletion: false
+      };
+
+      // Update user profile in Firebase
+      await updateUserProfile(userData);
+
+      // Update user data in context
+      updateUserData(userData);
+
+      // Navigate to app after successful completion
+      navigate('/app');
+    } catch (error) {
+      console.error("Profile update error:", error);
+      setFormErrors({
+        auth: error.message || 'Profile update failed. Please try again.'
+      });
+      setIsSubmitting(false);
+      shakeForm();
+    }
+  };
+
+  // Get user initial for avatar
   const userInitial = formData.firstName ? formData.firstName[0].toUpperCase() : 'T';
 
   // When reaching profile step, suggest a username based on first and last name
   useEffect(() => {
-    if (currentStep === 4 && !formData.username && formData.firstName && formData.lastName) {
+    if (currentStep === 3 && !formData.username && formData.firstName && formData.lastName) {
       // Generate username suggestion based on first and last name
       const suggestedUsername = `${formData.firstName.toLowerCase()}_${formData.lastName.toLowerCase()}`;
       setFormData(prev => ({
@@ -368,33 +246,7 @@ const RegisterPage = () => {
 
   return (
     <div className="register-page">
-      {showLeaveWarning && (
-        <div className="leave-warning-overlay">
-          <div className="leave-warning-modal">
-            <div className="warning-icon">⚠️</div>
-            <h3>Registration Not Complete</h3>
-            <p>
-              Going back will reset this step's information. You'll need to re-enter it if you proceed.
-            </p>
-            <div className="warning-actions">
-              <button
-                className="btn btn-secondary"
-                onClick={() => handleConfirmAction(false)}
-              >
-                Stay Here
-              </button>
-              <button
-                className="btn btn-danger"
-                onClick={() => handleConfirmAction(true)}
-              >
-                Go Back Anyway
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Left side - Registration Form */}
+      {/* Left side - Setup Form */}
       <div className="register-form-container">
         <div className="auth-header">
           <Link to="/" className="back-to-home">
@@ -418,20 +270,13 @@ const RegisterPage = () => {
             </div>
             <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}>
               <div className="step-number">2</div>
-              <div className="step-label">Security</div>
+              <div className="step-label">Discovery</div>
             </div>
             <div className="progress-line">
               <div className={`progress-line-fill ${currentStep >= 3 ? 'active' : ''}`}></div>
             </div>
             <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}>
               <div className="step-number">3</div>
-              <div className="step-label">Discovery</div>
-            </div>
-            <div className="progress-line">
-              <div className={`progress-line-fill ${currentStep >= 4 ? 'active' : ''}`}></div>
-            </div>
-            <div className={`progress-step ${currentStep >= 4 ? 'active' : ''}`}>
-              <div className="step-number">4</div>
               <div className="step-label">Profile</div>
             </div>
           </div>
@@ -447,8 +292,8 @@ const RegisterPage = () => {
         <div className="register-form-wrapper" ref={formRef}>
           {currentStep === 1 ? (
             <form className="register-form step-1-form">
-              <h1 className="form-title">Create your account</h1>
-              <p className="form-subtitle">Let's get started with your free Tasklio account</p>
+              <h1 className="form-title">Complete Your Account</h1>
+              <p className="form-subtitle">Let's get your account set up</p>
 
               <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
@@ -485,20 +330,19 @@ const RegisterPage = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <div className="input-wrapper">
-                  <span className="input-icon">✉️</span>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className={`form-input ${formErrors.email ? 'error' : ''}`}
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
+                <label>Choose your profile color</label>
+                <div className="color-options">
+                  {colors.map(color => (
+                    <button
+                      key={color}
+                      type="button"
+                      className={`color-option ${formData.color === color ? 'selected' : ''}`}
+                      style={{ backgroundColor: color }}
+                      onClick={() => handleColorSelect(color)}
+                      aria-label={`Select color ${color}`}
+                    />
+                  ))}
                 </div>
-                {formErrors.email && <div className="input-error">{formErrors.email}</div>}
               </div>
 
               <div className="form-actions">
@@ -513,133 +357,6 @@ const RegisterPage = () => {
               </div>
             </form>
           ) : currentStep === 2 ? (
-            <form className="register-form step-2-form">
-              <h1 className="form-title">Security Details</h1>
-              <p className="form-subtitle">Create a secure password for your account</p>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <div className="input-wrapper">
-                  <span className="input-icon">🔒</span>
-                  <input
-                    type={passwordVisible ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    className={`form-input ${formErrors.password ? 'error' : ''}`}
-                    placeholder="Create a secure password"
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => setPasswordVisible(!passwordVisible)}
-                    aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-                  >
-                    {passwordVisible ? '👁️' : '👁️‍🗨️'}
-                  </button>
-                </div>
-                {formErrors.password && <div className="input-error">{formErrors.password}</div>}
-
-                {formData.password && (
-                  <div className="password-strength">
-                    <div className="strength-bars">
-                      {[...Array(4)].map((_, i) => (
-                        <div
-                          key={i}
-                          className={`strength-bar ${i < passwordStrength ? 'active' : ''}`}
-                          style={{ backgroundColor: i < passwordStrength ? getStrengthColor() : undefined }}
-                        ></div>
-                      ))}
-                    </div>
-                    <div className="strength-label" style={{ color: getStrengthColor() }}>
-                      {getStrengthLabel()}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <div className="input-wrapper">
-                  <span className="input-icon">🔒</span>
-                  <input
-                    type={confirmPasswordVisible ? 'text' : 'password'}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    className={`form-input ${formErrors.confirmPassword ? 'error' : ''}`}
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                    aria-label={confirmPasswordVisible ? 'Hide password' : 'Show password'}
-                  >
-                    {confirmPasswordVisible ? '👁️' : '👁️‍🗨️'}
-                  </button>
-                </div>
-                {formErrors.confirmPassword && <div className="input-error">{formErrors.confirmPassword}</div>}
-              </div>
-
-              <div className="form-group checkbox-group">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="agreeToTerms"
-                    checked={formData.agreeToTerms}
-                    onChange={handleChange}
-                    className={formErrors.agreeToTerms ? 'error' : ''}
-                  />
-                  <span className="checkbox-text">
-                    I agree to the <Link to="/terms" className="terms-link">Terms of Service</Link> and <Link to="/privacy" className="terms-link">Privacy Policy</Link>
-                  </span>
-                </label>
-                {formErrors.agreeToTerms && <div className="input-error terms-error">{formErrors.agreeToTerms}</div>}
-              </div>
-
-              <div className="security-note">
-                <div className="security-icon">🛡️</div>
-                <p>Your information is securely encrypted and we never share your data with third parties.</p>
-              </div>
-
-              <div className="form-actions double">
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-back"
-                  onClick={handlePrevStep}
-                >
-                  <span className="btn-icon">←</span>
-                  Back
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary btn-next"
-                  onClick={handleNextStep}
-                >
-                  Continue
-                  <span className="btn-icon">→</span>
-                </button>
-              </div>
-
-              <div className="form-actions secondary-actions">
-                <button
-                  type="button"
-                  className="btn btn-text"
-                  onClick={() => {
-                    setPendingAction(() => () => {
-                      handleLeaveRegistration();
-                    });
-                    setShowLeaveWarning(true);
-                  }}
-                >
-                  Cancel Registration
-                </button>
-              </div>
-            </form>
-          ) : currentStep === 3 ? (
             <form className="register-form step-3-form">
               <h1 className="form-title">How Did You Find Us?</h1>
               <p className="form-subtitle">Help us understand how we can reach more people like you</p>
@@ -721,21 +438,6 @@ const RegisterPage = () => {
                 >
                   Continue
                   <span className="btn-icon">→</span>
-                </button>
-              </div>
-
-              <div className="form-actions secondary-actions">
-                <button
-                  type="button"
-                  className="btn btn-text"
-                  onClick={() => {
-                    setPendingAction(() => () => {
-                      handleLeaveRegistration();
-                    });
-                    setShowLeaveWarning(true);
-                  }}
-                >
-                  Cancel Registration
                 </button>
               </div>
             </form>
@@ -848,39 +550,26 @@ const RegisterPage = () => {
                   className={`btn btn-primary ${isSubmitting ? 'loading' : ''}`}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Creating Account...' : 'Create Account'}
-                </button>
-              </div>
-
-              <div className="form-actions secondary-actions">
-                <button
-                  type="button"
-                  className="btn btn-text"
-                  onClick={() => {
-                    setPendingAction(() => () => {
-                      handleLeaveRegistration();
-                    });
-                    setShowLeaveWarning(true);
-                  }}
-                >
-                  Cancel Registration
+                  {isSubmitting ? 'Completing Setup...' : 'Complete Setup'}
                 </button>
               </div>
             </form>
           )}
-
-          <div className="auth-footer">
-            Already have an account? <Link to="/login" className="auth-link">Log in</Link>
-          </div>
         </div>
       </div>
 
       {/* Right side - Decorative Elements */}
       <div className="auth-decoration">
-        <RegistrationMockups />
+        <div className="setup-illustration">
+          <img src="/images/setup-illustration.svg" alt="Complete your profile" className="setup-image" />
+          <div className="setup-message">
+            <h2>Just a few more steps!</h2>
+            <p>Complete your profile to get the most out of Tasklio.</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default RegisterPage;
+export default AccountSetupPage;

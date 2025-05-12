@@ -1,67 +1,51 @@
-# To-Do List with Categories
+# Tasklio - Task Management Application
 
-This is a simple To-Do List application built with React. It allows users to add tasks, assign categories, mark tasks as complete, and filter tasks by category.
+Tasklio is a comprehensive task management application built with React. It allows users to organize their daily activities with features like task categorization, priority setting, and progress tracking, all with a user-friendly interface.
 
 ## Features
 
-- Add tasks with details and categories
-- Mark tasks as complete
-- Filter tasks by category
-- Store tasks in localStorage for persistence
+- Step-by-step user registration with Google authentication
+- Task creation and management with categories
+- Priority levels and due dates for tasks
+- Filtering and sorting capabilities
+- User profile management
+- Task completion tracking
+- Clean, intuitive UI design
 
 ## Project Structure
 
 ```
-todo-app
+tasklio
 ├── public
 │   ├── index.html          # Main HTML file
-│   └── favicon.ico         # Favicon for the application
+│   └── tasklio-icon.ico    # App icon
 ├── src
 │   ├── components          # React components
-│   │   ├── App.jsx
-│   │   ├── TodoForm.jsx
-│   │   ├── TodoList.jsx
-│   │   ├── TodoItem.jsx
-│   │   ├── CategoryFilter.jsx
-│   │   └── CategorySelector.jsx
-│   ├── hooks               # Custom hooks
-│   │   └── useTodos.js
+│   │   ├── Auth            # Authentication components
+│   │   ├── LandingPage     # Landing page components
+│   │   ├── AboutPage       # About page components
+│   │   └── application     # Main task application components
+│   ├── contexts            # React contexts for state management
+│   ├── firebase            # Firebase configuration and auth functions
+│   ├── hooks               # Custom React hooks
 │   ├── utils               # Utility functions
-│   │   └── localStorage.js
-│   ├── index.js            # Entry point for the React application
-│   └── styles.css          # Styles for the application
-├── package.json            # npm configuration file
-├── .gitignore              # Git ignore file
+│   ├── styles              # Global styles
+│   ├── App.jsx             # Application main component
+│   └── index.js            # Application entry point
+├── package.json            # Project dependencies
 └── README.md               # Project documentation
 ```
 
 ## Installation
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd todo-app
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-
-## Usage
-
-To start the application, run:
-```
-npm start
-```
-This will launch the app in your default web browser.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
 
 ## Contributing
 
-Feel free to submit issues or pull requests for improvements or bug fixes. 
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is licensed under the MIT License.

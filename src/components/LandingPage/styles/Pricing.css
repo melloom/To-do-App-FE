@@ -167,6 +167,10 @@
 .logo-icon {
   font-size: 1.8rem;
   margin-right: var(--space-xs);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .logo-text {

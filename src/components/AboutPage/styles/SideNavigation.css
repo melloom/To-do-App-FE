@@ -7,7 +7,7 @@
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   transition: width 0.3s ease;
-  z-index: 9999; /* Ensure it's above other elements */
+  z-index: 1500; /* Increased to fix overlapping issues but still below modals */
   width: 250px;
   overflow: hidden;
   display: flex;
