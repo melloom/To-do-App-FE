@@ -4,6 +4,7 @@ import { registerWithEmail, signInWithGoogle } from '../../firebase/auth';
 import { useUser } from '../../contexts/UserContext';
 import TermsOfServiceModal from '../../components/common/TermsOfServiceModal';
 import PrivacyPolicyModal from '../../components/common/PrivacyPolicyModal';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import './styles/AuthPages.css';
 import './styles/Register.css';
 import './styles/additionalRegister.css';
@@ -21,6 +22,8 @@ const RegisterPage = () => {
   const [googleSignInData, setGoogleSignInData] = useState(null);  // Add state for Google sign-in data
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  // Add new state for confirmation dialog
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -300,79 +303,47 @@ const RegisterPage = () => {
     if (currentStep > 1 || googleSignInData) {
       // Create a more robust navigation handler
       const handleNavigation = (e) => {
-        // We want to show the warning only when leaving the registration page entirely
-        // not when navigating between steps
-        const confirmationMessage = 'You have unsaved registration information. Are you sure you want to leave?';
+        // Instead of using browser dialog, show our custom confirmation modal
+        e.preventDefault();
+        setShowConfirmationDialog(true);
 
-        if (!window.confirm(confirmationMessage)) {
-          // User chose to stay - prevent navigation
-          e.preventDefault();
-          // Also push a new history entry to counter the back button
-          if (e.type === 'popstate') {
-            window.history.pushState(null, '', window.location.pathname);
-          }
-        } else {
-          // User confirmed they want to leave
-          // Clear Google sign-in data to prevent state inconsistencies
-          setGoogleSignInData(null);
+        // Use history.pushState to ensure we can intercept the back button
+        if (window.history.state?.navigationHandled !== true) {
+          window.history.pushState(
+            { navigationHandled: true },
+            '',
+            window.location.href
+          );
         }
       };
 
-      // Function to handle the back button specifically for step navigation
-      const handleBackButton = (e) => {
-        // If we're not at step 1 and back button is pressed, navigate to previous step
-        if (currentStep > 1) {
-          e.preventDefault();
-          e.stopPropagation();
-          goToPreviousStep();
-          // Push current URL again to neutralize the back button action
-          window.history.pushState(null, '', window.location.pathname);
-          return;
-        }
+      window.addEventListener('popstate', handleNavigation);
 
-        // If at step 1 with Google data, confirm before losing Google sign-in
-        if (currentStep === 1 && googleSignInData) {
-          if (!window.confirm('Going back will clear your Google sign-in data. Continue?')) {
-            e.preventDefault();
-            window.history.pushState(null, '', window.location.pathname);
-          } else {
-            setGoogleSignInData(null);
-          }
-        }
-      };
-
-      // Listen for back button via the popstate event
-      window.addEventListener('popstate', handleBackButton);
-
-      // Add click handlers to navigation links that point outside registration
-      const addLinkHandlers = () => {
-        const links = document.querySelectorAll('a:not([href^="#"])');
-        links.forEach(link => {
-          // Skip links that are within form or navigation
-          if (!link.closest('form') && !link.classList.contains('monitored-link')) {
-            link.classList.add('monitored-link');
-            link.addEventListener('click', handleNavigation);
-          }
-        });
-      };
-
-      // Add handlers immediately and also with a delay to catch dynamically added links
-      addLinkHandlers();
-      const linkCheckInterval = setInterval(addLinkHandlers, 2000);
-
-      // Cleanup function
       return () => {
-        window.removeEventListener('popstate', handleBackButton);
-        clearInterval(linkCheckInterval);
-
-        // Remove event listeners from all links
-        document.querySelectorAll('a.monitored-link').forEach(link => {
-          link.removeEventListener('click', handleNavigation);
-          link.classList.remove('monitored-link');
-        });
+        window.removeEventListener('popstate', handleNavigation);
       };
     }
   }, [currentStep, googleSignInData, goToPreviousStep]);
+
+  // Add confirmation handler functions
+  const handleConfirmNavigation = () => {
+    setShowConfirmationDialog(false);
+    // Clear Google sign-in data
+    setGoogleSignInData(null);
+    sessionStorage.removeItem('googleSignInActive');
+    // Navigate away (back to previous page)
+    window.history.back();
+  };
+
+  const handleCancelNavigation = () => {
+    setShowConfirmationDialog(false);
+    // Re-add our history state to maintain interception
+    window.history.pushState(
+      { navigationHandled: true },
+      '',
+      window.location.href
+    );
+  };
 
   // Update component cleanup to remove session storage item
   useEffect(() => {
@@ -916,6 +887,19 @@ const RegisterPage = () => {
       <PrivacyPolicyModal
         isOpen={showPrivacyModal}
         onClose={() => setShowPrivacyModal(false)}
+      />
+
+      {/* Add the confirmation modal */}
+      <ConfirmationModal
+        isOpen={showConfirmationDialog}
+        onClose={handleCancelNavigation}
+        onConfirm={handleConfirmNavigation}
+        title="Leave Registration?"
+        message="You have unsaved registration information. If you leave now, your progress will be lost."
+        confirmText="Leave Page"
+        cancelText="Stay Here"
+        confirmButtonClass="confirm-warning"
+        icon={<span role="img" aria-label="warning" style={{ fontSize: '2rem' }}>⚠️</span>}
       />
     </div>
   );

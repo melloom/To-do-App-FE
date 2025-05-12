@@ -1,63 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './styles/Footer.css';
+import TermsOfServiceModal from './TermsOfServiceModal';
+import PrivacyPolicyModal from './PrivacyPolicyModal';
+import CookiePolicyModal from './CookiePolicyModal';
 
-const Footer = ({ 
-  variant = 'standard', 
-  links = true,
-  children,
-  className = '',
-  ...props 
-}) => {
-  const renderLinks = () => {
-    if (!links) return null;
-    
-    return (
-      <div className="footer-links">
-        <Link to="/terms" className="footer-link">Terms of Service</Link>
-        <span className="footer-divider">•</span>
-        <Link to="/privacy" className="footer-link">Privacy Policy</Link>
-        {variant === 'landing' && (
-          <>
-            <span className="footer-divider">•</span>
-            <Link to="/about" className="footer-link">About</Link>
-          </>
-        )}
-      </div>
-    );
+const Footer = () => {
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showCookieModal, setShowCookieModal] = useState(false);
+
+  const openTermsModal = (e) => {
+    e.preventDefault();
+    setShowTermsModal(true);
   };
 
-  const renderCopyright = () => (
-    <div className="footer-copyright">
-      &copy; {new Date().getFullYear()} Tasklio. All rights reserved.
-    </div>
-  );
+  const openPrivacyModal = (e) => {
+    e.preventDefault();
+    setShowPrivacyModal(true);
+  };
 
-  const baseClass = `app-footer footer-${variant}`;
-  const footerClass = className ? `${baseClass} ${className}` : baseClass;
+  const openCookieModal = (e) => {
+    e.preventDefault();
+    setShowCookieModal(true);
+  };
 
   return (
-    <footer className={footerClass} {...props}>
-      {variant === 'modal' ? (
-        <div className="footer-content modal">
-          {children}
-        </div>
-      ) : variant === 'sidebar' ? (
-        <div className="footer-content sidebar">
-          {children || (
-            <div className="footer-info">
-              <p>Tasklio v1.0</p>
-              {renderLinks()}
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="footer-content">
-          {children}
-          {renderLinks()}
-          {renderCopyright()}
-        </div>
-      )}
+    <footer>
+      {/* ...existing code... */}
+      <div className="footer-links">
+        <a href="#" onClick={openTermsModal}>Terms of Service</a>
+        <a href="#" onClick={openPrivacyModal}>Privacy Policy</a>
+        <a href="#" onClick={openCookieModal}>Cookie Policy</a>
+      </div>
+      {/* ...existing code... */}
+
+      {/* Modals */}
+      <TermsOfServiceModal
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+      />
+      <PrivacyPolicyModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+      />
+      <CookiePolicyModal
+        isOpen={showCookieModal}
+        onClose={() => setShowCookieModal(false)}
+      />
     </footer>
   );
 };

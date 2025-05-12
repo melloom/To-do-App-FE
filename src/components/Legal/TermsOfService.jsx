@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Legal.css';
-import Footer from '../common/Footer';
 
 const TermsOfService = () => {
   const lastUpdated = "October 15, 2023";
@@ -93,13 +92,11 @@ const TermsOfService = () => {
           </div>
         </div>
 
-        <Footer variant="legal">
-          <div className="legal-links">
-            <Link to="/privacy" className="legal-link">Privacy Policy</Link>
-            <span className="legal-divider">•</span>
-            <Link to="/" className="legal-link">Return to Home</Link>
-          </div>
-        </Footer>
+        <div className="legal-footer">
+          <Link to="/privacy" className="legal-link">Privacy Policy</Link>
+          <span className="legal-divider">•</span>
+          <Link to="/" className="legal-link">Return to Home</Link>
+        </div>
       </div>
     </div>
   );
