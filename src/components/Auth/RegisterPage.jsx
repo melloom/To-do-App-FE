@@ -366,6 +366,35 @@ const RegisterPage = () => {
     }
   }, [currentStep, formData.firstName, formData.lastName, formData.username]);
 
+  // Add a new function to handle navigation away from the form
+  const handleNavigateAway = (e) => {
+    // Only show warning if user has entered data and is on step 2 or higher
+    if (currentStep >= 2 || 
+        (formData.firstName?.trim() || 
+        formData.lastName?.trim() || 
+        formData.email?.trim())) {
+      e.preventDefault();
+      setShowLeaveWarning(true);
+    }
+  };
+
+  // Add useEffect for handling browser back button
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (currentStep >= 2 || 
+          (formData.firstName?.trim() || 
+          formData.lastName?.trim() || 
+          formData.email?.trim())) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [currentStep, formData]);
+
   return (
     <div className="register-page">
       {showLeaveWarning && (
@@ -379,13 +408,16 @@ const RegisterPage = () => {
             <div className="warning-actions">
               <button
                 className="btn btn-secondary"
-                onClick={() => handleConfirmAction(false)}
+                onClick={() => setShowLeaveWarning(false)}
               >
                 Stay Here
               </button>
               <button
                 className="btn btn-danger"
-                onClick={() => handleConfirmAction(true)}
+                onClick={() => {
+                  setShowLeaveWarning(false);
+                  navigate('/');
+                }}
               >
                 Go Back Anyway
               </button>
@@ -397,13 +429,12 @@ const RegisterPage = () => {
       {/* Left side - Registration Form */}
       <div className="register-form-container">
         <div className="auth-header">
-          <Link to="/" className="back-to-home">
+          <Link to="/" className="back-to-home" onClick={handleNavigateAway}>
             <span className="back-icon">←</span>
             <span>Back to Home</span>
           </Link>
           <div className="brand-logo">
-            <img src="/favicon-32x32.png" alt="Tasklio Logo" className="logo-icon-img" />
-            <div className="logo-text">Tasklio</div>
+            {/* Remove logo image and text */}
           </div>
         </div>
 

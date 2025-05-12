@@ -119,8 +119,7 @@ const LoginPage = () => {
             <span>Back to Home</span>
           </Link>
           <div className="auth-logo">
-            <img src="/favicon-32x32.png" alt="Tasklio Logo" className="auth-logo-img" />
-            <h2>Tasklio</h2>
+            {/* Remove logo image and text */}
           </div>
         </div>
 

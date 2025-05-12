@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { updateUserProfile } from '../../firebase/auth';
 import { useUser } from '../../contexts/UserContext';
 import './styles/Register.css';
+import ProductivityInsights from './components/ProductivityInsights';
 
 const AccountSetupPage = () => {
   const { user, updateUserData } = useUser();
@@ -254,8 +255,7 @@ const AccountSetupPage = () => {
             <span>Back to Home</span>
           </Link>
           <div className="brand-logo">
-            <img src="/favicon-32x32.png" alt="Tasklio Logo" className="logo-icon-img" />
-            <div className="logo-text">Tasklio</div>
+            {/* Remove logo image and text */}
           </div>
         </div>
 
@@ -566,6 +566,9 @@ const AccountSetupPage = () => {
             <h2>Just a few more steps!</h2>
             <p>Complete your profile to get the most out of Tasklio.</p>
           </div>
+          
+          {/* Add the ProductivityInsights component */}
+          <ProductivityInsights />
         </div>
       </div>
     </div>
