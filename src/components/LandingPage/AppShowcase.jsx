@@ -78,7 +78,7 @@ const AppShowcase = () => {
 
         <div className="showcase-cta">
           <h3>Ready to simplify your task management?</h3>
-          <a href="/app" className="showcase-button">Get Started Now</a>
+          <a href="/register" className="showcase-button">Get Started Now</a>
         </div>
       </div>
     </section>

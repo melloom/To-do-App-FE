@@ -1,0 +1,678 @@
+/* Register Page Specific Styles */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem; /* Reduced from 2rem */
+  max-width: 480px;
+  min-height: auto;
+  max-height: 100vh; /* Allow full viewport height */
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(145deg, #ffffff, #f9fafc);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1.5rem; /* Reduced from 2rem */
+}
+
+/* Registration specific styles */
+.register-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem; /* Reduced from 2rem */
+}
+
+/* Reduced step indicator size */
+.step-indicator {
+  width: 30px; /* Reduced from 35px */
+  height: 30px; /* Reduced from 35px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  position: relative;
+  z-index: 1;
+}
+
+.step-indicator.active {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.step-divider {
+  height: 2px;
+  width: 70px; /* Reduced from 100px */
+  background-color: #e5e7eb;
+  margin: 0 8px; /* Reduced from 10px */
+}
+
+.step-content-container {
+  position: relative;
+  min-height: 300px; /* Reduced from 350px */
+  width: 100%;
+  overflow: visible;
+  margin-bottom: 0.75rem; /* Reduced from 1rem */
+}
+
+.step-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.step-content.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 5; /* Ensure active content is above other content */
+}
+
+/* Add auth header styles to match login page */
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.back-to-home {
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  background-color: rgba(249, 250, 251, 0.6);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #ebedf0;
+}
+
+.back-button:hover {
+  color: #4f46e5;
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.back-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.back-button:hover .back-icon {
+  transform: translateX(-3px);
+}
+
+/* Enhanced logo styling for register page to match login */
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0;
+  position: relative;
+  cursor: default;
+}
+
+  height: 32px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.auth-logo h2 {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #5b5ef4, #4338ca);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.avatar-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem; /* Reduced from 2rem */
+}
+
+.avatar {
+  width: 60px; /* Reduced from 80px */
+  height: 60px; /* Reduced from 80px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem; /* Reduced from 2rem */
+  font-weight: 500;
+  color: white;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem; /* Reduced from 1rem */
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
+  justify-items: center;
+}
+
+.color-option {
+  width: 32px; /* Reduced from 40px */
+  height: 32px; /* Reduced from 40px */
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.selected {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #4f46e5;
+}
+
+.color-check {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+
+.register-illustration {
+  position: relative;
+}
+
+.register-illustration .task-1 {
+  left: 10%;
+  top: 15%;
+}
+
+.welcome-message {
+  position: absolute;
+  top: 20%;
+  right: 15%;
+}
+
+.welcome-bubble {
+  background-color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.welcome-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+}
+
+.welcome-icon {
+  font-size: 1.5rem;
+}
+
+.welcome-text {
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fix for reset password form display */
+.reset-password-form {
+  position: relative;
+  z-index: 10;
+  margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%; /* Ensure it doesn't exceed container width */
+  background-color: #f9fafb;
+  padding: 1.5rem; /* Slightly reduced from 1.75rem */
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem; /* Reduced from 1.75rem */
+  border: 1px solid #f3f4f6;
+}
+
+.reset-password-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #5b5ef4, #4338ca);
+}
+
+.reset-password-form p {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* Enhanced welcome section to match login */
+.auth-content h1 {
+  font-size: 2.2rem; /* Reduced from 2.8rem */
+  font-weight: 800;
+  margin-bottom: 0.5rem; /* Reduced from 0.75rem */
+  background: linear-gradient(135deg, #1a1c25, #384152);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+.auth-subtitle {
+  color: #6b7280;
+  font-size: 1rem; /* Reduced from 1.15rem */
+  margin-bottom: 1.5rem; /* Reduced from 2.5rem */
+  position: relative;
+  padding-bottom: 0.75rem; /* Reduced from 1.25rem */
+  line-height: 1.4;
+}
+
+.auth-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #5b5ef4, transparent);
+  border-radius: 4px;
+}
+
+/* Enhanced form styling to match login */
+.form-group {
+  margin-bottom: 0.75rem; /* Reduced from 1.25rem */
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.form-group:focus-within label {
+  color: #5b5ef4;
+  transform: translateY(-2px);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #384152;
+  transition: all 0.3s ease;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Reduced from 1rem 1.2rem */
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 0.95rem; /* Reduced from 1rem */
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #5b5ef4;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(91, 94, 244, 0.15);
+  transform: translateY(-2px);
+}
+
+.auth-input::placeholder {
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+/* Enhanced buttons styling to match login */
+.auth-buttons {
+  display: flex;
+  gap: 0.75rem; /* Reduced from 1rem */
+  margin-bottom: 1rem; /* Reduced from 1.75rem */
+}
+
+.auth-button {
+  flex: 1;
+  padding: 0.75rem 1.25rem; /* Reduced from 1rem 1.5rem */
+  border-radius: 0.75rem;
+  font-size: 0.95rem; /* Reduced from 1rem */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #5b5ef4, #4338ca);
+  color: white;
+}
+
+.primary-button:hover {
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.5);
+  transform: translateY(-3px);
+}
+
+.primary-button:active {
+  transform: translateY(-1px);
+}
+
+.primary-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+  z-index: -1;
+}
+
+.primary-button:hover::after {
+  animation: ripple 1.2s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(30, 30);
+    opacity: 0;
+  }
+}
+
+.secondary-button {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.secondary-button:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+  transform: translateY(-3px);
+}
+
+/* Google button styling to match login */
+.google-auth-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.google-auth-button:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.google-auth-button:active {
+  transform: translateY(-1px);
+}
+
+/* Enhanced divider styling */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.25rem 0; /* Reduced from 2rem 0 */
+  position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e7eb 15%, #e5e7eb 85%, transparent);
+}
+
+.auth-divider span {
+  padding: 0 1.2rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: #f9fafb;
+  position: relative;
+  z-index: 1;
+  border-radius: 50px;
+}
+
+/* Name fields layout - adjusted to match login */
+.name-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.form-group.half {
+  flex: 1;
+  margin-bottom: 1.75rem;
+}
+
+/* Checkbox styling to match login */
+.checkbox-label, .radio-label {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem; /* Reduced from 0.75rem 1rem */
+  border-radius: 0.75rem;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f9fafb;
+  margin-bottom: 0.5rem;
+}
+
+.checkbox-label:hover, .radio-label:hover {
+  background-color: #f5f7ff;
+  border-color: #d1d5db;
+}
+
+.checkbox-label.selected, .radio-label.selected {
+  border-color: #5b5ef4;
+  background-color: rgba(91, 94, 244, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .step-divider {
+    width: 40px;
+  }
+
+  .color-grid {
+    gap: 0.5rem;
+  }
+
+  .step-content-container {
+    min-height: 330px; /* Further reduced for mobile */
+  }
+
+  .register-container {
+    min-height: auto;
+    max-height: 100vh; /* Allow full viewport height */
+    padding-top: 1.5rem;
+    max-width: 100%; /* Ensure full width on mobile */
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding-bottom: 1.5rem; /* Reduced padding */
+  }
+
+  .auth-footer {
+    position: sticky; /* Make footer sticky on mobile */
+    bottom: 0;
+    background: linear-gradient(145deg, #ffffff, #f9fafc); /* Match container background */
+    padding-bottom: 0.5rem;
+  }
+
+  .auth-content h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* New responsive styles for larger screens */
+@media (min-width: 1025px) {
+  .register-container {
+    flex: 1;
+    max-width: 500px;
+    padding: 2.5rem;
+    min-height: auto;
+    max-height: 85vh; /* Changed from 100vh to 85vh */
+    overflow-y: auto; /* Allow vertical scrolling only */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
+  }
+}
+
+/* Add a specific style for the auth footer to prevent overlap */
+.auth-footer {
+  margin-top: 0.5rem; /* Reduced from 1rem */
+  padding-top: 0.75rem; /* Reduced from 1rem */
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  color: #6b7280;
+  position: relative; /* Ensures it's properly positioned */
+  width: 100%;
+  clear: both; /* Ensures it clears any floated elements */
+  z-index: 20; /* Ensure footer is above other content */
+}
+
+/* Increase space above the "Already have an account" footer */
+.auth-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 0.5rem; /* Reduced from 1rem */
+  position: relative; /* Added to establish positioning context */
+}
+
+/* New styles to fix scrolling and overflow issues */
+.auth-content {
+  position: relative;
+  overflow: visible;
+}
+
+/* Compact login redirect section */
+.login-redirect {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.login-redirect p {
+  margin: 0;
+  color: #6b7280;
+}
+
+/* Reduce vertical space for step title and description */
+.step-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: #6b7280;
+}
+
+/* Compact password strength indicator */
+.password-requirements {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.requirement {
+  margin-bottom: 0.25rem;
+}
+
+/* More compact password field */
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 1rem;
+}

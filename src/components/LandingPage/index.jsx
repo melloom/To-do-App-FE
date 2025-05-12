@@ -11,7 +11,8 @@ import Pricing from './Pricing';
 import FAQ from './FAQ';
 import CTA from './CTA';
 import Footer from './Footer';
-import BackToTop from './BackToTop'; // Add the BackToTop import
+import BackToTop from './BackToTop';
+import { scrollToElementCentered } from '../../utils/scrollUtils';
 
 const LandingPage = () => {
   // Handle hash navigation when the page loads
@@ -27,12 +28,8 @@ const LandingPage = () => {
 
       // Only scroll to the element if it's not a page refresh
       if (!isPageRefresh) {
-        setTimeout(() => {
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100); // Small delay to ensure the page is fully loaded
+        // Use our improved scroll utility with a slightly longer delay to ensure DOM is ready
+        scrollToElementCentered(id, { offset: 80, delay: 100 });
       } else {
         // If it's a page refresh, clear the hash to prevent automatic scrolling
         window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
@@ -41,7 +38,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="landing-container">
+    <div className="landing-page">
       <Header />
       <main className="landing-main">
         <Hero />

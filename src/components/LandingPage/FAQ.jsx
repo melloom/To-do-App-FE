@@ -8,7 +8,7 @@ const faqList = [
   },
   {
     question: "Do I need to create an account?",
-    answer: "No account or login is required. Just download and start using Tasklio immediately."
+    answer: "Creating an account allows you to access your tasks from any device. We offer a quick signup process, or you can use your Google account to get started immediately."
   },
   {
     question: "How does Tasklio protect my privacy?",

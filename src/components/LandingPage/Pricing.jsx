@@ -66,7 +66,7 @@ const Pricing = () => {
                 </div>
               </div>
               <div className="pricing-cta">
-                <Link to="/app" className="cta-button">Get Started Free</Link>
+                <Link to="/register" className="cta-button">Get Started Free</Link>
               </div>
             </div>
 

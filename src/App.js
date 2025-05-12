@@ -6,7 +6,9 @@ import TodoList from './components/application/components/TodoList';
 import TodoModal from './components/application/components/TodoModal';
 import UserRegistration from './components/application/components/UserRegistration';
 import LandingPage from './components/LandingPage';
-import AboutPage from './components/AboutPage';
+import LoginPage from './components/Auth/LoginPage';
+import RegisterPage from './components/Auth/RegisterPage';
+import AboutPage from './components/AboutPage/index.jsx'; // Update this import to be consistent
 import { UserProvider, useUser } from './contexts/UserContext';
 
 const AppContent = () => {
@@ -216,6 +218,8 @@ const AppContent = () => {
         <Routes>
           <Route path="/app" element={<AppLayout />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route
             path="*"
             element={

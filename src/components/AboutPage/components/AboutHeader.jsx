@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { scrollToElementCentered } from '../../../utils/scrollUtils';
 import '../styles/AboutHeader.css';
 
 const AboutHeader = ({ activeTab, setActiveTab }) => {
@@ -29,14 +30,11 @@ const AboutHeader = ({ activeTab, setActiveTab }) => {
   ]);
   const [showForm, setShowForm] = useState(false);
   const [newTask, setNewTask] = useState('');
+
+  // Update to handle tab changes with centered scrolling
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-
-    // Smooth scroll to content
-    document.querySelector('.about-content').scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    scrollToElementCentered(tab, { offset: 60 });
   };
 
   const handleOpenDemo = () => {
@@ -121,6 +119,14 @@ const AboutHeader = ({ activeTab, setActiveTab }) => {
         >
           <span className="tab-icon">🗺️</span>
           <span className="tab-text">Roadmap</span>
+        </button>
+
+        <button
+          className={`tab-button ${activeTab === 'codebase' ? 'active' : ''}`}
+          onClick={() => handleTabClick('codebase')}
+        >
+          <span className="tab-icon">📊</span>
+          <span className="tab-text">Codebase</span>
         </button>
 
         <button

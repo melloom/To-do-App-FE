@@ -41,22 +41,11 @@
 
 /* Header Styling */
 .pricing-header {
-  text-align: center;
-  margin-bottom: var(--space-xl);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  composes: section-header from './Layout.css';
 }
 
 .pricing-badge {
-  display: inline-block;
-  background-color: rgba(79, 70, 229, 0.1);
-  color: var(--primary-color);
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: var(--space-xs) var(--space-md);
-  border-radius: 30px;
-  margin-bottom: var(--space-md);
+  composes: section-badge from './Layout.css';
 }
 
 .pricing-header h2 {

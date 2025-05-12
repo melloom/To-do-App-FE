@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { scrollToElementCentered } from '../../utils/scrollUtils';
 import './styles/Hero.css';
 
 const Hero = () => {
-  const scrollToFeatures = (e) => {
+  const navigate = useNavigate();
+
+  const navigateToAboutCodebase = (e) => {
     e.preventDefault();
-    const featuresSection = document.getElementById('features');
-    if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Navigate to the About page with the codebase hash
+    // This will navigate directly to the codebase section
+    navigate('/about#codebase');
   };
 
   return (
@@ -28,10 +30,10 @@ const Hero = () => {
         </p>
 
         <div className="hero-cta-group">
-          <Link to="/app" className="cta-button">
+          <Link to="/register" className="cta-button">
             Get Started <span className="cta-arrow">→</span>
           </Link>
-          <button onClick={scrollToFeatures} className="cta-button secondary" style={{ color: 'white' }}>
+          <button onClick={navigateToAboutCodebase} className="cta-button secondary" style={{ color: 'white' }}>
             Learn More
           </button>
         </div>

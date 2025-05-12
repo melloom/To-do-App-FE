@@ -200,15 +200,18 @@
   position: relative;
 }
 
-.timeline::before {
-  content: '';
+.timeline-line {
   position: absolute;
   top: 40px;
   left: 20px;
   right: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
   z-index: 0;
+}
+
+.timeline::before {
+  display: none; /* Remove the previous timeline indicator */
 }
 
 .timeline-item {

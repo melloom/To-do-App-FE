@@ -30,7 +30,7 @@ const CTA = () => {
           </div>
 
           <div className="cta-actions">
-            <Link to="/app" className="cta-button primary pulse-animation">
+            <Link to="/register" className="cta-button primary pulse-animation">
               Get Started Free <span className="arrow-icon">→</span>
             </Link>
           </div>

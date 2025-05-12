@@ -11,11 +11,13 @@
 }
 
 .faq-header {
+  composes: section-header from './Layout.css';
   text-align: center;
   margin-bottom: var(--space-xl);
 }
 
 .faq-badge {
+  composes: section-badge from './Layout.css';
   display: inline-block;
   background-color: rgba(99, 102, 241, 0.1);
   color: var(--primary-color);
@@ -259,17 +261,17 @@
   .faq-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .faq-help {
     padding: var(--space-lg);
   }
-  
+
   .faq-help-content {
     flex-direction: column;
     text-align: center;
     gap: var(--space-md);
   }
-  
+
   .faq-help-options {
     width: 100%;
     justify-content: center;

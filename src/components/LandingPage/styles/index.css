@@ -1,6 +1,6 @@
 /* Main styles index that imports all component styles */
 @import './Layout.css';
-@import './Header.css';
+@import './Header.css'; /* Verify this imports the correct file */
 @import './Hero.css';
 @import './BrandLogos.css';
 @import './Features.css';
