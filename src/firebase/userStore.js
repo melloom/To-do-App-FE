@@ -2,15 +2,15 @@
  * Module for handling user data storage
  * This module provides functions for handling user data persistence in Firestore
  */
-import { 
-  doc, 
-  setDoc, 
+import {
+  doc,
+  setDoc,
   collection,
   query,
   getDocs,
-  getDoc, 
+  getDoc,
   updateDoc,
-  serverTimestamp 
+  serverTimestamp
 } from 'firebase/firestore';
 import { firestore } from './firebase';
 
@@ -22,8 +22,8 @@ export const storeUserData = async (userData) => {
     // Ensure user data has required fields
     const userWithTimestamp = {
       ...userData,
-      username: userData.username || 
-                userData.name?.toLowerCase().replace(/\s+/g, '_') || 
+      username: userData.username ||
+                userData.name?.toLowerCase().replace(/\s+/g, '_') ||
                 userData.email.split('@')[0],
       createdAt: userData.createdAt || new Date().toISOString(),
       updatedAt: serverTimestamp()
@@ -67,7 +67,7 @@ export const getAllUsers = async () => {
   try {
     const usersQuery = query(collection(firestore, 'users'));
     const querySnapshot = await getDocs(usersQuery);
-    
+
     return querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
@@ -84,19 +84,19 @@ export const getAllUsers = async () => {
 export const updateUserData = async (userId, newData) => {
   try {
     const userRef = doc(firestore, 'users', userId);
-    
+
     // Check if user exists
     const userDoc = await getDoc(userRef);
     if (!userDoc.exists()) {
       throw new Error('User not found');
     }
-    
+
     // Update user data
     await updateDoc(userRef, {
       ...newData,
       updatedAt: serverTimestamp()
     });
-    
+
     // Get updated user data
     const updatedDoc = await getDoc(userRef);
     return { id: updatedDoc.id, ...updatedDoc.data() };

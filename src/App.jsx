@@ -10,6 +10,8 @@ import TaskApp from './components/TaskApp';
 import AboutPage from './components/AboutPage/index.jsx';
 import LoginPage from './components/Auth/LoginPage';
 import RegisterPage from './components/Auth/RegisterPage';
+import TermsOfService from './components/Legal/TermsOfService';
+import PrivacyPolicy from './components/Legal/PrivacyPolicy';
 import { UserProvider } from './contexts/UserContext';
 import './App.css';
 import { debugLog, inspectElements } from './utils/debug';
@@ -46,6 +48,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </Router>
     </UserProvider>

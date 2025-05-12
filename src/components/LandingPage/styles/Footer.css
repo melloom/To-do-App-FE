@@ -279,7 +279,29 @@
   50% { transform: scale(1.2); }
 }
 
-/* Responsive styling */
+/* Add these styles to the existing Footer.css file */
+
+.legal-footer-link {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  color: #5b5ef4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.legal-footer-link:hover {
+  color: #4b4ccb;
+  text-decoration: underline;
+  transform: translateY(-2px);
+}
+
+.legal-icon {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
 @media (max-width: 1280px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -314,6 +336,15 @@
 
   .footer-legal-links {
     justify-content: center;
+  }
+
+  .footer-legal-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .legal-footer-link {
+    margin: 5px 0;
   }
 }
 

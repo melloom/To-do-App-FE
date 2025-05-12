@@ -14,6 +14,7 @@ import {
   setDoc
 } from 'firebase/firestore';
 import { firestore } from './firebase';
+import { handlePermissionError, logAuthDebugInfo } from './securityHelper';
 
 // ===== User operations =====
 
@@ -29,7 +30,9 @@ export const getUserData = async (userId) => {
       return null;
     }
   } catch (error) {
-    throw error;
+    console.error("Error getting user data:", error);
+    const handledError = handlePermissionError(error, 'fetching user data');
+    throw handledError;
   }
 };
 
@@ -43,7 +46,9 @@ export const storeUserData = async (userData) => {
     });
     return { id: userData.uid, ...userData };
   } catch (error) {
-    throw error;
+    console.error("Error storing user data:", error);
+    const handledError = handlePermissionError(error, 'storing user data');
+    throw handledError;
   }
 };
 
@@ -55,12 +60,14 @@ export const updateUserData = async (userId, data) => {
       ...data,
       updatedAt: serverTimestamp()
     });
-    
+
     // Get updated user data
     const updatedDoc = await getDoc(userRef);
     return { id: updatedDoc.id, ...updatedDoc.data() };
   } catch (error) {
-    throw error;
+    console.error("Error updating user data:", error);
+    const handledError = handlePermissionError(error, 'updating user data');
+    throw handledError;
   }
 };
 
@@ -82,22 +89,44 @@ export const getUserTasks = async (userId) => {
       ...doc.data()
     }));
   } catch (error) {
-    throw error;
+    console.error("Error getting tasks:", error);
+    const handledError = handlePermissionError(error, 'fetching tasks');
+    throw handledError;
   }
 };
 
-// Add a task
+// Add a task (enhanced to match example)
 export const addTask = async (taskData) => {
   try {
-    const taskRef = await addDoc(collection(firestore, 'tasks'), {
-      ...taskData,
+    // Check if taskData is provided as a structured object
+    // or if we need to construct it from individual parameters
+    const formattedTaskData = typeof taskData === 'object' ?
+      { ...taskData } :
+      { title: taskData };
+
+    // Ensure required fields are present
+    const finalTaskData = {
+      title: formattedTaskData.title || "New Task",
+      description: formattedTaskData.description || "",
+      userId: formattedTaskData.userId,
+      completed: formattedTaskData.completed !== undefined ? formattedTaskData.completed : false,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp()
-    });
+    };
 
-    return { id: taskRef.id, ...taskData };
+    // Add document to Firestore
+    const taskRef = await addDoc(collection(firestore, 'tasks'), finalTaskData);
+
+    // Return the created task with its ID
+    return {
+      id: taskRef.id,
+      ...finalTaskData,
+      createdAt: new Date().toISOString() // Convert for immediate use in UI
+    };
   } catch (error) {
-    throw error;
+    console.error("Error adding task:", error);
+    const handledError = handlePermissionError(error, 'creating task');
+    throw handledError;
   }
 };
 

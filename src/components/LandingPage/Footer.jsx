@@ -91,9 +91,18 @@ const Footer = () => {
             </div>
 
             <div className="footer-legal-links">
-              <a href="#terms">Terms of Service</a>
-              <a href="#privacy">Privacy Policy</a>
-              <a href="#cookies">Cookie Policy</a>
+              <Link to="/terms" className="legal-footer-link" title="Read our Terms of Service">
+                <span className="legal-icon">📜</span>
+                Terms of Service
+              </Link>
+              <Link to="/privacy" className="legal-footer-link" title="View our Privacy Policy">
+                <span className="legal-icon">🔒</span>
+                Privacy Policy
+              </Link>
+              <Link to="/cookies" className="legal-footer-link" title="Learn about our Cookie Policy">
+                <span className="legal-icon">🍪</span>
+                Cookie Policy
+              </Link>
             </div>
 
             <div className="footer-app-badge">

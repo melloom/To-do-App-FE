@@ -1,127 +1,122 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '../../../contexts/UserContext';
+import TermsOfServiceModal from '../../common/TermsOfServiceModal';
+import { collection, addDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import './styles/UserRegistration.css';
 
 const UserRegistration = () => {
-  const { registerUser, setShowRegistration } = useUser();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    color: '#5b5ef4'
-  });
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser } = useUser();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [formIsDirty, setFormIsDirty] = useState(false);
 
-  const colors = [
-    '#5b5ef4', '#38bdf8', '#f59e0b',
-    '#10b981', '#ef4444', '#8b5cf6',
-    '#ec4899', '#6b7280'
-  ];
+  const db = getFirestore();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-
-    // Clear error when field is edited
-    if (formErrors[name]) {
-      setFormErrors({
-        ...formErrors,
-        [name]: ''
-      });
+  useEffect(() => {
+    if (name.trim() || email.trim()) {
+      setFormIsDirty(true);
     }
+  }, [name, email]);
+
+  useEffect(() => {
+    if (formIsDirty) {
+      const handleBeforeUnload = (e) => {
+        const confirmationMessage = 'You have unsaved registration information. Are you sure you want to leave?';
+        e.preventDefault();
+        e.returnValue = confirmationMessage;
+        return confirmationMessage;
+      };
+
+      window.addEventListener('beforeunload', handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }
+  }, [formIsDirty]);
+
+  const handleChange = (e, setter) => {
+    setter(e.target.value);
+    setFormIsDirty(true);
   };
 
-  const handleColorSelect = (color) => {
-    setFormData({
-      ...formData,
-      color
-    });
-  };
-
-  const validateForm = () => {
-    const errors = {};
-
-    if (!formData.name.trim()) {
-      errors.name = 'Name is required';
-    }
-
-    if (!formData.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Email is invalid';
-    }
-
-    return errors;
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const errors = validateForm();
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
+    if (!acceptedTerms) {
+      setError('You must accept the Terms of Service to continue');
       return;
     }
 
-    setIsSubmitting(true);
+    if (!name.trim() || !email.trim()) {
+      setError('Name and email are required');
+      return;
+    }
 
-    // Simulate API delay
-    setTimeout(() => {
-      registerUser(formData);
-      setIsSubmitting(false);
-      // Registration success is handled in UserContext
-    }, 1000);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Create user in Firebase
+      const userDocRef = await addDoc(collection(db, "users"), {
+        name,
+        email,
+        acceptedTerms,
+        createdAt: new Date().toISOString()
+      });
+
+      // Save user locally
+      const userData = {
+        id: userDocRef.id,
+        name,
+        email,
+        acceptedTerms,
+        createdAt: new Date().toISOString()
+      };
+
+      // Store in local storage for persistence
+      localStorage.setItem('tasklio_user', JSON.stringify(userData));
+
+      // Update user context
+      setUser(userData);
+
+    } catch (error) {
+      console.error("Error adding user to Firebase:", error);
+      setError('Failed to create user. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleBack = () => {
-    setShowRegistration(false);
+  const openTermsModal = (e) => {
+    e.preventDefault();
+    setShowTermsModal(true);
   };
-
-  const userInitial = formData.name ? formData.name[0].toUpperCase() : '?';
 
   return (
-    <div className="registration-overlay">
-      <div className="registration-header">
-        <div className="reg-logo-container">
-          <div className="reg-logo-bubble">T</div>
-          <h1>Tasklio</h1>
-        </div>
-        <div className="reg-header-actions">
-          <button className="back-to-home-btn" onClick={handleBack}>
-            Back to Home
-          </button>
-        </div>
-      </div>
-
+    <div className="user-registration">
       <div className="registration-container">
-        <h2>Create Your Profile</h2>
-        <p>Set up your personalized Tasklio experience</p>
+        <h2>Welcome to Tasklio</h2>
+        <p className="welcome-text">Let's set up your account before you start managing your tasks</p>
+
+        {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="avatar-preview">
-            <div
-              className="avatar"
-              style={{ backgroundColor: formData.color }}
-            >
-              {userInitial}
-            </div>
-          </div>
-
           <div className="form-group">
             <label htmlFor="name">Your Name</label>
             <input
               type="text"
               id="name"
-              name="name"
-              className="registration-input"
+              value={name}
+              onChange={(e) => handleChange(e, setName)}
               placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
+              required
             />
-            {formErrors.name && <div className="registration-error">{formErrors.name}</div>}
           </div>
 
           <div className="form-group">
@@ -129,40 +124,39 @@ const UserRegistration = () => {
             <input
               type="email"
               id="email"
-              name="email"
-              className="registration-input"
+              value={email}
+              onChange={(e) => handleChange(e, setEmail)}
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
+              required
             />
-            {formErrors.email && <div className="registration-error">{formErrors.email}</div>}
           </div>
 
-          <div className="form-group">
-            <label>Choose Your Color</label>
-            <div className="color-grid">
-              {colors.map((color) => (
-                <div
-                  key={color}
-                  className={`color-option ${formData.color === color ? 'selected' : ''}`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => handleColorSelect(color)}
-                >
-                  {formData.color === color && <span className="color-check">✓</span>}
-                </div>
-              ))}
-            </div>
+          <div className="form-group terms-checkbox">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+            />
+            <label htmlFor="terms">
+              I accept the <a href="#" onClick={openTermsModal}>Terms of Service</a>
+            </label>
           </div>
 
           <button
             type="submit"
-            className={`registration-button ${isSubmitting ? 'submitting' : ''}`}
-            disabled={isSubmitting}
+            className="register-button"
+            disabled={isLoading}
           >
-            {isSubmitting ? 'Creating Account...' : 'Create Account'}
+            {isLoading ? 'Creating Account...' : 'Get Started'}
           </button>
         </form>
       </div>
+
+      <TermsOfServiceModal
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+      />
     </div>
   );
 };

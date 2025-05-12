@@ -6,6 +6,7 @@ import Sidebar from './application/components/Sidebar';
 import TodoList from './application/components/TodoList';
 import TodoModal from './application/components/TodoModal';
 import UserRegistration from './application/components/UserRegistration';
+import ConfirmationModal from './common/ConfirmationModal';
 import './application/styles/index.css';
 
 const TaskApp = () => {
@@ -21,6 +22,8 @@ const TaskApp = () => {
   const [stepByStepMode, setStepByStepMode] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [activePage, setActivePage] = useState('home');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
   const totalSteps = 5;
 
   // Save todos to localStorage
@@ -46,7 +49,11 @@ const TaskApp = () => {
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    // Instead of deleting directly, open confirmation dialog
+    setPendingAction(() => () => {
+      setTodos(todos.filter(todo => todo.id !== id));
+    });
+    setShowConfirmation(true);
   };
 
   const editTodo = (id) => {
@@ -56,7 +63,7 @@ const TaskApp = () => {
   };
 
   const updateTodo = (updatedTodo) => {
-    setTodos(todos.map(todo => 
+    setTodos(todos.map(todo =>
       todo.id === updatedTodo.id ? { ...todo, ...updatedTodo } : todo
     ));
   };
@@ -68,12 +75,28 @@ const TaskApp = () => {
   };
 
   const clearCompletedTodos = () => {
-    setTodos(todos.filter(todo => !todo.completed));
+    // Show confirmation before clearing completed tasks
+    setPendingAction(() => () => {
+      setTodos(todos.filter(todo => !todo.completed));
+    });
+    setShowConfirmation(true);
   };
 
   const openNewTaskModal = () => {
     setEditingTodo(null);
     setIsModalOpen(true);
+  };
+
+  const closeModalWithConfirmation = () => {
+    // If we're in the middle of filling out a form, show confirmation first
+    if (currentStep > 1) {
+      setPendingAction(() => () => {
+        setIsModalOpen(false);
+      });
+      setShowConfirmation(true);
+    } else {
+      setIsModalOpen(false);
+    }
   };
 
   const nextStep = () => {
@@ -86,6 +109,15 @@ const TaskApp = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
+  };
+
+  const handleConfirmAction = () => {
+    // Execute the pending action if it exists
+    if (pendingAction) {
+      pendingAction();
+      setPendingAction(null);
+    }
+    setShowConfirmation(false);
   };
 
   // If user registration is showing, render it
@@ -138,7 +170,7 @@ const TaskApp = () => {
 
         <TodoModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onClose={closeModalWithConfirmation}
           addTodo={editingTodo ? updateTodo : addTodo}
           editingTodo={editingTodo}
           currentStep={currentStep}
@@ -146,6 +178,24 @@ const TaskApp = () => {
           nextStep={nextStep}
           prevStep={prevStep}
           stepByStepMode={stepByStepMode}
+        />
+
+        {/* Confirmation Modal */}
+        <ConfirmationModal
+          isOpen={showConfirmation}
+          onClose={() => setShowConfirmation(false)}
+          onConfirm={handleConfirmAction}
+          title="Are you sure?"
+          message={
+            <>
+              <p>This action cannot be undone.</p>
+              <p>Are you sure you want to continue?</p>
+            </>
+          }
+          confirmText="Yes, Continue"
+          cancelText="No, Cancel"
+          confirmButtonClass="confirm-danger"
+          icon={<span role="img" aria-label="warning">⚠️</span>}
         />
       </div>
     </div>
@@ -161,7 +211,7 @@ const getStepGuide = (step) => {
     "Add any notes or subtasks",
     "Review and create your task"
   ];
-  
+
   return guides[step - 1] || "";
 };
 

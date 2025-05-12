@@ -6,6 +6,7 @@ import {
   signInWithEmail as firebaseLoginUser
 } from '../firebase/auth';
 import { getUserData } from '../firebase/firestore';
+import { logAuthDebugInfo } from '../firebase/securityHelper';
 
 const UserContext = createContext();
 
@@ -13,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
+  const [googleRegistrationData, setGoogleRegistrationData] = useState(null); // Add state for Google registration
 
   // Check for logged in user on initial load and set up auth listener
   useEffect(() => {
@@ -20,6 +22,9 @@ export const UserProvider = ({ children }) => {
       if (firebaseUser) {
         // Get additional user data from Firestore
         try {
+          // Add debug logging
+          logAuthDebugInfo();
+
           const userData = await getUserData(firebaseUser.uid);
           setUser(userData);
         } catch (error) {
@@ -94,6 +99,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Add new helper function to update user profile after Google registration
+  const updateGoogleUserProfile = async (userData) => {
+    try {
+      const updatedUser = await updateUserData(userData.uid, userData);
+      setUser(updatedUser);
+      setGoogleRegistrationData(null); // Clear Google registration data
+      return updatedUser;
+    } catch (error) {
+      console.error("Error updating Google user profile:", error);
+      throw error;
+    }
+  };
+
   return (
     <UserContext.Provider value={{
       user,
@@ -103,7 +121,10 @@ export const UserProvider = ({ children }) => {
       setShowRegistration,
       registerUser,
       loginUser,
-      logoutUser
+      logoutUser,
+      googleRegistrationData,
+      setGoogleRegistrationData,
+      updateGoogleUserProfile
     }}>
       {children}
     </UserContext.Provider>
