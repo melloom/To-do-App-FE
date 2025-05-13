@@ -72,8 +72,22 @@ export const debugEvent = (component, eventName, event) => {
  */
 export const debugAuth = (stage, data = {}) => {
   if (process.env.NODE_ENV !== 'production') {
+    // Filter sensitive data
+    const filteredData = {...data};
+    if (filteredData.password) filteredData.password = '***FILTERED***';
+    if (filteredData.token) filteredData.token = '***FILTERED***';
+
     console.group(`Auth Flow: ${stage}`);
-    console.log(data);
+    console.log(filteredData);
+
+    // Add additional auth debug info for specific stages
+    if (stage === 'Email Verification Error') {
+      console.warn('Common causes for email verification failures:');
+      console.warn('1. Supabase auth methods not properly imported');
+      console.warn('2. Network connectivity issues');
+      console.warn('3. Supabase project configuration problems');
+    }
+
     console.groupEnd();
   }
 };

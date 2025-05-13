@@ -9,7 +9,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "postinstall": "npm install --no-save react-router-dom@6.11.2"
+    "postinstall": "npm install --no-save react-router-dom@6.11.2",
+    "test:supabase": "node test-supabase.js"
   },
   "keywords": [
     "todo",
@@ -19,7 +20,7 @@
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
-    "firebase": "^11.7.1",
+    "@supabase/supabase-js": "^2.49.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",

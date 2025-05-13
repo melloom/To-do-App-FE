@@ -94,7 +94,10 @@ const TaskApp = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < totalSteps) {
+    // You could add validation here if needed
+    const isValid = true; // Replace with actual validation if needed
+
+    if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
   };

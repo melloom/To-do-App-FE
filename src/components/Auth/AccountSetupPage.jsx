@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { updateUserProfile } from '../../firebase/auth';
+import { updateUserProfile } from '../../supabase/auth';
 import { useUser } from '../../contexts/UserContext';
 import './styles/Register.css';
 import ProductivityInsights from './components/ProductivityInsights';
@@ -146,26 +146,40 @@ const AccountSetupPage = () => {
   };
 
   // Handle next step button
-  const handleNextStep = (e) => {
+  const handleNextStep = async (e) => {
     e.preventDefault();
 
     let errors = {};
+    setIsSubmitting(true);
 
-    // Validate current step before proceeding
-    if (currentStep === 1) {
-      errors = validateStep1();
-    } else if (currentStep === 2) {
-      errors = validateStep2();
-    }
+    try {
+      // Validate current step before proceeding
+      if (currentStep === 1) {
+        errors = validateStep1();
+      } else if (currentStep === 2) {
+        errors = validateStep2();
+      }
 
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
+      // Check if there are validation errors
+      if (Object.keys(errors).length > 0) {
+        setFormErrors(errors);
+        shakeForm();
+        setIsSubmitting(false);
+        return; // Stop here and don't proceed to next step
+      }
+
+      // If we reach this point, validation has passed
+      setCurrentStep(prev => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error("Validation error:", error);
+      setFormErrors({
+        auth: 'An unexpected error occurred. Please try again.'
+      });
       shakeForm();
-      return;
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setCurrentStep(prev => prev + 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Handle previous step button
@@ -212,7 +226,7 @@ const AccountSetupPage = () => {
         needsProfileCompletion: false
       };
 
-      // Update user profile in Firebase
+      // Update user profile in Supabase
       await updateUserProfile(userData);
 
       // Update user data in context

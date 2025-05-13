@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmail, resetPassword } from '../../firebase/auth';
+import { signInWithEmail, resetPassword } from '../../supabase/auth';
 import { useUser } from '../../contexts/UserContext';
-import { getFirebaseAuthDomainInstructions } from '../../firebase/configHelper';
 import './styles/AuthPages.css';
 
 const LoginPage = () => {

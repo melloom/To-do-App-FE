@@ -1,13 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import {
-  observeAuthState,
-  signOut,
-  registerWithEmail as firebaseRegisterUser,
-  signInWithEmail as firebaseLoginUser,
-  updateUserProfile
-} from '../firebase/auth';
-import { getUserData, updateUserData, createUserProfile } from '../firebase/firestore';
-import { logAuthDebugInfo } from '../firebase/securityHelper';
+import { supabase } from '../supabase/supabase';
+import { getUserData, updateUserData, createUserProfile } from '../supabase/database';
 import { debugLog } from '../utils/debug';
 
 const UserContext = createContext();
@@ -23,78 +16,225 @@ export const UserProvider = ({ children }) => {
 
   // Initialize auth state listener
   useEffect(() => {
-    const unsubscribe = observeAuthState(async (authUser, userData) => {
-      setLoading(true);
+    // Check for user in localStorage first for faster loading
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
       try {
-        if (authUser) {
-          // User is signed in
-          setUser(userData || {
-            id: authUser.uid,
-            email: authUser.email,
-            displayName: authUser.displayName || ''
-          });
-
-          // Check if profile needs completion
-          setNeedsProfileCompletion(userData ? !userData.profileComplete : true);
-
-          // No need to show registration if user exists
-          setShowRegistration(false);
-        } else {
-          // User is signed out
-          setUser(null);
-          setNeedsProfileCompletion(false);
-        }
-      } catch (err) {
-        console.error('Error in auth state observer:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        const userData = JSON.parse(savedUser);
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to parse saved user data:', error);
+        localStorage.removeItem('user');
       }
-    });
+    }
 
-    return () => unsubscribe();
+    // Check for pending verification
+    const pendingVerification = localStorage.getItem('pendingVerification');
+    if (pendingVerification) {
+      try {
+        const verificationData = JSON.parse(pendingVerification);
+        // Only set if it's recent (within the last 24 hours)
+        const timestamp = new Date(verificationData.timestamp);
+        const now = new Date();
+        const hoursDiff = (now - timestamp) / (1000 * 60 * 60);
+
+        if (hoursDiff < 24) {
+          setUser({
+            ...verificationData,
+            isUnverified: true,
+            needsEmailVerification: true
+          });
+        } else {
+          // Expired verification status
+          localStorage.removeItem('pendingVerification');
+        }
+      } catch (error) {
+        console.error('Failed to parse pending verification data:', error);
+        localStorage.removeItem('pendingVerification');
+      }
+    }
+
+    // Set up Supabase auth subscription
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setLoading(true);
+
+        console.log('Auth state change event:', event, session?.user?.id || 'No user');
+
+        try {
+          if (session) {
+            // User is signed in
+            const { user: authUser } = session;
+
+            // Clear any pending verification when we have a valid session
+            localStorage.removeItem('pendingVerification');
+
+            // Get full user profile from database
+            try {
+              const userData = await getUserData(authUser.id);
+
+              if (userData) {
+                // Check if profile is complete
+                const needsSetup = !userData.registration_complete;
+                setNeedsProfileCompletion(needsSetup);
+
+                // Set user data in state
+                setUser({
+                  id: authUser.id,
+                  email: authUser.email,
+                  ...userData
+                });
+
+                // Save to localStorage for persistence
+                localStorage.setItem('user', JSON.stringify({
+                  id: authUser.id,
+                  email: authUser.email,
+                  ...userData
+                }));
+              } else {
+                // User exists in auth but not in database
+                setUser({
+                  id: authUser.id,
+                  email: authUser.email,
+                  needsProfileSetup: true
+                });
+                setNeedsProfileCompletion(true);
+              }
+            } catch (dbError) {
+              console.error('Error fetching user data:', dbError);
+
+              // Fall back to auth user data only
+              setUser({
+                id: authUser.id,
+                email: authUser.email,
+                needsProfileSetup: true,
+                fetchError: dbError.message
+              });
+              setNeedsProfileCompletion(true);
+            }
+          } else {
+            // User is signed out
+            setUser(null);
+            localStorage.removeItem('user');
+            setNeedsProfileCompletion(false);
+          }
+        } catch (error) {
+          console.error('Error in auth state change:', error);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+    );
+
+    setLoading(false);
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
-  // Register a new user
-  const registerUser = async (userData) => {
+  // Function to register a new user
+  const registerUser = async (email, password, userData) => {
+    setLoading(true);
     try {
-      // Extract name components
-      const firstName = userData.firstName || '';
-      const lastName = userData.lastName || '';
-      const fullName = userData.name || `${firstName} ${lastName}`.trim();
+      // Use the dedicated auth function for registration
+      const { success, user: registeredUser, error } = await registerWithEmail(email, password, userData);
 
-      // Ensure we have a username and creation timestamp
-      const newUser = {
-        ...userData,
-        uid: userData.uid || Date.now().toString(),
-        firstName: firstName,
-        lastName: lastName,
-        name: fullName,
-        username: userData.username ||
-                  `${firstName.toLowerCase()}_${lastName.toLowerCase()}` ||
-                  fullName.toLowerCase().replace(/\s+/g, '_') ||
-                  userData.email.split('@')[0],
-        registeredAt: userData.createdAt || new Date().toISOString(),
-        profileComplete: true,
-        registrationStep: 4, // User has completed all registration steps
-        registrationComplete: true
-      };
+      if (!success || error) throw error || new Error('Registration failed');
 
-      // Get any existing users and save to localStorage
-      const existingUsersStr = localStorage.getItem('registeredUsers');
-      const existingUsers = existingUsersStr ? JSON.parse(existingUsersStr) : [];
-      const updatedUsers = [...existingUsers, newUser];
-      localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
+      if (registeredUser) {
+        // Check if the user needs email verification
+        if (registeredUser.needsEmailConfirmation) {
+          // Handle unverified user state
+          setUser({
+            ...registeredUser,
+            isUnverified: true
+          });
 
-      // Set as current user but don't navigate
-      localStorage.setItem('currentUser', JSON.stringify(newUser));
-      setUser(newUser);
-      setShowRegistration(false);
+          // This is a special state - they're registered but need to verify email
+          localStorage.setItem('pendingVerification', JSON.stringify({
+            email,
+            userId: registeredUser.id,
+            timestamp: new Date().toISOString()
+          }));
 
-      // Return user without redirection
-      return newUser;
+          return {
+            user: registeredUser,
+            needsEmailVerification: true
+          };
+        }
+
+        // Normal registration flow for users who don't need verification
+        setUser(registeredUser);
+        localStorage.setItem('user', JSON.stringify(registeredUser));
+
+        return {
+          user: registeredUser
+        };
+      }
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error('Registration error:', error);
+      setError(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Function to login a user
+  const loginUser = async (email, password) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      // getUserData is called by the auth listener
+      return data.user;
+    } catch (error) {
+      console.error('Login error:', error);
+      setError(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Function to logout a user
+  const logoutUser = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      setUser(null);
+      localStorage.removeItem('user');
+    } catch (error) {
+      console.error('Logout error:', error);
+      setError(error.message);
+    }
+  };
+
+  // Function to update user profile
+  const updateProfile = async (userData) => {
+    try {
+      if (!user?.id) throw new Error('User not authenticated');
+
+      // Update in Supabase database
+      await updateUserData(user.id, userData);
+
+      // Update local state
+      const updatedUser = { ...user, ...userData };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
+      return updatedUser;
+    } catch (error) {
+      console.error('Profile update error:', error);
+      setError(error.message);
       throw error;
     }
   };
@@ -102,7 +242,7 @@ export const UserProvider = ({ children }) => {
   // Add the missing updateRegistrationStep function
   const updateRegistrationStep = async (userId, step, userData = {}) => {
     try {
-      // Update the user in Firestore
+      // Update the user in Supabase
       await updateUserData(userId, {
         ...userData,
         registrationStep: step,
@@ -119,12 +259,12 @@ export const UserProvider = ({ children }) => {
   // Add a function to handle registration step progression
   const progressRegistration = async (step, userData) => {
     try {
-      if (!user || !user.uid) {
+      if (!user || !user.id) {
         throw new Error("User not authenticated");
       }
 
       // Update the backend
-      await updateRegistrationStep(user.uid, step, userData);
+      await updateRegistrationStep(user.id, step, userData);
 
       // Update local state
       setCurrentRegistrationStep(step);
@@ -146,7 +286,7 @@ export const UserProvider = ({ children }) => {
   };
 
   // Login with user data
-  const loginUser = (userData, options = {}) => {
+  const loginUserWithUserData = (userData, options = {}) => {
     setUser(userData);
 
     if (options.needsProfileCompletion) {
@@ -161,10 +301,11 @@ export const UserProvider = ({ children }) => {
   };
 
   // Modify the signOut method to be more thorough
-  const logoutUser = async () => {
+  const logoutUserWithUserData = async () => {
     try {
-      debugLog('UserContext', 'Signing out user', user?.uid || 'unknown');
-      await signOut();
+      debugLog('UserContext', 'Signing out user', user?.id || 'unknown');
+      await supabase.auth.signOut();
+
       // Clear all user data from storage
       localStorage.removeItem('currentUser');
       localStorage.removeItem('temporaryUserData');
@@ -208,8 +349,8 @@ export const UserProvider = ({ children }) => {
         updatedAt: new Date().toISOString()
       };
 
-      // Update user in Firebase
-      const updatedUser = await updateUserData(user.uid, completeUserData);
+      // Update user in Supabase
+      const updatedUser = await updateUserData(user.id, completeUserData);
 
       // Update local state
       setUser(updatedUser);
@@ -222,28 +363,36 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // Update the context value to ensure signOut is properly exposed
+  // Additional helper functions
+  const toggleRegistration = () => {
+    setShowRegistration(!showRegistration);
+  };
+
+  const updateUserState = (userData) => {
+    setUser(currentUser => {
+      if (!currentUser) return userData;
+      return { ...currentUser, ...userData };
+    });
+    localStorage.setItem('user', JSON.stringify({ ...user, ...userData }));
+  };
+
+  // Context value
   const value = {
     user,
     loading,
     error,
     showRegistration,
     needsProfileCompletion,
-    loginUser,
-    signOut: logoutUser, // Make sure we're using the updated logout function
-    registerWithEmail: async (email, password, userData) => {
-      // ...existing code - but don't redirect at the end...
-    },
-    signInWithEmail: async (email, password) => {
-      // ...existing code - but don't redirect at the end...
-    },
-    completeUserProfile,
-    showRegistrationForm: () => setShowRegistration(true),
-    hideRegistrationForm: () => setShowRegistration(false),
     currentRegistrationStep,
-    progressRegistration,
-    // New method that indicates registration is complete but doesn't redirect
-    registrationComplete: true
+    loginUser,
+    logoutUser,
+    registerUser,
+    toggleRegistration,
+    updateProfile,
+    updateUserState,
+    setIncompleteRegistration,
+    incompleteRegistration,
+    setCurrentRegistrationStep
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
