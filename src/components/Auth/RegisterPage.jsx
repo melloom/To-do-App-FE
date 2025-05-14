@@ -523,15 +523,8 @@ const profileIconCategories = {
       navigate('/dashboard');
     }
   };
-      console.error("Validation error:", error);
-      setFormErrors({
-        auth: 'An unexpected error occurred. Please try again.'
-      });
-      shakeForm();
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+
+  // Handle previous step button without warning
 
   // Handle previous step button without warning
   const handlePrevStep = (e) => {
