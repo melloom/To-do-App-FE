@@ -1,4 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+<<<<<<< HEAD
+=======
+import { supabase } from '../supabase/supabase';
+import { getUserData } from '../supabase/database';
+>>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
 
 // Create the context
 const UserContext = createContext();
@@ -21,7 +26,45 @@ export const UserProvider = ({ children }) => {
       }
     }
 
+<<<<<<< HEAD
     setLoading(false);
+=======
+    // Set up Supabase auth listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!session) {
+          // User is signed out
+          setUser(null);
+          localStorage.removeItem('user');
+        } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          // Get full user profile from the database
+          try {
+            const userData = await getUserData(session.user.id);
+            if (userData) {
+              // Convert snake_case to camelCase for frontend consistency
+              const formattedUserData = Object.entries(userData).reduce((acc, [key, value]) => {
+                const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+                acc[camelKey] = value;
+                return acc;
+              }, {});
+
+              setUser(formattedUserData);
+              localStorage.setItem('user', JSON.stringify(formattedUserData));
+            }
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
+        }
+              setLoading(false);
+      }
+    );
+
+    setLoading(false);
+
+    return () => {
+      subscription?.unsubscribe();
+    }; // Clean up the subscription
+>>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
   }, []);
 
   // Function to log in a user

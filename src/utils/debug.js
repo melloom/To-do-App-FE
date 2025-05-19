@@ -83,9 +83,15 @@ export const debugAuth = (stage, data = {}) => {
     // Add additional auth debug info for specific stages
     if (stage === 'Email Verification Error') {
       console.warn('Common causes for email verification failures:');
+<<<<<<< HEAD
       console.warn('1. Authentication methods not properly imported');
       console.warn('2. Network connectivity issues');
       console.warn('3. Project configuration problems');
+=======
+      console.warn('1. Supabase auth methods not properly imported');
+      console.warn('2. Network connectivity issues');
+      console.warn('3. Supabase project configuration problems');
+>>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
     }
 
     console.groupEnd();
