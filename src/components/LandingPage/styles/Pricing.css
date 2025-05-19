@@ -1,0 +1,455 @@
+/* Base layout for pricing section */
+.pricing-section {
+  width: 100%;
+  padding: var(--space-xxl) 0;
+  background: linear-gradient(to bottom, #f8f9ff, #f0f4ff);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  width: 1200px;
+  height: 1200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.03) 0%, transparent 70%);
+  top: -600px;
+  right: -300px;
+  z-index: 1;
+}
+
+.pricing-section::after {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.03) 0%, transparent 70%);
+  bottom: -400px;
+  left: -200px;
+  z-index: 1;
+}
+
+.pricing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Styling */
+.pricing-header {
+  composes: section-header from './Layout.css';
+}
+
+.pricing-badge {
+  composes: section-badge from './Layout.css';
+}
+
+.pricing-header h2 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.pricing-header p {
+  font-size: 1.25rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Highlight Banner */
+.pricing-highlight {
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
+  transform: rotate(-1deg);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.highlight-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Pricing Comparison */
+.pricing-comparison-wrapper {
+  position: relative;
+  margin-bottom: var(--space-xxl);
+}
+
+.price-tag-decoration {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.price-tag {
+  background: #4f46e5;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.price-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.pricing-comparison {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: var(--space-lg);
+}
+
+.pricing-card {
+  flex: 1;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 16px;
+  padding: var(--space-xl);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.pricing-card.tasklio {
+  background: linear-gradient(to bottom, #ffffff, #f8f9ff);
+  border: 2px solid #4f46e5;
+  transform: scale(1.05);
+  z-index: 5;
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+}
+
+.pricing-card-header {
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.pricing-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  margin-right: var(--space-xs);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.pricing-card-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+.pricing-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.pricing-price span {
+  font-size: 1rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+}
+
+.vs-divider span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Features List */
+.pricing-features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.pricing-feature-icon {
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+.tasklio .pricing-feature-icon {
+  color: #4f46e5;
+}
+
+.pricing-feature-text {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--gray-700);
+}
+
+.tasklio .pricing-feature-text {
+  font-weight: 500;
+}
+
+.competitors .pricing-feature.limited .pricing-feature-text {
+  color: var(--gray-600);
+}
+
+.competitors .pricing-feature.negative .pricing-feature-text {
+  color: #ef4444;
+}
+
+.pricing-cta {
+  margin-top: var(--space-xl);
+}
+
+.cta-button {
+  display: block;
+  width: 100%;
+  padding: var(--space-md);
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+}
+
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(79, 70, 229, 0.3);
+}
+
+/* Pricing Question */
+.pricing-question {
+  text-align: center;
+  margin: var(--space-xl) 0;
+}
+
+.pricing-question h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  display: inline-block;
+  border-bottom: 3px solid #4f46e5;
+  padding-bottom: 10px;
+}
+
+/* Free Promise Section */
+.free-promise {
+  background-color: white;
+  border-radius: 16px;
+  padding: var(--space-xl);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  margin-bottom: var(--space-xl);
+}
+
+.promise-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.promise-header h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-sm);
+}
+
+.promise-header p {
+  font-size: 1.15rem;
+  color: var(--gray-700);
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.reason-card {
+  padding: var(--space-lg);
+  background-color: #f8f9ff;
+  border-radius: 12px;
+  border: 1px solid rgba(79, 70, 229, 0.1);
+  transition: all 0.3s ease;
+}
+
+.reason-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+.reason-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.reason-card h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-sm);
+}
+
+.reason-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+
+/* Testimonial */
+.pricing-testimonial {
+  background-color: #4f46e5;
+  border-radius: 12px;
+  padding: var(--space-xl);
+  color: white;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pricing-testimonial blockquote {
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.pricing-testimonial blockquote::before {
+  content: '"';
+  position: absolute;
+  left: -0.5rem;
+  top: -0.5rem;
+  font-size: 4rem;
+  opacity: 0.3;
+  font-family: Georgia, serif;
+}
+
+.pricing-testimonial cite {
+  font-style: normal;
+  font-weight: 500;
+  display: block;
+  text-align: right;
+  opacity: 0.9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .pricing-comparison {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pricing-card {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .pricing-card.tasklio {
+    transform: scale(1);
+    order: -1;
+  }
+
+  .vs-divider {
+    transform: rotate(90deg);
+    margin: var(--space-md) 0;
+    width: auto;
+    height: 60px;
+  }
+
+  .price-tag-decoration {
+    top: -60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pricing-header h2 {
+    font-size: 2rem;
+  }
+
+  .pricing-header p {
+    font-size: 1.1rem;
+  }
+
+  .highlight-text {
+    font-size: 1rem;
+  }
+
+  .pricing-testimonial blockquote {
+    font-size: 1.1rem;
+  }
+}

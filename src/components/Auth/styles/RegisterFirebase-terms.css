@@ -1,0 +1,122 @@
+/* Terms Checkbox Styles */
+.terms-checkbox-container {
+  margin-top: 25px;
+  padding: 15px;
+  padding-top: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.terms-checkbox:hover {
+  background-color: #f0f1f2;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #5b5ef4;
+  border-radius: 4px;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terms-checkbox input[type="checkbox"]:checked {
+  background-color: #5b5ef4;
+}
+
+.terms-checkbox input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+}
+
+.terms-checkbox.error {
+  border: 1px solid #ff4d4f;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 77, 79, 0.05);
+}
+
+.terms-checkbox label {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.terms-link {
+  color: #5b5ef4;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+  transition: color 0.2s ease;
+}
+
+.terms-link:hover {
+  color: #4a4cc9;
+}
+
+.terms-link:hover {
+  color: #4a4dcf;
+}
+
+/* Hover effect for checkbox */
+.terms-checkbox:hover input[type="checkbox"] {
+  box-shadow: 0 0 0 2px rgba(91, 94, 244, 0.2);
+}
+
+/* Focus effect for checkbox */
+.terms-checkbox input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(91, 94, 244, 0.3);
+}
+
+/* Error text styling */
+.terms-checkbox-container .auth-error {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #ff4d4f;
+  display: flex;
+  align-items: center;
+}
+
+/* Animation for terms links */
+.terms-link {
+  position: relative;
+}
+
+.terms-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #5b5ef4;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
+}
+
+.terms-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

@@ -1,0 +1,491 @@
+/* Landing Header Styles */
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--header-bg, rgba(255, 255, 255, 0.98));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.landing-header.scrolled {
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.landing-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative; /* Added for absolute positioning context */
+  box-sizing: border-box;
+}
+
+.landing-header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.landing-header .logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--gray-900, #111827);
+}
+
+.landing-header .logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--primary-gradient, linear-gradient(135deg, #6366f1, #4f46e5));
+  color: white;
+  border-radius: 8px;
+  font-size: 1.25rem;
+}
+
+/* Desktop navigation styles */
+.mobile-menu-toggle {
+  display: none; /* Hide mobile toggle on desktop */
+}
+
+.landing-header .nav-menu {
+  display: flex;
+  flex: 1; /* allow nav-menu to grow between logo and actions */
+  justify-content: center; /* center nav-list horizontally */
+  align-items: center;
+  margin: 0 2rem; /* space around nav-menu */
+}
+
+/* This rule targets the <ul> with class .landing-nav-list */
+.landing-header .nav-menu .landing-nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; /* center within nav-menu */
+}
+
+/* Changed from 'a' to '.nav-link' and added button resets */
+.landing-header .nav-menu .nav-link {
+  /* Button reset styles */
+  background: none;
+  border: none;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  text-align: left; /* Adjust as needed */
+
+  /* Original link styles */
+  color: var(--gray-700, #374151);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 0.5rem 0; /* Keep padding consistent */
+  display: inline-block; /* Ensure consistent display between button and link */
+}
+
+/* Add styling for Link components to match buttons */
+.landing-header .nav-menu .nav-button {
+  display: inline-block;
+  text-align: center;
+}
+
+.landing-header .nav-menu .nav-link:hover {
+  color: var(--primary-color, #6366f1);
+}
+
+.landing-header .nav-menu .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color, #6366f1);
+  transition: width 0.3s ease;
+}
+
+.landing-header .nav-menu .nav-link:hover::after {
+  width: 100%;
+}
+
+.landing-header .header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  /* Positioned to the right by .nav-menu's margin-left: auto */
+}
+
+.landing-header .login-button {
+  background: none;
+  border: 1px solid var(--gray-300, #d1d5db);
+  color: var(--gray-700, #374151);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.landing-header .login-button:hover {
+  background-color: var(--gray-100, #f3f4f6);
+  border-color: var(--gray-400, #9ca3af);
+}
+
+.landing-header .get-started-button {
+  background: var(--primary-gradient, linear-gradient(135deg, #6366f1, #4f46e5));
+  color: white;
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.landing-header .get-started-button:hover {
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Mobile navigation styles */
+@media (max-width: 992px) {
+  .landing-header {
+    padding: 1rem;
+  }
+
+  .landing-header.scrolled {
+    padding: 0.8rem 1rem;
+  }
+
+  .landing-header .container {
+    flex-wrap: wrap;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1010;
+    padding: 0;
+  }
+
+  .mobile-menu-toggle .menu-bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--gray-800, #1f2937);
+    margin: 6px auto;
+    transition: all 0.3s ease;
+  }
+
+  .landing-header .nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: white;
+    z-index: 1000;
+    padding: 80px 2rem 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    margin: 0;
+    display: flex;
+  }
+
+  .landing-header .nav-menu.open {
+    transform: translateX(0);
+    display: flex;
+  }
+
+  .landing-header .nav-menu .landing-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 2rem;
+    gap: 1.25rem;
+  }
+
+  .landing-header .header-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .landing-header .login-button,
+  .landing-header .get-started-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Fix overlapping nav-menu on mobile by enforcing stacking and full width */
+@media (max-width: 992px) {
+  /* Basic toggle button styling */
+  .mobile-menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1100;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  /* Make mobile nav menu take full viewport height */
+  .landing-header .nav-menu.open {
+    transform: translateX(0);
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+  /* Ensure proper stacking and spacing */
+  .landing-header .nav-menu .landing-nav-list li {
+    width: 100%;
+  }
+
+  .landing-header .nav-menu .nav-link {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+  }
+
+  /* Ensure Link components match buttons in mobile view */
+  .landing-header .nav-menu .nav-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Make buttons full width */
+  .landing-header .login-button,
+  .landing-header .get-started-button {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+  }
+}
+
+/* Mobile menu toggle animation */
+.mobile-menu-toggle.active .menu-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .menu-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .menu-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Active state for navigation items - updated selector */
+.landing-header .nav-menu .nav-link.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}
+
+/* Ensure proper positioning of dropdown menus with sticky header */
+.landing-nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1001;
+}
+
+/* User profile in header */
+.profile-container {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-button:hover .user-avatar {
+  transform: scale(1.05);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 240px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  padding: 16px 0;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-info {
+  display: flex;
+  align-items: center;
+  padding: 0 16px 12px;
+}
+
+.dropdown-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 12px;
+}
+
+.dropdown-user-details {
+  flex: 1;
+  overflow: hidden;
+}
+
+.dropdown-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-user-email {
+  font-size: 12px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.08);
+  margin: 0 0 8px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-item-icon {
+  margin-right: 12px;
+  font-size: 16px;
+}
+
+.logout-button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  color: #e53e3e;
+}
+
+/* Mobile adjustments for profile */
+@media (max-width: 768px) {
+  .profile-container {
+    position: static;
+  }
+
+  .profile-dropdown {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 70px;
+    border-radius: 0;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}

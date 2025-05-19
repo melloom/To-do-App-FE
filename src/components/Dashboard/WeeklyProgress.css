@@ -1,0 +1,213 @@
+.weekly-progress-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.weekly-progress-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.weekly-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.weekly-progress-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.weekly-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.chart-container {
+  display: flex;
+  height: 170px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.chart-bar-container {
+  width: 100%;
+  height: 130px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.chart-bar {
+  width: 70%;
+  min-height: 3px;
+  border-radius: 4px 4px 0 0;
+  background-color: #a5b4fc;
+  position: relative;
+  transition: height 0.5s ease, background-color 0.3s ease;
+}
+
+.bar-value {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.chart-label {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.weekly-insights {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9375rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.weekly-insights p {
+  margin-bottom: 0.5rem;
+}
+
+.weekly-insights p:last-child {
+  margin-bottom: 0;
+}
+
+.insight-tip {
+  background-color: #f3f4ff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-top: 0.75rem !important;
+  color: #6366f1 !important;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .weekly-progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .weekly-stats {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .chart-bar {
+    width: 80%;
+  }
+}
+
+@media (max-width: 640px) {
+  .weekly-stats {
+    gap: 1rem;
+  }
+
+  .stat-item {
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .chart-bar {
+    width: 80%;
+  }
+}
+
+/* When used in registration page as a mock component */
+.productivity-element .weekly-progress-container {
+  box-shadow: none;
+  padding: 0.75rem;
+  margin: 0;
+  background: transparent;
+}
+
+.productivity-element .weekly-progress-header h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.productivity-element .weekly-stats {
+  gap: 0.75rem;
+}
+
+.productivity-element .stat-item {
+  min-width: 60px;
+}
+
+.productivity-element .stat-value {
+  font-size: 1.125rem;
+}
+
+.productivity-element .chart-container {
+  height: 100px;
+  margin-bottom: 0.75rem;
+}
+
+.productivity-element .chart-bar-container {
+  height: 70px;
+}
+
+.productivity-element .weekly-insights {
+  display: none;
+}
+
+.insight-tip {
+  background-color: #f3f4ff;

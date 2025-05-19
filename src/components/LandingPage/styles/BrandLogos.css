@@ -1,0 +1,153 @@
+.brand-logos-section {
+  padding: 4rem 0;
+  background: linear-gradient(to bottom, #f9fafc, #ffffff);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.brand-logos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.trusted-by {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  display: inline-block;
+}
+
+.trusted-by::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-color);
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.logo-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.logo-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  flex: 0 0 auto;
+  max-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.logo-item:nth-child(1) { transition-delay: 0.1s; }
+.logo-item:nth-child(2) { transition-delay: 0.15s; }
+.logo-item:nth-child(3) { transition-delay: 0.2s; }
+.logo-item:nth-child(4) { transition-delay: 0.25s; }
+.logo-item:nth-child(5) { transition-delay: 0.3s; }
+.logo-item:nth-child(6) { transition-delay: 0.35s; }
+.logo-item:nth-child(7) { transition-delay: 0.4s; }
+.logo-item:nth-child(8) { transition-delay: 0.45s; }
+.logo-item:nth-child(9) { transition-delay: 0.5s; }
+.logo-item:nth-child(10) { transition-delay: 0.55s; }
+
+.brand-logo {
+  height: 35px;
+  width: auto;
+  max-width: 100%;
+  filter: grayscale(100%) contrast(0.8) brightness(0.9);
+  transition: filter 0.3s ease, transform 0.3s ease;
+  object-fit: contain;
+}
+
+.logo-item:hover .brand-logo {
+  filter: grayscale(0) contrast(1) brightness(1);
+  transform: scale(1.05);
+}
+
+.spotify-logo {
+  filter: grayscale(100%) brightness(0.9);
+  max-height: 35px;
+  width: auto;
+}
+
+.logo-item:hover .spotify-logo {
+  filter: grayscale(0) brightness(1);
+}
+
+@media (max-width: 992px) {
+  .logo-grid {
+    gap: 2rem;
+  }
+
+  .logo-item {
+    max-width: 100px;
+  }
+
+  .brand-logo {
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-logos-section {
+    padding: 3rem 0;
+  }
+
+  .logo-grid {
+    gap: 2rem 1.5rem;
+  }
+
+  .logo-item {
+    max-width: 80px;
+  }
+
+  .brand-logo {
+    height: 25px;
+  }
+
+  .trusted-by {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logos-section {
+    padding: 2rem 0;
+  }
+
+  .logo-grid {
+    gap: 1.5rem 1rem;
+  }
+
+  .logo-item {
+    max-width: 70px;
+  }
+
+  .brand-logo {
+    height: 20px;
+  }
+}

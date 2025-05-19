@@ -1,0 +1,191 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // USER PROFILES
+    match /users/{userId} {
+      // Allow user to create their own profile with a non-empty username
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.username is string
+                    && request.resource.data.username.size() > 0;
+
+      // Allow user to read and delete their own profile
+      allow read, delete: if request.auth != null
+                          && request.auth.uid == userId;
+
+      // Allow user to update their own profile, cannot change uid or clear username
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.uid == resource.data.uid
+                    && request.resource.data.username is string
+                    && request.resource.data.username.size() > 0;
+    }
+
+    // PROJECTS
+    match /projects/{projectId} {
+      // Only for self, with non-empty name
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0;
+
+      // Delete/read only by owner
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+
+      // Only by owner; cannot change userId
+      allow update: if request.auth != null
+                    && resource.data.userId == request.auth.uid
+                    && request.resource.data.userId == resource.data.userId;
+    }
+
+    // SECTIONS (must belong to a project you own)
+    match /sections/{sectionId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/projects/$(request.resource.data.projectId)).data.userId == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/projects/$(resource.data.projectId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/projects/$(resource.data.projectId)).data.userId == request.auth.uid
+        && request.resource.data.projectId == resource.data.projectId;
+    }
+
+    // TASKS
+    match /tasks/{taskId} {
+      // Only for self, with non-empty title
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.title is string
+                    && request.resource.data.title.size() > 0;
+
+      // Delete/read only by owner
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+
+      // Only by owner; cannot change userId
+      allow update: if request.auth != null
+                    && resource.data.userId == request.auth.uid
+                    && request.resource.data.userId == resource.data.userId;
+    }
+
+    // SUBTASKS (must belong to a task you own)
+    match /subtasks/{subtaskId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(request.resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.taskId == resource.data.taskId;
+    }
+
+    // LABELS
+    match /labels/{labelId} {
+      // Only for self, with non-empty name
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0;
+
+      // Delete/read only by owner
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+
+      // Only by owner; cannot change userId
+      allow update: if request.auth != null
+                    && resource.data.userId == request.auth.uid
+                    && request.resource.data.userId == resource.data.userId;
+    }
+
+    // LABEL ASSIGNMENTS (join: must own the task)
+    match /labelAssignments/{assignmentId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(request.resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.labelId is string;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.taskId == resource.data.taskId;
+    }
+
+    // COMMENTS (on tasks you own)
+    match /comments/{commentId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(request.resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.content is string
+        && request.resource.data.content.size() > 0;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.content is string
+        && request.resource.data.content.size() > 0;
+    }
+
+    // ATTACHMENTS (on tasks you own)
+    match /attachments/{attachmentId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(request.resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.url is string;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.url is string;
+    }
+
+    // REMINDERS (on tasks you own)
+    match /reminders/{reminderId} {
+      allow create: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(request.resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.remindAt is timestamp;
+
+      allow read, delete: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid;
+
+      allow update: if request.auth != null
+        && get(/databases/$(database)/documents/tasks/$(resource.data.taskId)).data.userId == request.auth.uid
+        && request.resource.data.remindAt is timestamp;
+    }
+
+    // NOTIFICATIONS (for self)
+    match /notifications/{notificationId} {
+      // Create only for self
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+
+      // Read, update, delete only by owner
+      allow read, update, delete: if request.auth != null
+                                  && resource.data.userId == request.auth.uid;
+    }
+
+    // ADMIN (admin-only based on custom claim)
+    match /admin/{docId} {
+      allow read, write: if request.auth != null
+                         && request.auth.token.admin == true;
+    }
+
+    // CONTENT (public read, admin write)
+    match /content/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.admin == true;
+    }
+  }
+}
