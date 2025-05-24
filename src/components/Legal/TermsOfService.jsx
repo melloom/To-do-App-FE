@@ -27,8 +27,8 @@ const TermsOfService = () => {
         <div className="legal-content">
           <div className="legal-section">
             <h2>1. Introduction</h2>
-            <p>Welcome to Tasklio ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of the Tasklio website, mobile application, and services (collectively, the "Service").</p>
-            <p>By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the Terms, you may not access the Service.</p>
+            <p>Welcome to Tasklio ("Service"). By accessing or using our Service, you agree to be bound by these Terms of Service ("Terms"), our Privacy Policy, and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing the Service.</p>
+            <p>We reserve the right to modify these Terms at any time, and such modifications shall be effective immediately upon posting. Your continued use of the Service following any modifications indicates your acceptance of the modified Terms.</p>
           </div>
 
           <div className="legal-section">

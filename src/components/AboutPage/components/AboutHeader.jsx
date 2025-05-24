@@ -148,6 +148,7 @@ const AboutHeader = ({ activeTab, setActiveTab }) => {
           <div className="fullscreen-demo-modal">
             <div className="demo-modal-header">
               <div className="demo-app-logo">
+                <img src="/favicon.ico" alt="Tasklio" className="demo-logo-favicon" />
                 <span className="demo-logo-icon">✓</span>
                 <span className="demo-logo-text">Tasklio</span>
               </div>

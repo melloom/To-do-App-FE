@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Workflow.css';
@@ -7,47 +6,47 @@ import './styles/Workflow.css';
 const Workflow = () => {
   // Animation states to track which step is active
   const [activeStep, setActiveStep] = useState(1);
-  
+
   // Auto cycle through steps every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep(prev => prev === 3 ? 1 : prev + 1);
     }, 5000);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   // Handle manual step change
   const handleStepClick = (stepNum) => {
     setActiveStep(stepNum);
   };
-  
+
   return (
     <section className="workflow-section" id="how-it-works">
       {/* Background Effects */}
       <div className="workflow-blur-gradient blue-gradient"></div>
       <div className="workflow-blur-gradient purple-gradient"></div>
       <div className="workflow-dots-pattern"></div>
-      
+
       <div className="workflow-container">
         <div className="workflow-header">
           <div className="workflow-badge">How It Works</div>
           <h2>Simple workflow. Maximum productivity.</h2>
           <p className="workflow-subtitle">Get started in minutes with a simple three-step process that will transform the way you manage tasks.</p>
         </div>
-        
+
         {/* Modern step navigation */}
         <div className="workflow-steps-nav">
           <div className="workflow-progress-track">
-            <div 
-              className="workflow-progress-fill" 
+            <div
+              className="workflow-progress-fill"
               style={{ width: `${(activeStep / 3) * 100}%` }}
             ></div>
           </div>
-          
+
           <div className="workflow-nav">
-            <button 
-              className={`workflow-nav-step ${activeStep === 1 ? 'active' : ''}`} 
+            <button
+              className={`workflow-nav-step ${activeStep === 1 ? 'active' : ''}`}
               onClick={() => handleStepClick(1)}
               aria-label="View step 1"
             >
@@ -57,9 +56,9 @@ const Workflow = () => {
               </div>
               <span className="workflow-step-label">Capture</span>
             </button>
-            
-            <button 
-              className={`workflow-nav-step ${activeStep === 2 ? 'active' : ''}`} 
+
+            <button
+              className={`workflow-nav-step ${activeStep === 2 ? 'active' : ''}`}
               onClick={() => handleStepClick(2)}
               aria-label="View step 2"
             >
@@ -69,9 +68,9 @@ const Workflow = () => {
               </div>
               <span className="workflow-step-label">Organize</span>
             </button>
-            
-            <button 
-              className={`workflow-nav-step ${activeStep === 3 ? 'active' : ''}`} 
+
+            <button
+              className={`workflow-nav-step ${activeStep === 3 ? 'active' : ''}`}
               onClick={() => handleStepClick(3)}
               aria-label="View step 3"
             >
@@ -83,7 +82,7 @@ const Workflow = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="workflow-showcase">
           {/* Main visual content area that changes based on active step */}
           <div className="workflow-visual">
@@ -96,19 +95,19 @@ const Workflow = () => {
                         <h3>New Task</h3>
                         <button className="close-btn">×</button>
                       </div>
-                      
+
                       <div className="form-group">
                         <label>Task Title</label>
                         <div className="input-field active">Quarterly team presentation</div>
                       </div>
-                      
+
                       <div className="form-group">
                         <label>Description</label>
                         <div className="input-field textarea">
                           Prepare slides with project updates, metrics and next quarter goals.
                         </div>
                       </div>
-                      
+
                       <div className="form-row">
                         <div className="form-group half">
                           <label>Due Date</label>
@@ -117,7 +116,7 @@ const Workflow = () => {
                             <span>May 20, 2025</span>
                           </div>
                         </div>
-                        
+
                         <div className="form-group half">
                           <label>Priority</label>
                           <div className="input-field with-badge">
@@ -125,7 +124,7 @@ const Workflow = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       <button className="action-button primary">Create Task</button>
                     </div>
                   </div>
@@ -133,7 +132,7 @@ const Workflow = () => {
                   <div className="device-header"></div>
                   <div className="device-sensors"></div>
                 </div>
-                
+
                 <div className="floating-element categories-floating">
                   <div className="floating-content">
                     <div className="category-chip work">Work</div>
@@ -141,7 +140,7 @@ const Workflow = () => {
                     <div className="category-chip health">Health</div>
                   </div>
                 </div>
-                
+
                 <div className="floating-element notes-floating">
                   <div className="floating-content">
                     <div className="notes-title">Quick Notes</div>
@@ -179,7 +178,7 @@ const Workflow = () => {
                           <span>Analytics</span>
                         </div>
                       </div>
-                      
+
                       <div className="app-main">
                         <div className="main-header">
                           <h3>Today's Tasks</h3>
@@ -188,7 +187,7 @@ const Workflow = () => {
                             <button className="view-btn">Board</button>
                           </div>
                         </div>
-                        
+
                         <div className="filter-bar">
                           <div className="filter-tabs">
                             <button className="filter-tab active">All</button>
@@ -202,7 +201,7 @@ const Workflow = () => {
                             </select>
                           </div>
                         </div>
-                        
+
                         <div className="task-list">
                           <div className="task-item high drag-indicator">
                             <div className="task-checkbox"></div>
@@ -216,7 +215,7 @@ const Workflow = () => {
                             <div className="task-priority high"></div>
                             <div className="drag-handle">⋮⋮</div>
                           </div>
-                          
+
                           <div className="task-item medium">
                             <div className="task-checkbox"></div>
                             <div className="task-content">
@@ -229,7 +228,7 @@ const Workflow = () => {
                             <div className="task-priority medium"></div>
                             <div className="drag-handle">⋮⋮</div>
                           </div>
-                          
+
                           <div className="task-item low">
                             <div className="task-checkbox"></div>
                             <div className="task-content">
@@ -248,100 +247,19 @@ const Workflow = () => {
                   </div>
                   <div className="device-bezel"></div>
                 </div>
-                
+
                 <div className="floating-element organize-floating">
                   <div className="floating-content">
                     <div className="organize-title">Smart Organization</div>
                     <div className="organize-feature">
                       <span className="feature-icon">🔄</span>
                       <span>Drag & Drop</span>
-=======
-import React from 'react';
-import './styles/Workflow.css';
-
-const Workflow = () => {
-  return (
-    <section className="workflow-section" id="how-it-works">
-      <div className="workflow-container section-container">
-        <div className="workflow-header">
-          <div className="workflow-badge">How It Works</div>
-          <h2>Simple workflow. Maximum productivity.</h2>
-          <p>Get started in minutes with a simple three-step process that will transform the way you manage tasks.</p>
-        </div>
-
-        <div className="workflow-steps">
-          <div className="workflow-step">
-            <div className="step-number">1</div>
-            <div className="step-content">
-              <div className="step-icon">📝</div>
-              <h3>Create Tasks</h3>
-              <p className="step-description">
-                <strong>Step 1: Capture Everything</strong> - Quickly add tasks with detailed information. Include titles, descriptions, due dates, and priorities to keep your work organized and structured.
-              </p>
-              <ul className="step-features">
-                <li>Create tasks in seconds</li>
-                <li>Set deadlines and reminders</li>
-                <li>Add priority levels</li>
-                <li>Organize by categories</li>
-              </ul>
-            </div>
-            <div className="step-mockup-container">
-              <div className="step-image app-mockup">
-                <div className="mockup-header">
-                  <div className="mockup-dots">
-                    <span></span><span></span><span></span>
-                  </div>
-                  <div className="mockup-title">Task Creation Interface</div>
-                  <div className="mockup-controls">
-                    <div className="mockup-control"></div>
-                    <div className="mockup-control"></div>
-                  </div>
-                </div>
-                <div className="mockup-content create-task-mockup">
-                  <div className="mockup-form">
-                    <div className="mockup-input">
-                      <label>Task Title</label>
-                      <div className="input-field">Prepare presentation for team meeting</div>
-                    </div>
-                    <div className="mockup-input">
-                      <label>Description</label>
-                      <div className="input-field textarea">Create slides for quarterly review with key metrics and project updates. Include section for Q&A.</div>
-                    </div>
-                    <div className="mockup-row">
-                      <div className="mockup-input half">
-                        <label>Due Date</label>
-                        <div className="input-field date">
-                          <span className="date-icon">📅</span> May 15, 2025
-                        </div>
-                      </div>
-                      <div className="mockup-input half">
-                        <label>Priority</label>
-                        <div className="input-field priority high">
-                          <span className="priority-dot"></span> High Priority
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mockup-row">
-                      <div className="mockup-input half">
-                        <label>Category</label>
-                        <div className="input-field category">
-                          <span className="category-color" style={{backgroundColor: "#4f46e5"}}></span> Work
-                        </div>
-                      </div>
-                      <div className="mockup-input half">
-                        <label>Reminder</label>
-                        <div className="input-field reminder">
-                          <span className="reminder-icon">🔔</span> 1 day before
-                        </div>
-                      </div>
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
                     </div>
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
             </div>
-            
+
             <div className={`workflow-step-visual ${activeStep === 3 ? 'active' : ''}`} id="step3-visual">
               <div className="device-mockup tablet-mockup">
                 <div className="device-frame">
@@ -355,34 +273,34 @@ const Workflow = () => {
                           <button className="nav-btn">▶</button>
                         </div>
                       </div>
-                      
+
                       <div className="stats-row">
                         <div className="stat-card">
                           <div className="stat-number">14</div>
                           <div className="stat-label">Tasks Completed</div>
                           <div className="stat-trend positive">+27%</div>
                         </div>
-                        
+
                         <div className="stat-card">
                           <div className="stat-number">85<span className="percent">%</span></div>
                           <div className="stat-label">Completion Rate</div>
                           <div className="stat-trend positive">+12%</div>
                         </div>
-                        
+
                         <div className="stat-card">
                           <div className="stat-number">93<span className="percent">%</span></div>
                           <div className="stat-label">On-time Rate</div>
                           <div className="stat-trend positive">+5%</div>
                         </div>
                       </div>
-                      
+
                       <div className="chart-container">
                         <h4>Daily Progress</h4>
                         <div className="progress-chart">
                           {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => (
                             <div key={day} className={`chart-column ${day === 'Fri' ? 'active' : ''}`}>
-                              <div 
-                                className="column-bar" 
+                              <div
+                                className="column-bar"
                                 style={{height: `${[60, 40, 75, 90, 80, 30, 20][i]}%`}}
                               >
                                 <div className="column-value">{[60, 40, 75, 90, 80, 30, 20][i]}%</div>
@@ -392,13 +310,13 @@ const Workflow = () => {
                           ))}
                         </div>
                       </div>
-                      
+
                       <div className="completed-tasks">
                         <div className="section-header">
                           <h4>Recently Completed</h4>
                           <button className="view-all">View All</button>
                         </div>
-                        
+
                         <div className="completed-list">
                           <div className="completed-item">
                             <div className="completion-check">✓</div>
@@ -411,7 +329,7 @@ const Workflow = () => {
                             </div>
                             <div className="achievement-badge">🏆</div>
                           </div>
-                          
+
                           <div className="completed-item">
                             <div className="completion-check">✓</div>
                             <div className="completion-details">
@@ -432,25 +350,11 @@ const Workflow = () => {
                     <div className="achievement-icon">🎯</div>
                     <div className="achievement-text">Goal Achieved!</div>
                   </div>
-=======
-              <div className="step-info-panel">
-                <h4>Task Creation Made Simple</h4>
-                <p>Our intuitive task creation form makes it easy to capture all the details you need. Save time with smart defaults and quick-access fields.</p>
-                <ul className="step-info-features">
-                  <li>🚀 Streamlined task entry</li>
-                  <li>🎯 Custom priority settings</li>
-                  <li>📅 Smart date picker</li>
-                  <li>📝 Rich text descriptions</li>
-                </ul>
-                <div className="mockup-info">
-                  <p><strong>Pro tip:</strong> Use keyboard shortcuts (Alt+N) to quickly create new tasks from anywhere in the app.</p>
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
                 </div>
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-          
+
           {/* Step descriptions that change based on active step */}
           <div className="workflow-steps-content">
             <div className={`workflow-step-info ${activeStep === 1 ? 'active' : ''}`}>
@@ -470,7 +374,7 @@ const Workflow = () => {
                 </ul>
               </div>
             </div>
-            
+
             <div className={`workflow-step-info ${activeStep === 2 ? 'active' : ''}`}>
               <div className="step-icon-container">
                 <div className="step-icon">
@@ -488,7 +392,7 @@ const Workflow = () => {
                 </ul>
               </div>
             </div>
-            
+
             <div className={`workflow-step-info ${activeStep === 3 ? 'active' : ''}`}>
               <div className="step-icon-container">
                 <div className="step-icon">
@@ -504,242 +408,11 @@ const Workflow = () => {
                   <li>Performance trends over time</li>
                   <li>Goal tracking and streaks</li>
                 </ul>
-=======
-
-          <div className="workflow-step">
-            <div className="step-number">2</div>
-            <div className="step-content">
-              <div className="step-icon">🔄</div>
-              <h3>Organize & Prioritize</h3>
-              <p className="step-description">
-                <strong>Step 2: Bring Order to Chaos</strong> - Take control of your task list with intuitive organization tools. Sort tasks by due date, priority, or category to focus on what's most important.
-              </p>
-              <ul className="step-features">
-                <li>Drag and drop to reorder tasks</li>
-                <li>Filter by priority or deadline</li>
-                <li>Toggle between different views</li>
-                <li>Group related tasks together</li>
-              </ul>
-            </div>
-            <div className="step-mockup-container">
-              <div className="step-image app-mockup">
-                <div className="mockup-header">
-                  <div className="mockup-dots">
-                    <span></span><span></span><span></span>
-                  </div>
-                  <div className="mockup-title">My Tasks</div>
-                  <div className="mockup-controls">
-                    <div className="mockup-control"></div>
-                    <div className="mockup-control"></div>
-                  </div>
-                </div>
-                <div className="mockup-content organize-mockup">
-                  <div className="mockup-tabs">
-                    <div className="tab active">Today</div>
-                    <div className="tab">Upcoming</div>
-                    <div className="tab">All Tasks</div>
-                  </div>
-                  <div className="mockup-filter-bar">
-                    <div className="filter-label">Filter:</div>
-                    <div className="filter-badge active">All</div>
-                    <div className="filter-badge">Work</div>
-                    <div className="filter-badge">Personal</div>
-                  </div>
-                  <div className="mockup-tasks">
-                    <div className="mockup-task high">
-                      <div className="task-checkbox"></div>
-                      <div className="task-content">
-                        <div className="task-title">Prepare presentation</div>
-                        <div className="task-meta">
-                          <span className="task-time">2:00 PM</span>
-                          <span className="task-priority-badge high">High</span>
-                          <span className="task-category">Work</span>
-                        </div>
-                      </div>
-                      <div className="task-actions">
-                        <div className="task-action edit">✏️</div>
-                        <div className="task-drag">⋮</div>
-                      </div>
-                    </div>
-                    <div className="mockup-task medium">
-                      <div className="task-checkbox"></div>
-                      <div className="task-content">
-                        <div className="task-title">Team standup meeting</div>
-                        <div className="task-meta">
-                          <span className="task-time">1:30 PM</span>
-                          <span className="task-priority-badge medium">Medium</span>
-                          <span className="task-category">Work</span>
-                        </div>
-                      </div>
-                      <div className="task-actions">
-                        <div className="task-action edit">✏️</div>
-                        <div className="task-drag">⋮</div>
-                      </div>
-                    </div>
-                    <div className="mockup-task low">
-                      <div className="task-checkbox"></div>
-                      <div className="task-content">
-                        <div className="task-title">Review project proposal</div>
-                        <div className="task-meta">
-                          <span className="task-time">2:00 PM</span>
-                          <span className="task-priority-badge low">Low</span>
-                          <span className="task-category">Work</span>
-                        </div>
-                      </div>
-                      <div className="task-actions">
-                        <div className="task-action edit">✏️</div>
-                        <div className="task-drag">⋮</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="step-info-panel">
-                <h4>Smart Organization System</h4>
-                <p>Bring order to your task list with our flexible organization tools. Sort, filter, and group tasks to match your unique workflow and keep everything accessible.</p>
-                <ul className="step-info-features">
-                  <li>🔄 Drag-and-drop reordering</li>
-                  <li>🧠 Smart sorting algorithms</li>
-                  <li>🔍 Powerful search & filtering</li>
-                  <li>🌈 Visual priority indicators</li>
-                </ul>
-                <div className="mockup-info">
-                  <p><strong>Pro tip:</strong> Use the "Focus Mode" to hide all but your highest priority tasks for distraction-free work sessions.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="workflow-step">
-            <div className="step-number">3</div>
-            <div className="step-content">
-              <div className="step-icon">✅</div>
-              <h3>Track & Complete</h3>
-              <p className="step-description">
-                <strong>Step 3: Achieve More</strong> - Monitor your progress and celebrate your achievements. Visualize your productivity with analytics and watch your completion rate soar as you check items off your list.
-              </p>
-              <ul className="step-features">
-                <li>Track daily and weekly progress</li>
-                <li>View productivity trends</li>
-                <li>Get completion statistics</li>
-                <li>Celebrate achievements</li>
-              </ul>
-            </div>
-            <div className="step-mockup-container">
-              <div className="step-image app-mockup">
-                <div className="mockup-header">
-                  <div className="mockup-dots">
-                    <span></span><span></span><span></span>
-                  </div>
-                  <div className="mockup-title">Progress Dashboard</div>
-                  <div className="mockup-controls">
-                    <div className="mockup-control"></div>
-                    <div className="mockup-control"></div>
-                  </div>
-                </div>
-                <div className="mockup-content complete-mockup">
-                  <div className="mockup-date-selector">
-                    <div className="date-nav prev">◀</div>
-                    <div className="date-display">This Week (May 8-14)</div>
-                    <div className="date-nav next">▶</div>
-                  </div>
-                  <div className="mockup-progress">
-                    <div className="progress-stats">
-                      <div className="stat-item">
-                        <div className="stat-value">12</div>
-                        <div className="stat-label">Completed</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-value">75%</div>
-                        <div className="stat-label">Completion Rate</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-value">4</div>
-                        <div className="stat-label">Active Tasks</div>
-                      </div>
-                    </div>
-                    <div className="progress-chart">
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '60%'}}></div>
-                        <div className="chart-label">Mon</div>
-                      </div>
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '80%'}}></div>
-                        <div className="chart-label">Tue</div>
-                      </div>
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '40%'}}></div>
-                        <div className="chart-label">Wed</div>
-                      </div>
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '90%'}}></div>
-                        <div className="chart-label">Thu</div>
-                      </div>
-                      <div className="chart-day active">
-                        <div className="chart-bar" style={{height: '70%'}}></div>
-                        <div className="chart-label">Fri</div>
-                      </div>
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '20%'}}></div>
-                        <div className="chart-label">Sat</div>
-                      </div>
-                      <div className="chart-day">
-                        <div className="chart-bar" style={{height: '30%'}}></div>
-                        <div className="chart-label">Sun</div>
-                      </div>
-                    </div>
-                    <div className="progress-bar">
-                      <div className="progress-fill"></div>
-                      <div className="progress-label">Weekly Goal: 75% Complete</div>
-                    </div>
-                  </div>
-                  <div className="mockup-section-title">Recently Completed</div>
-                  <div className="mockup-tasks completed-tasks">
-                    <div className="mockup-task completed">
-                      <div className="task-checkbox checked">✓</div>
-                      <div className="task-content">
-                        <div className="task-title">Send client proposal</div>
-                        <div className="task-meta">
-                          <span className="task-time">Completed today</span>
-                          <span className="task-category">Client</span>
-                        </div>
-                      </div>
-                      <div className="task-achievement">
-                        <span className="achievement-icon">🏆</span>
-                      </div>
-                    </div>
-                    <div className="mockup-task completed">
-                      <div className="task-checkbox checked">✓</div>
-                      <div className="task-content">
-                        <div className="task-title">Research competitors</div>
-                        <div className="task-meta">
-                          <span className="task-time">Completed yesterday</span>
-                          <span className="task-category">Research</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="step-info-panel">
-                <h4>Visualize Your Progress</h4>
-                <p>Track your productivity with beautiful, easy-to-understand metrics and charts. Watch your progress grow in real-time and celebrate your accomplishments.</p>
-                <ul className="step-info-features">
-                  <li>📊 Intuitive productivity charts</li>
-                  <li>🏆 Achievement celebrations</li>
-                  <li>📈 Trend analysis over time</li>
-                  <li>🔔 Smart completion reminders</li>
-                </ul>
-                <div className="mockup-info">
-                  <p><strong>Pro tip:</strong> Review your weekly stats each Friday to plan more effectively for the upcoming week.</p>
-                </div>
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
               </div>
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-        
+
         <div className="workflow-cta">
           <div className="workflow-cta-content">
             <h3>Ready to transform your productivity?</h3>
@@ -749,7 +422,7 @@ const Workflow = () => {
                 Get Started Free <span className="button-arrow">→</span>
               </Link>
               <a href="#features" className="workflow-button secondary">
-                Learn more
+                Learn More
               </a>
             </div>
             <div className="workflow-cta-guarantee">
@@ -758,14 +431,6 @@ const Workflow = () => {
             </div>
           </div>
           <div className="workflow-cta-decoration"></div>
-=======
-
-        <div className="workflow-bottom">
-          <div className="workflow-cta">
-            <h3>Ready to simplify your task management?</h3>
-            <a href="/register" className="workflow-button">Get Started Free</a>
-          </div>
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
         </div>
       </div>
     </section>

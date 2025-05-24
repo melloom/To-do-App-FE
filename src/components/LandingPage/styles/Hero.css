@@ -1,10 +1,10 @@
 /* Hero Section Styles */
 .landing-hero {
-  padding: var(--space-xl) max(var(--space-xl), calc((100% - 1280px) / 2));
+  padding: calc(var(--space-xl) + 80px) max(var(--space-xl), calc((100% - 1280px) / 2)) var(--space-xl);
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%); /* Updated to cleaner gradient */
-  min-height: 90vh;
+  min-height: 100vh;
   position: relative;
   overflow: hidden;
   width: 100%;

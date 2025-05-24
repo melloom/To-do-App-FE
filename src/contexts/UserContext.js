@@ -1,121 +1,123 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-<<<<<<< HEAD
-=======
-import { supabase } from '../supabase/supabase';
-import { getUserData } from '../supabase/database';
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { auth, onAuthStateChange, getUserProfile, logoutUser } from '../firebase/Firebase';
 
-// Create the context
-const UserContext = createContext();
+export const UserContext = createContext();
 
-// Provider component
+// Add useUser custom hook
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  return context;
+};
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showRegistration, setShowRegistration] = useState(false);
 
-  // Load user from localStorage and listen for auth state changes
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Failed to parse user data:', error);
         localStorage.removeItem('user');
       }
     }
 
-<<<<<<< HEAD
-    setLoading(false);
-=======
-    // Set up Supabase auth listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (!session) {
-          // User is signed out
-          setUser(null);
-          localStorage.removeItem('user');
-        } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          // Get full user profile from the database
-          try {
-            const userData = await getUserData(session.user.id);
-            if (userData) {
-              // Convert snake_case to camelCase for frontend consistency
-              const formattedUserData = Object.entries(userData).reduce((acc, [key, value]) => {
-                const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
-                acc[camelKey] = value;
-                return acc;
-              }, {});
+    const unsubscribe = onAuthStateChange(async (authUser) => {
+      if (authUser) {
+        try {
+          // Get additional user data from Firestore
+          const { data: userData, error } = await getUserProfile(authUser.uid);
 
-              setUser(formattedUserData);
-              localStorage.setItem('user', JSON.stringify(formattedUserData));
-            }
-          } catch (error) {
-            console.error('Error fetching user data:', error);
+          if (userData) {
+            // Convert any snake_case properties to camelCase
+            const formattedUserData = Object.entries(userData).reduce((acc, [key, value]) => {
+              const camelKey = key.replace(/_([a-z])/g, (_, p1) => p1.toUpperCase());
+              acc[camelKey] = value;
+              return acc;
+            }, {});
+
+            const userInfo = {
+              id: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              ...formattedUserData
+            };
+
+            setUser(userInfo);
+            localStorage.setItem('user', JSON.stringify(userInfo));
           }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
         }
-              setLoading(false);
+      } else {
+        setUser(null);
+        localStorage.removeItem('user');
       }
-    );
 
-    setLoading(false);
+      setLoading(false);
+    });
 
     return () => {
-      subscription?.unsubscribe();
-    }; // Clean up the subscription
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
-  // Function to log in a user
-  const loginUser = (userData, additionalInfo = {}) => {
-    setUser({ ...userData, ...additionalInfo });
-    localStorage.setItem('user', JSON.stringify({ ...userData, ...additionalInfo }));
+  const loginUser = (userData, additionalData = {}) => {
+    setUser({...userData, ...additionalData});
+    localStorage.setItem('user', JSON.stringify({...userData, ...additionalData}));
     setShowRegistration(false);
   };
 
-  // Function to log out
-  const logoutUser = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+  const logout = async () => {
+    try {
+      await logoutUser();
+      setUser(null);
+      localStorage.removeItem('user');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
-  // Function to toggle registration form
   const toggleRegistration = () => {
     setShowRegistration(!showRegistration);
   };
 
-  // Function to update user profile
-  const updateUserProfile = (updatedData) => {
-    const updatedUser = { ...user, ...updatedData };
+  const updateUserProfile = (data) => {
+    const updatedUser = { ...user, ...data };
     setUser(updatedUser);
     localStorage.setItem('user', JSON.stringify(updatedUser));
     return updatedUser;
   };
 
-  // Add this new function to update user data
-  const updateUserData = (userData) => {
-    setUser(currentUser => {
-      if (!currentUser) return userData;
-      return { ...currentUser, ...userData };
-    });
-    localStorage.setItem('user', JSON.stringify(userData));
+  const updateUserData = (data) => {
+    setUser((current) => current ? { ...current, ...data } : data);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify({...user, ...data}));
+    }
   };
 
-  // Context value
   const value = {
     user,
     loading,
     showRegistration,
     loginUser,
-    logoutUser,
+    logoutUser: logout,
     toggleRegistration,
     updateUserProfile,
-    updateUserData // Add the new function to the context value
+    updateUserData
   };
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={value}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
-// Custom hook to use the user context
-export const useUser = () => useContext(UserContext);
+export default UserContext;

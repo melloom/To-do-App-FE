@@ -36,15 +36,15 @@ const ForgotPassword = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       const auth = getAuth();
       // Normalize email for consistent handling
@@ -53,14 +53,14 @@ const ForgotPassword = () => {
       setResetSent(true);
     } catch (error) {
       console.error("Password reset error:", error);
-      
+
       if (error.code === 'auth/user-not-found') {
-        setFormErrors({ 
-          email: 'No account found with this email address.' 
+        setFormErrors({
+          email: 'No account found with this email address.'
         });
       } else {
-        setFormErrors({ 
-          email: error.message 
+        setFormErrors({
+          email: error.message
         });
       }
     } finally {
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
             <div className="logo-text">Tasklio</div>
           </div>
         </div>
-        
+
         <div className={`forgot-password-content ${animateIn ? 'animate-in' : ''}`}>
           {!resetSent ? (
             <>
@@ -89,26 +89,36 @@ const ForgotPassword = () => {
               <p className="forgot-password-subtitle">
                 Enter your email address and we'll send you a link to reset your password
               </p>
-              
+
               <form onSubmit={handleSubmit} className="forgot-password-form">
                 <div className="form-group">
-                  <label htmlFor="email">Email Address</label>
-                  <div className="input-container">
+                  <label htmlFor="email">
                     <span className="input-icon">✉️</span>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      className={`auth-input ${formErrors.email ? 'error' : ''}`} 
-                      value={email} 
-                      onChange={handleChange} 
-                      placeholder="Enter your email" 
+                    Email Address
+                  </label>
+                  <div className="input-container">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className={`auth-input ${formErrors.email ? 'error' : ''} ${email ? 'has-value' : ''}`}
+                      value={email}
+                      onChange={handleChange}
+                      placeholder="Enter your email"
+                      aria-invalid={formErrors.email ? 'true' : 'false'}
+                      aria-describedby={formErrors.email ? 'email-error' : undefined}
                     />
+                    {email && !formErrors.email && <span className="input-check">✓</span>}
                   </div>
-                  {formErrors.email && <div className="auth-error">{formErrors.email}</div>}
+                  {formErrors.email && (
+                    <div className="auth-error" id="email-error" role="alert">
+                      {formErrors.email}
+                    </div>
+                  )}
                 </div>
-                
-                <button 
-                  type="submit" 
+
+                <button
+                  type="submit"
                   className={`auth-button reset-button ${isSubmitting ? 'loading' : ''}`}
                   disabled={isSubmitting}
                 >
@@ -127,7 +137,7 @@ const ForgotPassword = () => {
                 Click the link in the email to reset your password. If you don't see the email, check your spam folder.
               </p>
               <div className="success-actions">
-                <button 
+                <button
                   className="auth-button back-button"
                   onClick={() => {
                     setResetSent(false);
@@ -142,7 +152,7 @@ const ForgotPassword = () => {
               </div>
             </div>
           )}
-          
+
           <div className="auth-footer">
             <p>
               Remember your password? <Link to="/login" className="auth-link">Sign in</Link>
@@ -150,7 +160,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="auth-illustration">
         <div className="illustration-content">
           <div className="illustration-icon">🔑</div>

@@ -1,0 +1,67 @@
+/* Fix for missing "Create your account" title */
+.step-title {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: block; /* Ensure it's visible */
+}
+
+/* Fix for input icons positioning */
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  color: #777;
+  font-size: 1rem;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Ensure icon appears above input */
+  pointer-events: none; /* Allow clicking through the icon */
+}
+
+.auth-input {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: .8rem;
+  padding-left: 40px; /* Make space for the icon */
+  transition: border-color .2s;
+  width: 100%;
+}
+
+/* Fix for missing continue button */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.next-button {
+  background-color: #5b5ef4;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  padding: .8rem 1.5rem;
+  transition: all .2s;
+}
+
+.next-button:hover {
+  background-color: #4a4dc9;
+}
+
+/* Make sure the form step is visible */
+.form-step {
+  opacity: 1; /* Ensure visibility */
+  transform: translateX(0); /* Reset any transform */
+  transition: all .3s;
+}

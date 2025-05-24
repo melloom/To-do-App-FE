@@ -1,9 +1,14 @@
 /* Landing Page main styles */
+* {
+  scroll-behavior: smooth;
+}
+
 .landing-page {
   font-family: 'Inter', sans-serif;
   color: #333;
   background-color: #f9f9f9;
   overflow-x: hidden;
+  padding-top: 80px; /* Account for fixed header */
 }
 
 /* Add spacing between sections */

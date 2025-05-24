@@ -1,9 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-<<<<<<< HEAD
-=======
-import { supabase } from '../supabase/supabase';
-import { getUserData, updateUserData, createUserProfile } from '../supabase/database';
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
 import { debugLog } from '../utils/debug';
 
 const UserContext = createContext();
@@ -57,90 +52,10 @@ export const UserProvider = ({ children }) => {
       }
     }
 
-<<<<<<< HEAD
     setLoading(false);
 
     return () => {
       // Remove Supabase auth subscription
-=======
-    // Set up Supabase auth subscription
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setLoading(true);
-
-        console.log('Auth state change event:', event, session?.user?.id || 'No user');
-
-        try {
-          if (session) {
-            // User is signed in
-            const { user: authUser } = session;
-
-            // Clear any pending verification when we have a valid session
-            localStorage.removeItem('pendingVerification');
-
-            // Get full user profile from database
-            try {
-              const userData = await getUserData(authUser.id);
-
-              if (userData) {
-                // Check if profile is complete
-                const needsSetup = !userData.registration_complete;
-                setNeedsProfileCompletion(needsSetup);
-
-                // Set user data in state
-                setUser({
-                  id: authUser.id,
-                  email: authUser.email,
-                  ...userData
-                });
-
-                // Save to localStorage for persistence
-                localStorage.setItem('user', JSON.stringify({
-                  id: authUser.id,
-                  email: authUser.email,
-                  ...userData
-                }));
-              } else {
-                // User exists in auth but not in database
-                setUser({
-                  id: authUser.id,
-                  email: authUser.email,
-                  needsProfileSetup: true
-                });
-                setNeedsProfileCompletion(true);
-              }
-            } catch (dbError) {
-              console.error('Error fetching user data:', dbError);
-
-              // Fall back to auth user data only
-              setUser({
-                id: authUser.id,
-                email: authUser.email,
-                needsProfileSetup: true,
-                fetchError: dbError.message
-              });
-              setNeedsProfileCompletion(true);
-            }
-          } else {
-            // User is signed out
-            setUser(null);
-            localStorage.removeItem('user');
-            setNeedsProfileCompletion(false);
-          }
-        } catch (error) {
-          console.error('Error in auth state change:', error);
-          setError(error.message);
-        } finally {
-          setLoading(false);
-        }
-      }
-    );
-
-    setLoading(false);
-
-    return () => {
-      subscription?.unsubscribe();
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
     };
   }, []);
 
@@ -196,16 +111,6 @@ export const UserProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     setLoading(true);
     try {
-<<<<<<< HEAD
-=======
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) throw error;
-
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
       // getUserData is called by the auth listener
       return data.user;
     } catch (error) {
@@ -312,35 +217,6 @@ export const UserProvider = ({ children }) => {
     // No automatic redirection
   };
 
-<<<<<<< HEAD
-=======
-  // Modify the signOut method to be more thorough
-  const logoutUserWithUserData = async () => {
-    try {
-      debugLog('UserContext', 'Signing out user', user?.id || 'unknown');
-      await supabase.auth.signOut();
-
-      // Clear all user data from storage
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('temporaryUserData');
-      sessionStorage.removeItem('userSession');
-
-      // Reset all user-related state
-      setUser(null);
-      setNeedsProfileCompletion(false);
-      setIncompleteRegistration(null);
-      setCurrentRegistrationStep(0);
-      setError(null);
-
-      return true;
-    } catch (error) {
-      console.error("Logout error:", error);
-      setError(error.message);
-      throw error;
-    }
-  };
-
->>>>>>> 60da6d9d7d046d5fa689256873c26e21d5bad368
   // User profile completion function
   const completeUserProfile = async (profileData) => {
     try {

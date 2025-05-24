@@ -116,6 +116,17 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.demo-logo-favicon {
+  width: 20px;
+  height: 20px;
+}
+
+.demo-app-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--primary-color, #6366f1);
