@@ -84,7 +84,7 @@
   font-weight: 800;
   font-size: 1.25rem;
   color: white;
-  box-shadow: 
+  box-shadow:
     0 8px 24px rgba(99, 102, 241, 0.25),
     0 4px 12px rgba(99, 102, 241, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -96,7 +96,7 @@
 
 .logo-bubble:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 
+  box-shadow:
     0 12px 32px rgba(99, 102, 241, 0.35),
     0 6px 16px rgba(99, 102, 241, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -261,7 +261,7 @@
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #3730a3 100%);
   color: white;
   border-color: transparent;
-  box-shadow: 
+  box-shadow:
     0 8px 24px rgba(99, 102, 241, 0.25),
     0 4px 12px rgba(99, 102, 241, 0.15);
   position: relative;
@@ -271,10 +271,15 @@
 
 .login-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 12px 32px rgba(99, 102, 241, 0.35),
     0 6px 16px rgba(99, 102, 241, 0.25);
   background: linear-gradient(135deg, #4f46e5 0%, #3730a3 50%, #1e1b4b 100%);
+}
+
+.login-btn:focus {
+  outline: 2px solid var(--primary-color, #6366f1);
+  outline-offset: 2px;
 }
 
 .login-btn::before {
@@ -313,7 +318,7 @@
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #3730a3 100%);
   color: white;
   border-color: transparent;
-  box-shadow: 
+  box-shadow:
     0 8px 24px rgba(99, 102, 241, 0.25),
     0 4px 12px rgba(99, 102, 241, 0.15);
   position: relative;
@@ -323,7 +328,7 @@
 
 .cta-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 12px 32px rgba(99, 102, 241, 0.35),
     0 6px 16px rgba(99, 102, 241, 0.25);
   background: linear-gradient(135deg, #4f46e5 0%, #3730a3 50%, #1e1b4b 100%);
@@ -520,10 +525,6 @@
     padding: 0.625rem 1rem;
     font-size: 0.85rem;
     min-width: 90px;
-  }
-
-  .login-btn {
-    display: none;
   }
 
   .nav-link {

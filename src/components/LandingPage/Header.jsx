@@ -81,7 +81,7 @@ const Header = () => {
         </nav>
 
         <div className="header-actions">
-          <Link to="/login" className="header-btn login-btn">
+          <Link to="/login" className="header-btn cta-btn">
             Sign In
           </Link>
           <Link to="/register" className="header-btn cta-btn">
