@@ -19,13 +19,18 @@ const Sidebar = ({ activeSection, onSectionChange }) => {
       id: 'upcoming',
       label: 'Upcoming',
       icon: '🔮',
-      count: 8
-    },
+      count: 8    },
     {
       id: 'overdue',
       label: 'Overdue',
       icon: '🚨',
       count: 3
+    },
+    {
+      id: 'completed',
+      label: 'Completed',
+      icon: '✅',
+      count: 15
     }
   ];
 

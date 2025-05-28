@@ -4,10 +4,14 @@ import { DashboardProvider, useDashboard } from './context/DashboardContext';
 import Sidebar from './components/Sidebar/Sidebar';
 import TaskList from './components/TaskList/TaskList';
 import SearchPopup from './components/Search/SearchPopup';
+import ProfileModal from './Profile/ProfileModal';
 import InboxSection from './Inbox/InboxSection';
 import TodaySection from './Today/TodaySection';
 import UpcomingSection from './Upcoming/UpcomingSection';
 import OverdueSection from './Overdue/OverdueSection';
+import CompletedSection from './CompletedSection/CompletedSection';
+import ProjectsSection from './Projects/ProjectsSection';
+import ProjectTasksSection from './Projects/ProjectTasksSection';
 import './styles/Dashboard.css';
 
 const DashboardContent = () => {
@@ -15,6 +19,7 @@ const DashboardContent = () => {
   const { state, dispatch } = useDashboard();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inbox');
 
   const handleToggleSidebar = () => {
@@ -27,6 +32,14 @@ const DashboardContent = () => {
 
   const handleCloseSearch = () => {
     setIsSearchOpen(false);
+  };
+
+  const handleOpenProfileModal = () => {
+    setIsProfileModalOpen(true);
+  };
+
+  const handleCloseProfileModal = () => {
+    setIsProfileModalOpen(false);
   };
 
   const handleSectionChange = (section) => {
@@ -42,6 +55,11 @@ const DashboardContent = () => {
         e.preventDefault();
         setIsSearchOpen(true);
       }
+      // Add keyboard shortcut for profile (Cmd+P or Ctrl+P)
+      if ((e.metaKey || e.ctrlKey) && e.key === 'p' && !e.shiftKey) {
+        e.preventDefault();
+        setIsProfileModalOpen(true);
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -49,6 +67,12 @@ const DashboardContent = () => {
   }, []);
 
   const renderActiveSection = () => {
+    // Handle project-specific views
+    if (activeSection.startsWith('project:')) {
+      const projectName = activeSection.substring(8); // Remove 'project:' prefix
+      return <ProjectTasksSection projectId={projectName} />;
+    }
+    
     switch (activeSection) {
       case 'inbox':
         return <InboxSection />;
@@ -58,9 +82,20 @@ const DashboardContent = () => {
         return <UpcomingSection />;
       case 'overdue':
         return <OverdueSection />;
+      case 'completed':
+        return <CompletedSection />;
+      case 'projects':
+        return <ProjectsSection onViewTasks={handleViewProjectTasks} />;
       default:
         return <InboxSection />;
     }
+  };
+
+  const handleViewProjectTasks = (project) => {
+    const projectView = `project:${project.name}`;
+    console.log('Viewing tasks for project:', project.name);
+    setActiveSection(projectView);
+    dispatch({ type: 'SET_ACTIVE_VIEW', payload: projectView });
   };
 
   return (
@@ -71,6 +106,7 @@ const DashboardContent = () => {
         user={user}
         isGuestMode={!user}
         onSearchClick={handleOpenSearch}
+        onProfileClick={handleOpenProfileModal}
         activeView={activeSection}
         onViewChange={handleSectionChange}
       />
@@ -85,6 +121,13 @@ const DashboardContent = () => {
       <SearchPopup 
         isOpen={isSearchOpen}
         onClose={handleCloseSearch}
+      />
+
+      {/* Profile Modal */}
+      <ProfileModal 
+        isOpen={isProfileModalOpen}
+        onClose={handleCloseProfileModal}
+        user={user}
       />
     </div>
   );

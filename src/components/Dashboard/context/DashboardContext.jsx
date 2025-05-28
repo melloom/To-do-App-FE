@@ -9,7 +9,7 @@ const initialState = {
       description: 'Write and review the Q4 project proposal for the new client',
       dueDate: new Date().toISOString().split('T')[0],
       priority: 'high',
-      project: 'Work Projects',
+      project: 'Inbox',
       completed: false,
       createdAt: new Date().toISOString(),
       labels: ['urgent', 'client-work']
@@ -20,7 +20,7 @@ const initialState = {
       description: 'Coordinate with team members for weekly sync',
       dueDate: null,
       priority: 'medium',
-      project: 'Work Projects',
+      project: 'Inbox',
       completed: true,
       createdAt: new Date(Date.now() - 86400000).toISOString(),
       labels: ['meeting']
@@ -31,17 +31,13 @@ const initialState = {
       description: 'Weekly grocery shopping - check the list on the fridge',
       dueDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
       priority: 'low',
-      project: 'Personal',
+      project: 'Inbox',
       completed: false,
       createdAt: new Date().toISOString(),
       labels: ['personal', 'shopping']
     }
   ],
-  projects: [
-    { id: 'work-projects', name: 'Work Projects', color: '#4285f4' },
-    { id: 'personal', name: 'Personal', color: '#10b981' },
-    { id: 'learning', name: 'Learning', color: '#f59e0b' }
-  ],
+  projects: [],
   labels: [
     { id: 'urgent', name: 'Urgent', color: '#ef4444' },
     { id: 'work', name: 'Work', color: '#3b82f6' },
@@ -143,11 +139,18 @@ const dashboardReducer = (state, action) => {
         error: null
       };
 
+    case 'SET_ACTIVE_VIEW':
+      return {
+        ...state,
+        activeView: action.payload,
+        filters: { ...state.filters, view: action.payload },
+        error: null
+      };
+
     case 'SET_VIEW_FILTER':
       return {
         ...state,
         filters: { ...state.filters, view: action.payload },
-        activeView: action.payload,
         error: null
       };
 
@@ -162,6 +165,37 @@ const dashboardReducer = (state, action) => {
       return {
         ...state,
         filters: { ...state.filters, dateRange: action.payload },
+        error: null
+      };
+
+    case 'ADD_PROJECT':
+      return {
+        ...state,
+        projects: [...state.projects, action.payload],
+        error: null
+      };
+
+    case 'UPDATE_PROJECT':
+      return {
+        ...state,
+        projects: state.projects.map(project => 
+          project.id === action.payload.id 
+            ? { ...project, ...action.payload }
+            : project
+        ),
+        error: null
+      };
+
+    case 'DELETE_PROJECT':
+      return {
+        ...state,
+        projects: state.projects.filter(project => project.id !== action.payload),
+        // Move tasks from deleted project to inbox
+        tasks: state.tasks.map(task =>
+          task.project === state.projects.find(p => p.id === action.payload)?.name
+            ? { ...task, project: 'Inbox' }
+            : task
+        ),
         error: null
       };
 
@@ -218,8 +252,12 @@ export const DashboardProvider = ({ children }) => {
     setActiveView: (view) => enhancedDispatch({ type: 'SET_ACTIVE_VIEW', payload: view }),
     setLabelFilter: (label) => enhancedDispatch({ type: 'SET_LABEL_FILTER', payload: label }),
     setDateRangeFilter: (range) => enhancedDispatch({ type: 'SET_DATE_RANGE_FILTER', payload: range }),
-    addLabel: (label) => enhancedDispatch({ type: 'ADD_LABEL', payload: label }),
-    removeLabel: (labelId) => enhancedDispatch({ type: 'REMOVE_LABEL', payload: labelId })
+    addProject: (projectData) => enhancedDispatch({ type: 'ADD_PROJECT', payload: projectData }),
+    updateProject: (id, updates) => enhancedDispatch({ type: 'UPDATE_PROJECT', payload: { id, updates } }),
+    deleteProject: (id) => enhancedDispatch({ type: 'DELETE_PROJECT', payload: id }),
+    addProject: (projectData) => enhancedDispatch({ type: 'ADD_PROJECT', payload: projectData }),
+    updateProject: (id, updates) => enhancedDispatch({ type: 'UPDATE_PROJECT', payload: { id, updates } }),
+    deleteProject: (id) => enhancedDispatch({ type: 'DELETE_PROJECT', payload: id }),
   };
 
   return (

@@ -31,11 +31,7 @@ export const initialState = {
       createdAt: new Date().toISOString()
     }
   ],
-  projects: [
-    { id: 'demo-project', name: 'Demo Project', color: '#5b5ef4' },
-    { id: 'getting-started', name: 'Getting Started', color: '#10b981' },
-    { id: 'tutorial', name: 'Tutorial', color: '#f59e0b' }
-  ],
+  projects: [],
   labels: [
     { id: 'demo', name: 'Demo', color: '#ec4899' },
     { id: 'tutorial', name: 'Tutorial', color: '#8b5cf6' },

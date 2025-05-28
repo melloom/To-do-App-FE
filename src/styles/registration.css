@@ -126,6 +126,15 @@
   z-index: 40001 !important; /* Modal content above overlays */
 }
 
+/* Project modals - Medium priority */
+.project-modal-overlay {
+  z-index: 60000 !important;
+}
+
+.project-modal-container {
+  z-index: 60001 !important;
+}
+
 /* Profile modals - HIGH priority (above registration but below legal) */
 .profile-modal-overlay {
   z-index: 80000 !important; /* Much higher than registration elements */

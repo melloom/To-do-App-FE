@@ -118,7 +118,9 @@ const SearchPopup = ({ isOpen, onClose }) => {
       shortcut: 'Ctrl+Shift+P',
       category: 'create',
       action: () => {
-        dispatch({ type: 'OPEN_ADD_PROJECT_MODAL' });
+        setShowQuickAdd(false);
+        // Trigger project modal from DashboardContext
+        dispatch({ type: 'SHOW_PROJECT_MODAL' });
         addToRecentActions('Add Project', 'add-project');
         onClose();
       }

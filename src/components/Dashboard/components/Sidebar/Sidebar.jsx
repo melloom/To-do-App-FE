@@ -3,15 +3,19 @@ import { useDashboard } from '../../context/DashboardContext';
 import { useUser } from '../../../../contexts/UserContext';
 import ProjectsList from './ProjectsList';
 import QuickAdd from '../QuickAdd/QuickAdd';
+import Settings from '../Settings/Settings';
 import './Sidebar.css';
 
-const Sidebar = ({ collapsed, onToggle, onSearchClick, activeView, onViewChange }) => {
+const Sidebar = ({ collapsed, onToggle, onSearchClick, onProfileClick, activeView, onViewChange }) => {
   const { state, dispatch } = useDashboard();
   const { user } = useUser();
   const { tasks = [], notifications = [] } = state || {};
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showQuickAdd, setShowQuickAdd] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showProfileSettingsModal, setShowProfileSettingsModal] = useState(false);
 
   // Calculate task counts for navigation
   const inboxCount = tasks.filter(task => !task.completed && !task.project).length;
@@ -32,6 +36,7 @@ const Sidebar = ({ collapsed, onToggle, onSearchClick, activeView, onViewChange 
     const dueDate = task.dueDate ? new Date(task.dueDate) : null;
     return dueDate && dueDate < today;
   }).length;
+  const completedCount = tasks.filter(task => task.completed).length;
 
   const handleViewClick = (view) => {
     if (onViewChange) {
@@ -54,6 +59,41 @@ const Sidebar = ({ collapsed, onToggle, onSearchClick, activeView, onViewChange 
     if (onSearchClick) {
       onSearchClick();
     }
+  };
+
+  const handleProfileSettings = () => {
+    if (onProfileClick) {
+      onProfileClick();
+    } else {
+      setShowProfileModal(true);
+    }
+    setShowUserMenu(false);
+  };
+
+  const handlePreferences = () => {
+    setShowSettings(true);
+    setShowUserMenu(false);
+  };
+
+  const handleDarkMode = () => {
+    // Toggle dark mode
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    setShowUserMenu(false);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const { logoutUser } = useUser();
+      await logoutUser();
+      // Redirect to login page
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+    setShowUserMenu(false);
   };
 
   const renderUserAvatar = () => {
@@ -132,19 +172,19 @@ const Sidebar = ({ collapsed, onToggle, onSearchClick, activeView, onViewChange 
                     {user?.email || 'guest@tasklio.app'}
                   </div>
                 </div>
-                <button className="user-menu-item">
+                <button className="user-menu-item" onClick={handleProfileSettings}>
                   <span className="user-menu-item-icon">👤</span>
                   Profile Settings
                 </button>
-                <button className="user-menu-item">
+                <button className="user-menu-item" onClick={handlePreferences}>
                   <span className="user-menu-item-icon">⚙️</span>
                   Preferences
                 </button>
-                <button className="user-menu-item">
+                <button className="user-menu-item" onClick={handleDarkMode}>
                   <span className="user-menu-item-icon">🌙</span>
                   Dark Mode
                 </button>
-                <button className="user-menu-item">
+                <button className="user-menu-item" onClick={handleSignOut}>
                   <span className="user-menu-item-icon">🚪</span>
                   Sign Out
                 </button>
@@ -266,6 +306,37 @@ const Sidebar = ({ collapsed, onToggle, onSearchClick, activeView, onViewChange 
                       {overdueCount > 0 && (
                         <span className="nav-count high-priority">{overdueCount}</span>
                       )}
+                    </>
+                  )}
+                </button>
+              </li>
+
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeView === 'completed' ? 'active' : ''}`}
+                  onClick={() => handleViewClick('completed')}
+                  title={collapsed ? `Completed (${completedCount} tasks)` : undefined}
+                >
+                  <span className="nav-icon">✅</span>
+                  {!collapsed && (
+                    <>
+                      <span className="nav-text">Completed</span>
+                      {completedCount > 0 && <span className="nav-count">{completedCount}</span>}
+                    </>
+                  )}
+                </button>
+              </li>
+
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeView === 'projects' ? 'active' : ''}`}
+                  onClick={() => handleViewClick('projects')}
+                  title={collapsed ? 'Projects Overview' : undefined}
+                >
+                  <span className="nav-icon">📁</span>
+                  {!collapsed && (
+                    <>
+                      <span className="nav-text">Projects</span>
                     </>
                   )}
                 </button>

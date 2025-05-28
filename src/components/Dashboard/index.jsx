@@ -13,20 +13,16 @@ const Dashboard = () => {
   return (
     <DashboardProvider>
       <div className="dashboard">
-        <Header 
-          sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
-        />
-        
         <div className="dashboard-body">
           <Sidebar 
             collapsed={sidebarCollapsed}
-            currentView={currentView}
-            setCurrentView={setCurrentView}
+            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+            activeView={currentView}
+            onViewChange={setCurrentView}
           />
           
           <MainContent 
-            currentView={currentView}
+            onTaskSelect={setSelectedTask}
             selectedTask={selectedTask}
             setSelectedTask={setSelectedTask}
           />

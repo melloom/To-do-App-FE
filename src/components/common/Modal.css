@@ -203,6 +203,15 @@
   z-index: 100000 !important;
 }
 
+/* Project modals - Medium priority */
+.project-modal-overlay {
+  z-index: 60000 !important;
+}
+
+.project-modal-container {
+  z-index: 60001 !important;
+}
+
 /* Media Queries */
 @media (max-width: 640px) {
   .modal-container.small,
