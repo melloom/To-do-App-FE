@@ -139,9 +139,6 @@ const FilterSection = ({ currentView, setCurrentView }) => {
 
       {/* Project Labels */}
       <div className="nav-section">
-        <div className="labels-header">
-          <h3 className="labels-title">Projects</h3>
-        </div>
         <ul className="labels-list">
           {projectFilters.map(project => (
             <li key={project.id} className="label-item">

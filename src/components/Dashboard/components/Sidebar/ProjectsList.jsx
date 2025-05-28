@@ -156,12 +156,6 @@ const ProjectsList = ({ collapsed }) => {
 
   return (
     <div className="projects-section">
-      {!collapsed && (
-        <div className="section-header">
-          <h3 className="section-title">Projects</h3>
-        </div>
-      )}
-      
       <div className="projects-list">
         {projectsWithCounts.map(project => (
           <div key={project.id} className="nav-item project-item">
