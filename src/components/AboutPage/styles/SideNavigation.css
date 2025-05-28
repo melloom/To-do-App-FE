@@ -1,0 +1,335 @@
+/* Side Navigation Core Styles */
+.side-navigation {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1500; /* Increased to fix overlapping issues but still below modals */
+  width: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+}
+
+.side-navigation.collapsed {
+  width: 60px;
+}
+
+/* Toggle Button - Fixed positioning */
+.nav-toggle {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10000;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.nav-toggle:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  transform: scale(1.05);
+}
+
+.toggle-icon {
+  display: inline-block;
+  line-height: 1;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.side-navigation.collapsed .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Navigation Content */
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 50px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 50px 0 20px 0; /* Fixed: removed duplicate padding and gap */
+}
+
+.nav-header {
+  padding: 10px 20px 20px;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 10px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.side-navigation.collapsed .nav-header {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Navigation Items */
+.nav-sections {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-item:hover {
+  background-color: rgba(0,0,0,0.04);
+  border-left-color: rgba(13, 110, 253, 0.3);
+}
+
+.nav-item.active {
+  background-color: rgba(13, 110, 253, 0.08);
+  border-left-color: #0d6efd;
+}
+
+.nav-icon {
+  font-size: 20px;
+  min-width: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-label, .nav-text {
+  margin-left: 15px;
+  white-space: nowrap;
+  font-size: 14px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  overflow: hidden;
+}
+
+.side-navigation.collapsed .nav-label,
+.side-navigation.collapsed .nav-text {
+  opacity: 0;
+  width: 0;
+  margin-left: 0;
+}
+
+/* Tooltip for collapsed state */
+.nav-tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+  z-index: 10001;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  transform: translateY(-50%);
+  border-width: 5px 5px 5px 0;
+  border-style: solid;
+  border-color: transparent #333 transparent transparent;
+}
+
+.side-navigation.collapsed .nav-item:hover .nav-tooltip {
+  opacity: 1;
+}
+
+/* Home Button */
+.home-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  margin: 10px 10px 15px 10px; /* Added top margin to create space from toggle button */
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  border-left: none !important;
+  justify-content: flex-start; /* Default alignment when expanded */
+  padding: 15px 20px; /* Override nav-item padding */
+}
+
+/* When collapsed, center the home button content */
+.side-navigation.collapsed .home-button {
+  justify-content: center;
+  padding: 15px 0; /* Equal padding for perfect centering */
+}
+
+.side-navigation.collapsed .home-button .nav-icon {
+  margin-left: 0; /* Remove any inherited margin */
+}
+
+.side-navigation.collapsed .home-button .nav-text {
+  display: none; /* Hide text completely when collapsed */
+}
+
+.home-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-button:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.home-button:hover::before {
+  opacity: 1;
+}
+
+.home-button .nav-icon {
+  font-size: 18px;
+  transition: margin-left 0.2s ease; /* Smooth transition for centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-button .nav-text {
+  font-weight: 600;
+  color: white;
+}
+
+/* Container adjustments */
+.about-container {
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-container.nav-expanded {
+  margin-left: 250px;
+  max-width: calc(100% - 250px);
+  padding-right: 40px; /* Add some padding on the right to balance the layout */
+}
+
+.about-container.nav-collapsed {
+  margin-left: 60px;
+  max-width: calc(100% - 60px);
+  padding-right: 20px; /* Add less padding on the right for collapsed state */
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .side-navigation {
+    width: 60px;
+    transform: translateX(0);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .side-navigation:not(.collapsed) {
+    width: 250px;
+  }
+
+  .about-container {
+    margin-left: 60px !important;
+    max-width: calc(100% - 60px) !important;
+    transition: margin-left 0.3s ease;
+  }
+
+  .nav-toggle {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+
+  .nav-toggle:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+  }
+}
+
+/* Remove debugging outline */
+.side-navigation {
+  outline: none !important; /* Remove the red outline */
+}
+
+/* Section padding adjustments */
+#codebase {
+  padding: 20px;
+  padding-right: 30px;
+  width: 100%;
+}
+
+/* Add a special margin for the first section to avoid overlap with the toggle button */
+#vision {
+  padding-top: 20px;
+}
+
+/* Smooth scrollbar for navigation content */
+.nav-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nav-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-content::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 2px;
+}
+
+.nav-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .home-button {
+    margin-bottom: 8px;
+  }
+}

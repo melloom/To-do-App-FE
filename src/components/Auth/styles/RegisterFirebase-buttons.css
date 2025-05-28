@@ -1,0 +1,797 @@
+/* Button Styles */
+.auth-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.auth-button {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  min-height: 48px;
+  max-width: 200px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.auth-button:focus {
+  outline: 2px solid #5b5ef4;
+  outline-offset: 2px;
+}
+
+.back-button {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.back-button:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.next-button {
+  background: #5b5ef4;
+  color: white;
+  border: 2px solid transparent;
+  min-width: 140px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+  flex: 1;
+  max-width: 200px;
+}
+
+.next-button:hover:not(:disabled) {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(91, 94, 244, 0.4);
+  font-size: 1.4rem;
+}
+
+.next-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* When next button is alone (step 1), center it and style like social buttons */
+.auth-buttons:has(.next-button:only-child) {
+  justify-content: center !important;
+  align-items: center !important;
+  display: flex !important;
+  width: 100% !important;
+}
+
+.auth-buttons .next-button:only-child {
+  max-width: 100% !important;
+  width: 100% !important;
+  background: linear-gradient(135deg, #4F46E5, #818CF8) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  padding: 1.2rem 2rem !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin: 0 auto !important; /* Force centering */
+  min-height: 52px !important;
+  flex: none !important; /* Don't flex-grow */
+}
+
+.auth-buttons .next-button:only-child:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35) !important;
+  background: linear-gradient(135deg, #4338CA, #6366F1) !important;
+}
+
+/* Additional centering for step 1 */
+.form-step .auth-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Additional centering for step 1 - Enhanced specificity */
+.form-step .auth-buttons:has(.next-button:only-child) {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 1.5rem auto !important;
+  padding: 0 !important;
+}
+
+/* Force center alignment when there's only one button */
+.auth-buttons:not(:has(.back-button)) {
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.auth-buttons:not(:has(.back-button)) .next-button {
+  margin: 0 auto !important;
+  flex: none !important;
+  width: 100% !important;
+  max-width: 400px !important;
+}
+
+/* Ensure consistent styling with social login buttons for step 1 */
+.auth-buttons:has(.next-button:only-child) .next-button {
+  min-height: 64px !important; /* Match Google/GitHub button height */
+  font-size: 1.3rem !important;
+  text-align: center !important;
+  border: 2px solid transparent !important;
+  background: linear-gradient(135deg, #4F46E5, #818CF8) !important;
+  color: white !important;
+}
+
+.auth-buttons:has(.next-button:only-child) .next-button:not(:disabled) {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.auth-buttons:has(.next-button:only-child) .next-button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15) !important;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  pointer-events: none;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.btn-loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.button-icon {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+/* Complete Registration Button Container - Fixed sizing and colors */
+.complete-registration-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2; /* Above form inputs but below modals */
+  pointer-events: auto;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+.go-previous-btn {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 90px;
+  max-width: 130px;
+  height: 42px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.go-previous-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+  color: #374151;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.go-previous-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.complete-registration-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important; /* Force green gradient */
+  border: none !important;
+  color: white !important;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  max-width: 180px;
+  height: 42px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  user-select: none;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25) !important; /* Green shadow */
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.complete-registration-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857) !important; /* Darker green on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important; /* Enhanced green shadow */
+}
+
+.complete-registration-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  background: #9ca3af !important; /* Gray when disabled */
+  box-shadow: none !important;
+}
+
+.complete-registration-btn .btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.complete-registration-btn .button-icon {
+  font-size: 0.9rem;
+}
+
+@keyframes rocket {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(3deg); }
+}
+
+/* Responsive design for complete registration button */
+@media (max-width: 768px) {
+  .complete-registration-container {
+    gap: 0.6rem;
+    padding: 0.6rem;
+    margin: 1.2rem auto;
+    max-width: 100%;
+    flex-direction: row;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    min-width: 80px;
+    max-width: none;
+    height: 40px;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
+    flex: 1;
+  }
+
+  .auth-button {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+    max-width: 160px;
+    flex: 1;
+  }
+  
+  .next-button {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.2rem;
+    min-width: 120px;
+    flex: 1;
+    max-width: 160px;
+  }
+  
+  .auth-buttons .next-button:only-child {
+    font-size: 1rem;
+    padding: 1.1rem 1.8rem;
+    min-height: 48px;
+    max-width: 100%;
+    flex: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .complete-registration-container {
+    margin: 1rem auto;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    flex-direction: row;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    min-width: 70px;
+    height: 38px;
+    padding: 0.6rem 0.7rem;
+    font-size: 0.8rem;
+    flex: 1;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    min-width: 140px;
+    height: 40px;
+    padding: 0.7rem 1rem;
+  }
+  
+  .go-previous-btn {
+    font-size: 0.85rem;
+  }
+  
+  .complete-registration-btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-4-buttons {
+    padding: 1rem 0;
+    gap: 0.75rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .step-4-back-button {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+    min-width: 100%;
+  }
+  
+  .complete-registration-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    min-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .complete-registration-container {
+    flex-direction: row;
+    gap: 0.4rem;
+    margin: 0.8rem auto;
+    padding: 0.4rem;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    width: auto;
+    min-width: 60px;
+    max-width: none;
+    height: 36px;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+    flex: 1;
+  }
+  
+  .complete-registration-btn .btn-content {
+    font-size: 0.75rem;
+    gap: 0.2rem;
+  }
+  
+  .complete-registration-btn .button-icon {
+    font-size: 0.8rem;
+  }
+
+  .complete-registration-container {
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem auto;
+    padding: 0.6rem;
+    max-width: 240px;
+    width: calc(100% - 2rem);
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 120px;
+    height: 38px;
+    padding: 0.6rem 1rem;
+  }
+  
+  .go-previous-btn {
+    font-size: 0.8rem;
+  }
+  
+  .complete-registration-btn {
+    font-size: 0.85rem;
+  }
+  
+  .complete-registration-btn .btn-content {
+    font-size: 0.85rem;
+    gap: 0.3rem;
+  }
+  
+  .complete-registration-btn .button-icon {
+    font-size: 0.9rem;
+  }
+
+  .auth-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    min-height: 42px;
+    max-width: 140px;
+    flex: 1;
+  }
+  
+  .next-button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+    min-width: 110px;
+    flex: 1;
+    max-width: 140px;
+  }
+  
+  .auth-buttons .next-button:only-child {
+    font-size: 0.95rem;
+    padding: 1rem 1.5rem;
+    min-height: 44px;
+    max-width: 100%;
+    flex: none;
+  }
+  
+  .complete-registration-btn,
+  .go-previous-btn {
+    width: 100%;
+    max-width: 280px;
+    min-width: 200px;
+  }
+  
+  .button-icon {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .complete-registration-container {
+    margin: 0.6rem auto;
+    padding: 0.3rem;
+    gap: 0.3rem;
+    flex-direction: row;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    height: 34px;
+    padding: 0.4rem 0.5rem;
+    min-width: 50px;
+    font-size: 0.7rem;
+    flex: 1;
+  }
+
+  .complete-registration-container {
+    margin: 1rem auto;
+    padding: 0.5rem;
+    max-width: 220px;
+    width: calc(100% - 1.5rem);
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    height: 36px;
+    padding: 0.5rem 0.8rem;
+    min-width: 100px;
+  }
+  
+  .go-previous-btn {
+    font-size: 0.75rem;
+  }
+  
+  .complete-registration-btn {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .step-4-buttons {
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+  
+  .step-4-back-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .complete-registration-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .complete-registration-container {
+    margin: 0.5rem auto;
+    padding: 0.25rem;
+    gap: 0.25rem;
+    flex-direction: row;
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    height: 32px;
+    padding: 0.3rem 0.4rem;
+    min-width: 45px;
+    font-size: 0.65rem;
+    flex: 1;
+  }
+  
+  .complete-registration-btn .btn-content {
+    font-size: 0.65rem;
+    gap: 0.1rem;
+  }
+  
+  .complete-registration-btn .button-icon {
+    font-size: 0.7rem;
+  }
+
+  .complete-registration-container {
+    margin: 0.8rem auto;
+    padding: 0.4rem;
+    max-width: 200px;
+    width: calc(100% - 1rem);
+  }
+  
+  .go-previous-btn,
+  .complete-registration-btn {
+    height: 34px;
+    padding: 0.4rem 0.5rem;
+    min-width: 50px;
+    font-size: 0.7rem;
+    flex: 1;
+  }
+}
+
+/* Force horizontal layout even on very small screens */
+@media (max-width: 320px) {
+  .auth-buttons {
+    gap: 0.4rem;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  
+  .auth-button {
+    padding: 0.6rem 0.6rem;
+    font-size: 0.8rem;
+    min-height: 36px;
+    max-width: 100px;
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .next-button {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.6rem;
+    min-width: 80px;
+    flex: 1;
+    max-width: 100px;
+  }
+  
+  .auth-buttons .next-button:only-child {
+    font-size: 0.85rem;
+    padding: 0.8rem 1rem;
+    min-height: 40px;
+    max-width: 100%;
+    flex: none;
+  }
+}
+
+/* High specificity rule to ensure button functionality */
+.form-step .complete-registration-container .complete-registration-btn,
+.register-container .complete-registration-container .complete-registration-btn {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+  position: relative !important;
+  cursor: pointer !important;
+  display: flex !important;
+}
+
+.form-step .complete-registration-container .complete-registration-btn:not(:disabled),
+.register-container .complete-registration-container .complete-registration-btn:not(:disabled) {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Ensure the button content doesn't block clicks */
+.complete-registration-btn .btn-content * {
+  pointer-events: none !important;
+}
+
+/* High specificity overrides for step 4 specifically */
+.form-step .complete-registration-container .complete-registration-btn:not(:disabled) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.form-step .complete-registration-container .complete-registration-btn:not(:disabled):hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Ensure terms acceptance enables the button */
+.profile-completion-container .complete-registration-btn:not(:disabled) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25) !important;
+}
+
+.profile-completion-container .complete-registration-btn:not(:disabled):hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Override any default button styles that might interfere */
+button.complete-registration-btn:not(:disabled) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: none !important;
+  color: white !important;
+}
+
+button.complete-registration-btn:not(:disabled):hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+}
+
+/* Enhanced OAuth consent button styling - Better visibility */
+.auth-button[data-oauth-consent="true"] {
+  border: 3px solid #3b82f6 !important;
+  background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
+  color: #1e293b !important;
+  position: relative;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+  text-shadow: none !important;
+}
+
+.auth-button[data-oauth-consent="true"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9) !important;
+  border-color: #2563eb !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25) !important;
+  color: #1e293b !important;
+}
+
+.auth-button[data-oauth-consent="true"]::after {
+  content: "🔐";
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.auth-button[data-oauth-consent="true"]::before {
+  content: "OAuth Secured";
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 0.6rem;
+  color: #3b82f6 !important;
+  font-weight: 700;
+  opacity: 0.8;
+  text-shadow: none !important;
+}
+
+/* Enhanced OAuth consent for complete registration button */
+.complete-registration-btn[data-oauth-consent="true"] {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: 3px solid #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25), 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  color: #ffffff !important;
+  position: relative;
+}
+
+.complete-registration-btn[data-oauth-consent="true"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3), 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+.complete-registration-btn[data-oauth-consent="true"]::after {
+  content: "🔐 Secure";
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* OAuth provider indication */
+.oauth-provider-badge {
+  background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
+  border: 2px solid #3b82f6;
+  color: #1e293b !important;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+  text-shadow: none !important;
+}
+
+.oauth-provider-icon {
+  font-size: 0.9rem;
+}

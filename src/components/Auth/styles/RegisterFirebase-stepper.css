@@ -1,0 +1,509 @@
+/* Enhanced Registration Stepper Styles */
+.register-steps-container {
+  width: 100%;
+  padding: 1.5rem 0;
+  margin: 0.8rem 0 2rem 0;
+  position: relative;
+  z-index: 5; /* Lower than modals (1000+) but above regular content */
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.register-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 5; /* Same as container */
+  overflow: visible;
+  flex-wrap: nowrap;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.register-steps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+  max-width: 140px;
+  min-width: 0;
+  overflow: visible;
+  padding: 0;
+  opacity: 0.6;
+}
+
+.step-container.active {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.step-container.completed {
+  opacity: 1;
+}
+
+.step-container.just-completed {
+  animation: stepComplete 0.6s ease-out forwards;
+}
+
+@keyframes stepComplete {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.step-indicator {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+  border: 3px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 0.3s ease;
+}
+
+.step-container.active .step-indicator {
+  background: linear-gradient(135deg, #5b5ef4, #667eea);
+  border-color: #5b5ef4;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(91, 94, 244, 0.3);
+  animation: step-pulse 2.5s infinite alternate;
+}
+
+.step-container.completed .step-indicator {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: #10b981;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.step-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: checkmarkAppear 0.5s ease-out forwards;
+}
+
+@keyframes checkmarkAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-180deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.step-label {
+  display: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  color: #64748b;
+  transition: all 0.3s ease;
+  padding: 0 0.5rem;
+}
+
+.step-container.active .step-label {
+  color: #5b5ef4;
+  font-weight: 700;
+}
+
+.step-container.completed .step-label {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.step-divider {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 1rem;
+  position: relative;
+  border-radius: 1px;
+  min-width: 10px;
+  overflow: hidden;
+  align-self: center;
+  box-sizing: border-box;
+  top: -24px;
+  z-index: 1;
+}
+
+.step-divider-inner {
+  width: 100%;
+  height: 100%;
+  background: #e2e8f0;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.step-divider-inner.completed {
+  background: linear-gradient(90deg, #10b981, #059669);
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.3);
+}
+
+.step-divider-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.step-divider-inner.completed::before {
+  left: 100%;
+}
+
+/* Form container z-index management */
+.register-form-container,
+.form-step {
+  position: relative;
+  z-index: 1; /* Base level for form content */
+}
+
+/* Animations */
+@keyframes step-pulse {
+  0%, 100% { 
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.5);
+  }
+  50% { 
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.7);
+  }
+}
+
+@keyframes checkmark-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced animations for step progression */
+.step-container.active .step-indicator {
+  animation: pulseActive 2s infinite;
+}
+
+@keyframes pulseActive {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(91, 94, 244, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(91, 94, 244, 0.5);
+  }
+}
+
+/* Responsive Design - Simplified since no text */
+@media (max-width: 1024px) {
+  .register-steps {
+    padding: 0.8rem;
+    min-height: 55px;
+  }
+  
+  .step-indicator {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  
+  .step-number {
+    font-size: 0.85rem;
+  }
+  
+  .step-check {
+    font-size: 0.9rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.4rem;
+    min-width: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-steps-container {
+    padding: 0.6rem 0 1.2rem 0;
+    margin: 0.6rem 0 1.5rem 0;
+  }
+
+  .register-steps {
+    padding: 0.7rem;
+    min-height: 50px;
+  }
+  
+  .step-container {
+    max-width: 100px;
+  }
+  
+  .step-indicator {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+  
+  .step-number {
+    font-size: 0.8rem;
+  }
+  
+  .step-check {
+    font-size: 0.85rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.3rem;
+    min-width: 6px;
+    top: -20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .register-steps-container {
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .register-steps {
+    padding: 0.6rem;
+    min-height: 45px;
+  }
+  
+  .step-container {
+    max-width: 80px;
+  }
+  
+  .step-indicator {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step-number {
+    font-size: 0.75rem;
+  }
+  
+  .step-check {
+    font-size: 0.8rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.25rem;
+    min-width: 5px;
+    top: -18px;
+    height: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-steps {
+    padding: 0.5rem;
+    min-height: 40px;
+  }
+  
+  .step-container {
+    max-width: 70px;
+  }
+  
+  .step-indicator {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+  
+  .step-number {
+    font-size: 0.7rem;
+  }
+  
+  .step-check {
+    font-size: 0.75rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.2rem;
+    min-width: 4px;
+    top: -16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .register-steps {
+    padding: 0.4rem;
+    min-height: 38px;
+  }
+  
+  .step-indicator {
+    width: 24px;
+    height: 24px;
+    font-size: 0.65rem;
+  }
+  
+  .step-number {
+    font-size: 0.65rem;
+  }
+  
+  .step-check {
+    font-size: 0.7rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.15rem;
+    min-width: 3px;
+  }
+}
+
+@media (max-width: 320px) {
+  .register-steps-container {
+    padding: 0.4rem 0 1rem 0;
+    margin: 0.4rem 0 1.2rem 0;
+  }
+
+  .register-steps {
+    padding: 0.3rem;
+    border-radius: 12px;
+    min-height: 35px;
+  }
+  
+  .step-indicator {
+    width: 22px;
+    height: 22px;
+    font-size: 0.6rem;
+    border-width: 2px;
+  }
+  
+  .step-number {
+    font-size: 0.6rem;
+  }
+  
+  .step-check {
+    font-size: 0.65rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.1rem;
+    min-width: 2px;
+  }
+}
+
+@media (max-width: 280px) {
+  .register-steps {
+    padding: 0.25rem;
+    min-height: 32px;
+  }
+  
+  .step-indicator {
+    width: 20px;
+    height: 20px;
+    font-size: 0.55rem;
+  }
+  
+  .step-number {
+    font-size: 0.55rem;
+  }
+  
+  .step-check {
+    font-size: 0.6rem;
+  }
+  
+  .step-divider {
+    margin: 0 0.08rem;
+    min-width: 2px;
+  }
+}

@@ -1,0 +1,61 @@
+/* Initials Input Styles */
+.initials-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.initials-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.initials-input-group label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.initials-input {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  transition: all 0.2s;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.initials-input:focus {
+  outline: none;
+  border-color: #5b5ef4;
+  box-shadow: 0 0 0 2px rgba(91, 94, 244, 0.2);
+}
+
+.initials-input::placeholder {
+  color: #bbb;
+}
+
+/* Animation for initials input focus */
+.initials-input:focus {
+  transform: scale(1.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .initials-input-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .initials-input {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}

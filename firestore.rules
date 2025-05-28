@@ -1,0 +1,402 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions for authentication and authorization
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(resource) {
+      return request.auth.uid == resource.data.userId;
+    }
+    
+    function isValidUser() {
+      return request.auth != null && request.auth.uid != null;
+    }
+    
+    function hasValidEmail() {
+      return request.auth.token.email != null && request.auth.token.email_verified == true;
+    }
+    
+    // User profile and authentication data
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      allow create: if isAuthenticated() && request.auth.uid == userId
+        && request.resource.data.keys().hasAll(['email', 'createdAt'])
+        && request.resource.data.email == request.auth.token.email;
+      
+      // User preferences and settings
+      match /settings/{settingId} {
+        allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      }
+      
+      // User activity logs
+      match /activity/{activityId} {
+        allow read, write: if isAuthenticated() && request.auth.uid == userId;
+        allow create: if isAuthenticated() && request.auth.uid == userId
+          && request.resource.data.timestamp is timestamp;
+      }
+    }
+    
+    // Tasks collection - core functionality
+    match /tasks/{taskId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['title', 'userId', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.createdAt is timestamp;
+      
+      allow update: if isAuthenticated() && isOwner(resource)
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.updatedAt is timestamp;
+      
+      allow delete: if isAuthenticated() && isOwner(resource);
+      
+      // Task comments and collaboration
+      match /comments/{commentId} {
+        allow read, write: if isAuthenticated() && isOwner(get(/databases/$(database)/documents/tasks/$(taskId)));
+        allow create: if isAuthenticated() 
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.taskId == taskId;
+      }
+      
+      // Task attachments
+      match /attachments/{attachmentId} {
+        allow read, write: if isAuthenticated() && isOwner(get(/databases/$(database)/documents/tasks/$(taskId)));
+        allow create: if isAuthenticated() 
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.taskId == taskId;
+      }
+    }
+    
+    // Projects collection
+    match /projects/{projectId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'userId', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.createdAt is timestamp;
+      
+      allow update: if isAuthenticated() && isOwner(resource)
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.updatedAt is timestamp;
+      
+      allow delete: if isAuthenticated() && isOwner(resource);
+      
+      // Project collaboration (shared projects)
+      match /collaborators/{collaboratorId} {
+        allow read: if isAuthenticated() && (
+          isOwner(get(/databases/$(database)/documents/projects/$(projectId))) ||
+          request.auth.uid == collaboratorId
+        );
+        allow write: if isAuthenticated() && isOwner(get(/databases/$(database)/documents/projects/$(projectId)));
+      }
+    }
+    
+    // Labels/Tags collection
+    match /labels/{labelId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'userId', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.createdAt is timestamp;
+      
+      allow update: if isAuthenticated() && isOwner(resource)
+        && request.resource.data.userId == resource.data.userId;
+      
+      allow delete: if isAuthenticated() && isOwner(resource);
+    }
+    
+    // Categories collection
+    match /categories/{categoryId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'userId', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.createdAt is timestamp;
+      
+      allow update: if isAuthenticated() && isOwner(resource)
+        && request.resource.data.userId == resource.data.userId;
+      
+      allow delete: if isAuthenticated() && isOwner(resource);
+    }
+    
+    // User workspace and views
+    match /workspaces/{workspaceId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'userId', 'createdAt']);
+    }
+    
+    // Dashboard views and layouts
+    match /dashboard_views/{viewId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['viewType', 'userId', 'createdAt']);
+    }
+    
+    // Filters and saved searches
+    match /saved_filters/{filterId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'filters', 'userId', 'createdAt']);
+    }
+    
+    // Recent searches and activity
+    match /recent_searches/{searchId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.timestamp is timestamp;
+    }
+    
+    // User notifications
+    match /notifications/{notificationId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['type', 'message', 'userId', 'createdAt'])
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Quick actions and shortcuts
+    match /quick_actions/{actionId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'action', 'userId', 'createdAt']);
+    }
+    
+    // Keyboard shortcuts customization
+    match /keyboard_shortcuts/{shortcutId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['keys', 'action', 'userId']);
+    }
+    
+    // Theme and appearance settings
+    match /themes/{themeId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'settings', 'userId']);
+    }
+    
+    // Import/Export history
+    match /import_history/{importId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['fileName', 'status', 'userId', 'createdAt'])
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    match /export_history/{exportId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['fileName', 'type', 'userId', 'createdAt'])
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Calendar and scheduling data
+    match /calendar_events/{eventId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['title', 'date', 'userId', 'createdAt'])
+        && request.resource.data.date is timestamp
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Kanban board layouts
+    match /kanban_boards/{boardId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'columns', 'userId', 'createdAt']);
+      
+      match /columns/{columnId} {
+        allow read, write: if isAuthenticated() && isOwner(get(/databases/$(database)/documents/kanban_boards/$(boardId)));
+        allow create: if isAuthenticated() 
+          && request.resource.data.boardId == boardId;
+      }
+    }
+    
+    // Analytics and insights
+    match /analytics/{analyticsId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['date', 'metrics', 'userId'])
+        && request.resource.data.date is timestamp;
+    }
+    
+    // Productivity insights
+    match /productivity_insights/{insightId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['period', 'data', 'userId', 'createdAt']);
+    }
+    
+    // Task templates
+    match /task_templates/{templateId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'template', 'userId', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+    }
+    
+    // Project templates
+    match /project_templates/{templateId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['name', 'template', 'userId', 'createdAt']);
+    }
+    
+    // Collaboration and sharing
+    match /shared_items/{shareId} {
+      allow read: if isAuthenticated() && (
+        isOwner(resource) || 
+        request.auth.uid in resource.data.sharedWith ||
+        resource.data.public == true
+      );
+      allow write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.keys().hasAll(['itemType', 'itemId', 'ownerId', 'createdAt']);
+    }
+    
+    // Comments system
+    match /comments/{commentId} {
+      allow read: if isAuthenticated() && (
+        isOwner(resource) ||
+        // Allow reading comments on items the user has access to
+        request.auth.uid == get(/databases/$(database)/documents/$(resource.data.itemType)/$(resource.data.itemId)).data.userId
+      );
+      allow write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['content', 'itemType', 'itemId', 'userId', 'createdAt'])
+        && request.resource.data.content is string
+        && request.resource.data.content.size() > 0
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Activity feed and history
+    match /activity_feed/{activityId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['action', 'itemType', 'userId', 'timestamp'])
+        && request.resource.data.timestamp is timestamp;
+    }
+    
+    // Search history and suggestions
+    match /search_history/{searchId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['query', 'results', 'userId', 'timestamp'])
+        && request.resource.data.timestamp is timestamp;
+    }
+    
+    // User onboarding and tutorials
+    match /onboarding/{onboardingId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['step', 'completed', 'userId']);
+    }
+    
+    // Feature flags and experiments
+    match /feature_flags/{flagId} {
+      allow read: if isAuthenticated() && isOwner(resource);
+      allow write: if false; // Feature flags are managed server-side
+    }
+    
+    // Backup and sync data
+    match /backups/{backupId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['type', 'data', 'userId', 'createdAt'])
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Data integrity and validation rules
+    match /data_validation/{validationId} {
+      allow read: if isAuthenticated() && isOwner(resource);
+      allow write: if false; // Validation rules are system-managed
+    }
+    
+    // Global application settings (read-only for users)
+    match /app_settings/{settingName} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admins can modify app settings
+    }
+    
+    // User feedback and support
+    match /feedback/{feedbackId} {
+      allow read, write: if isAuthenticated() && isOwner(resource);
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['type', 'message', 'userId', 'createdAt'])
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0
+        && request.resource.data.createdAt is timestamp;
+    }
+    
+    // Error reporting and crash logs
+    match /error_reports/{errorId} {
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['error', 'context', 'userId', 'timestamp'])
+        && request.resource.data.timestamp is timestamp;
+      allow read: if false; // Error reports are for system use only
+    }
+    
+    // Performance metrics
+    match /performance_metrics/{metricId} {
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['metric', 'value', 'userId', 'timestamp'])
+        && request.resource.data.timestamp is timestamp;
+      allow read: if false; // Metrics are for system analysis only
+    }
+    
+    // API usage tracking
+    match /api_usage/{usageId} {
+      allow read: if isAuthenticated() && isOwner(resource);
+      allow write: if false; // API usage is tracked server-side
+    }
+    
+    // Security and audit logs
+    match /security_logs/{logId} {
+      allow read: if false; // Security logs are system-only
+      allow write: if false;
+    }
+    
+    // Default deny rule for any unmatched paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

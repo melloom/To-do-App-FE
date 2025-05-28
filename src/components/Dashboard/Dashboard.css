@@ -1,0 +1,114 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: 240px; /* Matches new sidebar width */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+  /* Remove any top padding that was for the header */
+}
+
+.dashboard.sidebar-collapsed .dashboard-main {
+  margin-left: 64px; /* Updated to match collapsed sidebar width in Sidebar.css */
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.dashboard-nav {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+}
+
+.nav-btn {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-btn:hover {
+  color: #5b5ef4;
+  background-color: #f9fafb;
+}
+
+.nav-btn.active {
+  color: #5b5ef4;
+  background-color: #f0f0ff;
+}
+
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #5b5ef4;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px; /* Increased padding since no header */
+  overflow-y: auto;
+  min-height: 500px;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+  }
+  
+  .dashboard.sidebar-collapsed .dashboard-main {
+    margin-left: 0;
+  }
+
+  .dashboard-nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+}
