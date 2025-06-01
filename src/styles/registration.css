@@ -1,0 +1,376 @@
+/* Fix for missing "Create your account" title */
+.step-title {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: block; /* Ensure it's visible */
+}
+
+/* Fix for input icons positioning */
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  color: #777;
+  font-size: 1rem;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Ensure icon appears above input */
+  pointer-events: none; /* Allow clicking through the icon */
+}
+
+.auth-input {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: .8rem;
+  padding-left: 40px; /* Make space for the icon */
+  transition: border-color .2s;
+  width: 100%;
+}
+
+/* Fix for missing continue button */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.next-button {
+  background-color: #5b5ef4;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  padding: .8rem 1.5rem;
+  transition: all .2s;
+}
+
+.next-button:hover {
+  background-color: #4a4dc9;
+}
+
+/* Make sure the form step is visible */
+.form-step {
+  opacity: 1; /* Ensure visibility */
+  transform: translateX(0); /* Reset any transform */
+  transition: all .3s;
+}
+
+/* Registration page z-index hierarchy */
+.register-page {
+  position: relative;
+  z-index: 1; /* Base level */
+}
+
+.register-container {
+  position: relative;
+  z-index: 1;
+}
+
+.register-form-section {
+  position: relative;
+  z-index: 10; /* Above mockup section */
+}
+
+.register-mockup-section {
+  position: relative;
+  z-index: 1; /* Background level - lowest priority */
+}
+
+.register-mockup-background {
+  position: fixed; /* Prevent interference with form interactions */
+  pointer-events: none; /* Disable mouse interactions */
+}
+
+.register-mockup-background * {
+  pointer-events: none; /* Ensure all child elements don't interfere */
+}
+
+/* Form elements should be interactive */
+.register-form-container,
+.register-form-container * {
+  pointer-events: auto;
+}
+
+/* Ensure buttons and inputs are interactive */
+.auth-button,
+.enhanced-input,
+.oauth-btn,
+.password-toggle,
+.back-to-home {
+  pointer-events: auto;
+  position: relative;
+  z-index: 20; /* High priority for interactive elements */
+}
+
+/* Modal overlays hierarchy - Updated with profile modal support */
+.modal-overlay,
+.confirmation-modal-overlay,
+.exit-warning-overlay {
+  z-index: 40000 !important; /* Lower than profile modals */
+}
+
+.modal-container,
+.confirmation-modal,
+.exit-warning-modal {
+  z-index: 40001 !important; /* Modal content above overlays */
+}
+
+/* Project modals - Medium priority */
+.project-modal-overlay {
+  z-index: 60000 !important;
+}
+
+.project-modal-container {
+  z-index: 60001 !important;
+}
+
+/* Profile modals - HIGH priority (above registration but below legal) */
+.profile-modal-overlay {
+  z-index: 80000 !important; /* Much higher than registration elements */
+}
+
+.profile-modal-container {
+  z-index: 80001 !important; /* Profile modal content */
+}
+
+/* Force profile modal above registration mockup */
+.register-page .profile-modal-overlay,
+.register-container .profile-modal-overlay,
+body .profile-modal-overlay {
+  z-index: 80000 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+  pointer-events: auto !important;
+}
+
+.register-page .profile-modal-container,
+.register-container .profile-modal-container,
+body .profile-modal-container {
+  z-index: 80001 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensure all modal content is interactive */
+.profile-modal-overlay *,
+.profile-modal-container *,
+.profile-modal-header *,
+.profile-modal-content *,
+.profile-modal-footer * {
+  pointer-events: auto !important;
+  z-index: inherit !important;
+}
+
+/* Legal modals - HIGHEST priority */
+.legal-modal-overlay {
+  z-index: 99999 !important; /* Highest priority overlay */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.legal-modal-container {
+  z-index: 100000 !important; /* Highest priority content */
+  position: relative !important;
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  width: 800px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+/* Terms and Privacy modal buttons in registration context */
+.register-page .terms-link,
+.register-page .legal-link,
+.register-form-container .terms-link,
+.register-form-container .privacy-link {
+  position: relative;
+  z-index: 100002 !important; /* Above everything else */
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  color: #5b5ef4 !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+}
+
+.register-page .terms-link:hover,
+.register-page .legal-link:hover,
+.register-form-container .terms-link:hover,
+.register-form-container .privacy-link:hover {
+  color: #4f46e5 !important;
+  text-decoration: underline !important;
+}
+
+/* Ensure registration mockup never interferes with legal modals */
+.register-mockup-section,
+.register-mockup-background,
+.registration-mockup,
+.registration-mockup * {
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure legal modal content is properly styled and accessible */
+.legal-modal-overlay .legal-modal-container * {
+  pointer-events: auto !important;
+  color: inherit !important;
+}
+
+.legal-modal-header h2 {
+  color: #1f2937 !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.legal-modal-content {
+  color: #4b5563 !important;
+  line-height: 1.6 !important;
+}
+
+.legal-modal-content h3 {
+  color: #1f2937 !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+}
+
+.legal-modal-content h4 {
+  color: #374151 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+.legal-modal-content p {
+  color: #4b5563 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.7 !important;
+}
+
+.legal-modal-content li {
+  color: #4b5563 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Fix any potential conflicts with registration styles */
+.register-container .legal-modal-overlay {
+  z-index: 99999 !important;
+}
+
+.register-container .legal-modal-container {
+  z-index: 100000 !important;
+}
+
+/* Ensure proper modal backdrop */
+.legal-modal-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: -1;
+}
+
+.register-page .legal-modal-overlay,
+.registration-container .legal-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 99999 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.register-page .legal-modal-container,
+.registration-container .legal-modal-container {
+  z-index: 100000 !important;
+  position: relative !important;
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+  overflow: hidden !important;
+}
+
+/* Responsive fixes for legal modals in registration */
+@media (max-width: 768px) {
+  .legal-modal-container {
+    max-width: 100vw !important;
+    max-height: 95vh !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    margin: 0.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-modal-container {
+    border-radius: 8px !important;
+    margin: 0.25rem !important;
+  }
+}
+
+/* Complete registration button - Green theme */
+.complete-registration-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.complete-registration-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4) !important;
+}
+
+.complete-registration-btn:disabled {
+  background: #9ca3af !important;
+  box-shadow: none !important;
+}
+
+/* Ensure profile avatar is always clickable */
+.profile-avatar-large {
+  z-index: 100 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}

@@ -1,0 +1,156 @@
+/* Cross-browser compatibility fixes */
+
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    background-attachment: scroll; /* Fix for Safari's background-attachment: fixed */
+  }
+  
+  .landing-hero {
+    background-color: #f0f5ff !important; /* Stronger fallback for Safari */
+    background-image: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%) !important;
+    height: 100vh; /* Force height on Safari */
+    min-height: 700px; /* Minimum height for smaller screens */
+  }
+  
+  /* Fix for backdrop-filter in Safari */
+  .hero-content {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.85); /* Stronger background as fallback */
+  }
+  
+  /* Fix for feature pills in Safari */
+  .feature-pills-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+  /* Ensure feature pills are properly sized in Safari */
+  .feature-pill {
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .feature-icon {
+    font-size: 1.1rem !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+/* Firefox-specific fixes */
+@supports (-moz-appearance:none) {
+  body {
+    background-color: #f0f5ff; /* Solid background for Firefox as fallback */
+  }
+  
+  .landing-hero {
+    background-color: #f0f5ff !important;
+    height: 100vh;
+    min-height: 700px;
+  }
+  
+  /* Ensure flex works properly in Firefox */
+  .feature-pills-container {
+    display: flex;
+  }
+}
+
+/* Microsoft Edge and IE fixes */
+@supports (-ms-ime-align:auto) {
+  body {
+    background-color: #f0f5ff !important;
+    background-image: none; /* Fallback for Edge if gradient causes issues */
+  }
+  
+  .landing-hero {
+    height: 100vh;
+    min-height: 700px;
+  }
+  
+  /* Fix for backdrop-filter in Edge */
+  .hero-content {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* General fallbacks for all browsers */
+.landing-hero {
+  /* Will be overridden by the gradient where supported */
+  background-color: #f0f5ff !important;
+}
+
+/* Fix for older browsers that don't support flexbox */
+@supports not (display: flex) {
+  .feature-pills-container {
+    display: block;
+    text-align: center;
+  }
+  
+  .feature-pill {
+    display: inline-block;
+    margin: 5px;
+  }
+  
+  .landing-hero {
+    display: block;
+    text-align: center;
+  }
+  
+  .hero-content, .hero-image {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+/* Fix for Internet Explorer */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .landing-hero {
+    background-color: #f0f5ff !important;
+    height: 100vh;
+    min-height: 700px;
+  }
+  
+  .hero-content {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .feature-pills-container {
+    display: block;
+  }
+  
+  .feature-pill {
+    display: inline-block;
+    margin: 5px 10px;
+  }
+}
+
+/* High DPI/Retina display improvements */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero-content {
+    border-width: 0.5px; /* Thinner borders on high resolution screens */
+  }
+  
+  .feature-pill {
+    border-width: 0.5px;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+  }
+  
+  .landing-hero {
+    min-height: 0;
+    padding: 1cm;
+  }
+  
+  .hero-content {
+    border: 1px solid #ddd;
+    background: white;
+  }
+}

@@ -1,0 +1,786 @@
+/* Hero Section Styles */
+.landing-hero {
+  padding: calc(var(--space-xl) + 80px) max(var(--space-xl), calc((100% - 1280px) / 2)) var(--space-xl);
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%); /* Updated to cleaner gradient */
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  z-index: 1; /* Ensure hero is below header */
+  justify-content: center;
+  gap: var(--space-xl);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  flex: 1;
+  padding: var(--space-xl);
+  position: relative;
+  z-index: 4;
+  border: var(--border-thin-black);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  background-color: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  max-width: 650px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+  line-height: 1.1;
+  color: var(--gray-800); /* Changed to standard color from the new version */
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 255, 0.05);
+}
+
+.brand-name {
+  position: relative;
+  color: var(--primary-color);
+  font-weight: 800;
+  padding: 0 8px;
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0px 2px 5px rgba(91, 94, 244, 0.3);
+  display: inline-block;
+  transform: translateY(-2px);
+}
+
+.brand-name::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #5b5ef4 0%, #7a7cf5 100%);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: var(--space-md) var(--space-xl);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+.cta-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+}
+
+.cta-arrow {
+  margin-left: var(--space-xs);
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 0.8rem 1.8rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Update Hero Metrics to use a cleaner design but maintain distinctiveness */
+.hero-metrics-container {
+  width: 100%;
+  margin-top: var(--space-xl);
+}
+
+.hero-metrics {
+  display: flex;
+  justify-content: space-around;
+  gap: 25px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--gray-200);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  min-width: 220px;
+  position: relative;
+  background-color: white;
+  border: 2px solid;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.metric-free {
+  border-color: var(--primary-color);
+}
+
+.metric-private {
+  border-color: var(--primary-dark);
+}
+
+.metric-simple {
+  border-color: var(--success-color);
+}
+
+.metric:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.metric-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background-color: black;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border: 3px solid white;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: black;
+  padding: 15px;
+  border-radius: 10px;
+  border: 3px solid white;
+}
+
+.metric-number {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+}
+
+.metric-free .metric-number {
+  color: var(--primary-color);
+}
+
+.metric-private .metric-number {
+  color: var(--primary-dark);
+}
+
+.metric-simple .metric-number {
+  color: var(--success-color);
+}
+
+.metric-label {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.4;
+  color: var(--gray-700);
+}
+
+.hero-image {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+}
+
+.hero-image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+/* Animated app mockup - fix positioning and z-index */
+.animated-app-mockup {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  z-index: 3;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: perspective(1000px) rotateY(-3deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animated-app-mockup:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.mockup-header {
+  background-color: var(--primary-color, #6366f1);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.mockup-body {
+  padding: 16px;
+  background-color: #fafbfc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix floating elements positioning and z-index */
+.floating-element {
+  position: absolute;
+  z-index: 1; /* Lower z-index, behind main mockup */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  animation: none !important;
+  transform: none !important;
+}
+
+.calendar {
+  width: 140px;
+  height: 160px;
+  top: 15%;
+  right: -25px;
+  animation: none !important;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  width: 240px;
+  height: 80px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+/* Center and organize task items properly */
+.task-item {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 2;
+}
+
+.task-item:hover {
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Fix mockup footer positioning */
+.mockup-footer {
+  padding: 16px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.mockup-add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(91, 94, 244, 0.2);
+  border: none;
+  position: relative;
+  z-index: 3;
+}
+
+.mockup-add-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 94, 244, 0.3);
+}
+
+/* Organize z-index hierarchy properly */
+.hero-decoration {
+  position: absolute;
+  z-index: 0; /* Background decorations */
+}
+
+@media (max-width: 1024px) {
+  .landing-hero {
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .floating-element {
+    display: none;
+  }
+
+  .hero-image-wrapper {
+    max-width: 380px;
+  }
+  
+  .animated-app-mockup {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-hero {
+    flex-direction: column;
+    min-height: auto;
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+    gap: var(--space-lg);
+  }
+
+  .hero-content {
+    padding-right: 0;
+    margin-bottom: var(--space-xl);
+    order: 2;
+    max-width: 100%;
+  }
+
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    justify-content: center;
+  }
+
+  .hero-image-wrapper {
+    margin-bottom: var(--space-lg);
+  }
+
+  .animated-app-mockup {
+    transform: none;
+    max-width: 300px;
+  }
+
+  .hero-image {
+    order: 1;
+    padding: var(--space-md);
+  }
+}
+
+/* Add these styles to ensure section titles are centered */
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--gray-800);
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Remove or comment out the old hero-features and feature-pill styles */
+/*
+.hero-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 0.7rem;
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 4px 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid;
+  font-size: 0.75rem;
+}
+*/
+
+/* Task mockup enhancements */
+.animated-app-mockup {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: perspective(1000px) rotateX(2deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animated-app-mockup:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: perspective(1000px) rotateX(2deg) translateY(-5px);
+}
+
+.task-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+}
+
+.task-item:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 102, 241, 0.08);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.task-item:hover::before {
+  transform: translateX(0);
+}
+
+.task-item.highlighted::before {
+  background-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Ensure content stays above the fill effect */
+.task-checkbox,
+.task-content,
+.task-priority {
+  position: relative;
+  z-index: 1;
+}
+
+.task-checkbox {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease;
+}
+
+.task-item:hover .task-checkbox {
+  border-color: var(--primary-color);
+}
+
+/* Updated Hero tag */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 30px;
+  margin-bottom: var(--space-md);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+  z-index: 1;
+}
+
+.hero-tag-icon {
+  margin-right: 8px;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag-text {
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.5px;
+}
+
+/* Updated Hero title */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+  line-height: 1.1;
+  color: var(--gray-800);
+  position: relative;
+  background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Updated subtitle */
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+  max-width: 620px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Add these styles to your Hero.css file */
+
+.feature-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.free-pill {
+  background: linear-gradient(135deg, #5b5ef4 0%, #7a7cf5 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.private-pill {
+  background: white;
+  color: var(--gray-800);
+  border: 1px solid var(--gray-200);
+}
+
+.simple-pill {
+  background: #f9f9ff;
+  color: var(--primary-color);
+  border: 1px solid rgba(91, 94, 244, 0.2);
+}
+
+.pill-icon {
+  font-size: 1.1rem;
+}
+
+/* Remove bouncing animations from hero task items */
+.hero-task-item {
+  /* Remove any bounce/floating animations */
+  animation: none !important;
+  transform: none !important;
+}
+
+.hero-task-item:nth-child(1),
+.hero-task-item:nth-child(2),
+.hero-task-item:nth-child(3),
+.hero-task-item:nth-child(4) {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Remove floating animations from mockup container */
+.hero-mockup-container,
+.hero-phone-mockup,
+.mockup-task-item {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Ensure static positioning for all hero task elements */
+.hero-section .task-item,
+.hero-section .mockup-task-item,
+.hero-section .hero-task-item {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Remove hover animations that might cause movement */
+.hero-task-item:hover {
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Override any inherited animations */
+.hero-section * {
+  animation-play-state: paused !important;
+}
+
+/* Static positioning for new task button */
+.hero-section .mockup-add-button,
+.hero-section .new-task-btn {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* ...existing code... */
+
+.cta-button.secondary-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+  color: white !important;
+  border: 2px solid transparent !important;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25) !important;
+}
+
+.cta-button.secondary-btn:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.35) !important;
+  color: white !important;
+}
+
+/* ...existing code... */
+
+/* Temporary Development Button */
+.cta-button.dev-button {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border: 2px solid #f59e0b;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  position: relative;
+}
+
+.cta-button.dev-button::before {
+  content: "DEV ONLY";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.cta-button.dev-button:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  border-color: #d97706;
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* ...existing code... */

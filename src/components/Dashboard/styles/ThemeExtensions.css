@@ -1,0 +1,921 @@
+/* Theme Extensions for All Dashboard Pages */
+
+/* Base theme page styles */
+body[class*="theme-"] .dashboard-main {
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="theme-"] .dashboard-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  transition: all 0.3s ease;
+}
+
+/* Ensure content is above the background */
+body[class*="theme-"] .dashboard-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Headers with Theme Styling */
+body[class*="theme-"] .section-header {
+  position: relative;
+  padding: 2rem 1.5rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  background: var(--task-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  overflow: hidden;
+}
+
+body[class*="theme-"] .section-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+}
+
+body[class*="theme-"] .section-header h2 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Projects Header */
+body[class*="theme-"] .projects-header {
+  position: relative;
+  padding: 2rem 1.5rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  background: var(--task-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body[class*="theme-"] .projects-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+}
+
+body[class*="theme-"] .projects-header h2 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Section Icon Styling */
+body[class*="theme-"] .section-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+/* Theme-specific section header decorations */
+body.theme-spiderman .section-header::after,
+body.theme-spiderman .projects-header::after {
+  content: '🕷️';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: webSwing 3s infinite ease-in-out;
+}
+
+body.theme-hulk .section-header::after,
+body.theme-hulk .projects-header::after {
+  content: '💚';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: smash 2s infinite ease-in-out;
+}
+
+body.theme-ironman .section-header::after,
+body.theme-ironman .projects-header::after {
+  content: '⚡';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: repulsorGlow 2s infinite ease-in-out;
+}
+
+body.theme-thor .section-header::after,
+body.theme-thor .projects-header::after {
+  content: '⚡';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: lightning 1.5s infinite ease-in-out;
+}
+
+body.theme-captain .section-header::after,
+body.theme-captain .projects-header::after {
+  content: '🛡️';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: shieldSpin 4s infinite linear;
+}
+
+body.theme-panther .section-header::after,
+body.theme-panther .projects-header::after {
+  content: '🐾';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: stealth 3s infinite ease-in-out;
+}
+
+body.theme-spongebob .section-header::after,
+body.theme-spongebob .projects-header::after {
+  content: '🍍';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: bubbleFloat 3s infinite ease-in-out;
+}
+
+body.theme-mickey .section-header::after,
+body.theme-mickey .projects-header::after {
+  content: '🏰';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: spin 3s infinite linear;
+}
+
+body.theme-pikachu .section-header::after,
+body.theme-pikachu .projects-header::after {
+  content: '⚡';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: electricPulse 1s infinite ease-in-out;
+}
+
+body.theme-turtles .section-header::after,
+body.theme-turtles .projects-header::after {
+  content: '🍕';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: spin 2s infinite linear;
+}
+
+/* Task Items with Theme Styling */
+body[class*="theme-"] .task-item,
+body[class*="theme-"] .today-task,
+body[class*="theme-"] .upcoming-task,
+body[class*="theme-"] .overdue-task,
+body[class*="theme-"] .completed-task,
+body[class*="theme-"] .completed-task-item {
+  background: var(--task-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="theme-"] .task-item::before,
+body[class*="theme-"] .today-task::before,
+body[class*="theme-"] .upcoming-task::before,
+body[class*="theme-"] .overdue-task::before,
+body[class*="theme-"] .completed-task::before,
+body[class*="theme-"] .completed-task-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+body[class*="theme-"] .task-item:hover::before,
+body[class*="theme-"] .today-task:hover::before,
+body[class*="theme-"] .upcoming-task:hover::before,
+body[class*="theme-"] .overdue-task:hover::before,
+body[class*="theme-"] .completed-task:hover::before,
+body[class*="theme-"] .completed-task-item:hover::before {
+  width: 8px;
+}
+
+body[class*="theme-"] .task-item:hover,
+body[class*="theme-"] .today-task:hover,
+body[class*="theme-"] .upcoming-task:hover,
+body[class*="theme-"] .overdue-task:hover,
+body[class*="theme-"] .completed-task:hover,
+body[class*="theme-"] .completed-task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+  border-color: var(--accent-color);
+}
+
+/* Section-Specific Backgrounds */
+
+/* All Sections Base Background */
+body.theme-thor .today-section,
+body.theme-thor .upcoming-section,
+body.theme-thor .overdue-section,
+body.theme-thor .completed-section,
+body.theme-thor .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 25% 35%, rgba(52, 152, 219, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 75% 65%, rgba(41, 128, 185, 0.05) 0%, transparent 60%);
+}
+
+body.theme-captain .today-section,
+body.theme-captain .upcoming-section,
+body.theme-captain .overdue-section,
+body.theme-captain .completed-section,
+body.theme-captain .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(52, 152, 219, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(239, 68, 68, 0.05) 0%, transparent 50%);
+}
+
+body.theme-panther .today-section,
+body.theme-panther .upcoming-section,
+body.theme-panther .overdue-section,
+body.theme-panther .completed-section,
+body.theme-panther .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+}
+
+body.theme-mickey .today-section,
+body.theme-mickey .upcoming-section,
+body.theme-mickey .overdue-section,
+body.theme-mickey .completed-section,
+body.theme-mickey .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 25% 35%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(0, 0, 0, 0.05) 0%, transparent 50%);
+}
+
+body.theme-pikachu .today-section,
+body.theme-pikachu .upcoming-section,
+body.theme-pikachu .overdue-section,
+body.theme-pikachu .completed-section,
+body.theme-pikachu .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(251, 191, 36, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+}
+
+body.theme-turtles .today-section,
+body.theme-turtles .upcoming-section,
+body.theme-turtles .overdue-section,
+body.theme-turtles .completed-section,
+body.theme-turtles .projects-section {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 25% 35%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(5, 150, 105, 0.05) 0%, transparent 50%);
+}
+
+/* Inbox Section */
+body.theme-spiderman .inbox-section {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(26, 33, 62, 0.1) 0%, transparent 50%);
+}
+
+body.theme-hulk .inbox-section {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(26, 71, 42, 0.1) 0%, transparent 50%);
+}
+
+body.theme-ironman .inbox-section {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(231, 76, 60, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(92, 22, 22, 0.1) 0%, transparent 50%);
+}
+
+body.theme-spongebob .inbox-section {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(241, 196, 15, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(243, 156, 18, 0.1) 0%, transparent 50%);
+}
+
+/* Today Section */
+body.theme-spiderman .today-section {
+  position: relative;
+}
+
+body.theme-spiderman .today-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 0%, rgba(230, 57, 70, 0.05) 25%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e63946' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-2.5-1-5-3-7s-4.5-3-7-3-5 1-7 3-3 4.5-3 7 1 5 3 7 4.5 3 7 3 5-1 7-3 3-4.5 3-7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.theme-hulk .today-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(46, 204, 113, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: smash 4s infinite ease-in-out;
+}
+
+body.theme-ironman .today-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 35%, rgba(231, 76, 60, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 75% 65%, rgba(192, 57, 43, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: repulsorGlow 3s infinite ease-in-out;
+}
+
+body.theme-spongebob .today-section::before,
+body.theme-spongebob .upcoming-section::before,
+body.theme-spongebob .overdue-section::before,
+body.theme-spongebob .completed-section::before,
+body.theme-spongebob .projects-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 35%, rgba(241, 196, 15, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(243, 156, 18, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: bubbleFloat 4s infinite ease-in-out;
+}
+
+/* Progress Bars with Theme Colors */
+body[class*="theme-"] .progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 8px;
+  position: relative;
+}
+
+body[class*="theme-"] .progress-fill {
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="theme-"] .progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* Empty State Styling */
+body[class*="theme-"] .empty-state,
+body[class*="theme-"] .projects-empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--task-bg);
+  border-radius: 12px;
+  border: 2px dashed var(--border-color);
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="theme-"] .empty-state::before,
+body[class*="theme-"] .projects-empty-state::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: var(--accent-color);
+  opacity: 0.03;
+  border-radius: 50%;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+body[class*="theme-"] .empty-state p,
+body[class*="theme-"] .projects-empty-state p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Filter Tabs */
+body[class*="theme-"] .filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+body[class*="theme-"] .filter-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+body[class*="theme-"] .filter-btn:hover {
+  background: var(--hover-bg);
+  border-color: var(--accent-color);
+}
+
+body[class*="theme-"] .filter-btn.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+/* Task Counts */
+body[class*="theme-"] .task-count {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+/* Date Groups */
+body[class*="theme-"] .date-group {
+  margin-bottom: 2rem;
+}
+
+body[class*="theme-"] .date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+body[class*="theme-"] .date-label {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+body[class*="theme-"] .date-full {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Priority Styling */
+body[class*="theme-"] .task-priority {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+body[class*="theme-"] .priority-high {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+body[class*="theme-"] .priority-medium {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+
+body[class*="theme-"] .priority-low {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+/* Category Styling */
+body[class*="theme-"] .task-category {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+body[class*="theme-"] .category-work {
+  background: rgba(99, 102, 241, 0.2);
+  color: #6366f1;
+}
+
+body[class*="theme-"] .category-personal {
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+}
+
+/* Overdue Section Specific */
+body[class*="theme-"] .overdue-task {
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+body[class*="theme-"] .overdue-section .section-header {
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+/* Completed Section Specific */
+body[class*="theme-"] .completed-task,
+body[class*="theme-"] .completed-task-item {
+  opacity: 0.7;
+  background: rgba(34, 197, 94, 0.05);
+}
+
+body[class*="theme-"] .completed-task .task-title,
+body[class*="theme-"] .completed-task-item .task-title {
+  text-decoration: line-through;
+}
+
+/* Projects Section */
+body[class*="theme-"] .project-card {
+  background: var(--task-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="theme-"] .project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+body[class*="theme-"] .project-card:hover::before {
+  transform: scaleX(1);
+}
+
+body[class*="theme-"] .project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+  border-color: var(--accent-color);
+}
+
+/* Add Project Button Styling */
+body[class*="theme-"] .add-project-btn,
+body[class*="theme-"] .create-first-project-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body[class*="theme-"] .add-project-btn:hover,
+body[class*="theme-"] .create-first-project-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Search Input Styling */
+body[class*="theme-"] .search-input {
+  background: var(--task-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+body[class*="theme-"] .search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(var(--accent-color), 0.2);
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.03; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.05; }
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+@keyframes electricPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Additional animations from existing PremiumThemes.css */
+@keyframes webSwing {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes smash {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes repulsorGlow {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+
+@keyframes lightning {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes shieldSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes stealth {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+  100% { opacity: 0.1; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Theme-specific task hover effects */
+body.theme-spiderman .task-item:hover,
+body.theme-spiderman .today-task:hover,
+body.theme-spiderman .upcoming-task:hover,
+body.theme-spiderman .completed-task-item:hover,
+body.theme-spiderman .project-card:hover {
+  background: rgba(230, 57, 70, 0.1);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.3);
+}
+
+body.theme-hulk .task-item:hover,
+body.theme-hulk .today-task:hover,
+body.theme-hulk .upcoming-task:hover,
+body.theme-hulk .completed-task-item:hover,
+body.theme-hulk .project-card:hover {
+  background: rgba(46, 204, 113, 0.1);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
+  transform: translateY(-2px) scale(1.01);
+}
+
+body.theme-ironman .task-item:hover,
+body.theme-ironman .today-task:hover,
+body.theme-ironman .upcoming-task:hover,
+body.theme-ironman .completed-task-item:hover,
+body.theme-ironman .project-card:hover {
+  background: rgba(231, 76, 60, 0.1);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+}
+
+body.theme-thor .task-item:hover,
+body.theme-thor .today-task:hover,
+body.theme-thor .upcoming-task:hover,
+body.theme-thor .completed-task-item:hover,
+body.theme-thor .project-card:hover {
+  background: rgba(52, 152, 219, 0.1);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+}
+
+body.theme-captain .task-item:hover,
+body.theme-captain .today-task:hover,
+body.theme-captain .upcoming-task:hover,
+body.theme-captain .completed-task-item:hover,
+body.theme-captain .project-card:hover {
+  background: rgba(52, 152, 219, 0.1);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+}
+
+body.theme-panther .task-item:hover,
+body.theme-panther .today-task:hover,
+body.theme-panther .upcoming-task:hover,
+body.theme-panther .completed-task-item:hover,
+body.theme-panther .project-card:hover {
+  background: rgba(139, 92, 246, 0.1);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+body.theme-spongebob .task-item:hover,
+body.theme-spongebob .today-task:hover,
+body.theme-spongebob .upcoming-task:hover,
+body.theme-spongebob .completed-task-item:hover,
+body.theme-spongebob .project-card:hover {
+  background: rgba(241, 196, 15, 0.1);
+  box-shadow: 0 6px 20px rgba(241, 196, 15, 0.3);
+  animation: bubbleFloat 2s ease-in-out;
+}
+
+body.theme-mickey .task-item:hover,
+body.theme-mickey .today-task:hover,
+body.theme-mickey .upcoming-task:hover,
+body.theme-mickey .completed-task-item:hover,
+body.theme-mickey .project-card:hover {
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+body.theme-pikachu .task-item:hover,
+body.theme-pikachu .today-task:hover,
+body.theme-pikachu .upcoming-task:hover,
+body.theme-pikachu .completed-task-item:hover,
+body.theme-pikachu .project-card:hover {
+  background: rgba(251, 191, 36, 0.1);
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
+  animation: electricPulse 1s ease-in-out;
+}
+
+body.theme-turtles .task-item:hover,
+body.theme-turtles .today-task:hover,
+body.theme-turtles .upcoming-task:hover,
+body.theme-turtles .completed-task-item:hover,
+body.theme-turtles .project-card:hover {
+  background: rgba(16, 185, 129, 0.1);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Special Theme Effects */
+
+/* SpongeBob Bubble Effects */
+body.theme-spongebob .section-header::before {
+  background: linear-gradient(90deg, #f1c40f, #f39c12);
+  animation: bubbleShimmer 3s infinite ease-in-out;
+}
+
+@keyframes bubbleShimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Pikachu Electric Effects */
+body.theme-pikachu .section-header::before {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  animation: electricShimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes electricShimmer {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(0.9); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  body[class*="theme-"] .section-header,
+  body[class*="theme-"] .projects-header {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  body[class*="theme-"] .section-header h2,
+  body[class*="theme-"] .projects-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  body[class*="theme-"] .task-item,
+  body[class*="theme-"] .today-task,
+  body[class*="theme-"] .upcoming-task,
+  body[class*="theme-"] .completed-task-item {
+    padding: 0.75rem;
+  }
+  
+  body[class*="theme-"] .filter-tabs {
+    flex-wrap: wrap;
+  }
+  
+  body[class*="theme-"] .date-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  body[class*="theme-"] .projects-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  body[class*="theme-"] .projects-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+} 

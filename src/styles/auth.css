@@ -1,0 +1,207 @@
+/* Enhanced Authentication Button Styles */
+.auth-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  color: #374151;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  margin: 0 auto;
+}
+
+/* Continue button styling to match auth buttons */
+.continue-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  margin: 0 auto;
+}
+
+.auth-button:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.auth-button:focus {
+  box-shadow: 0 0 0 2px #3b82f6;
+  border-color: #3b82f6;
+}
+
+.auth-button:active {
+  transform: translateY(0);
+}
+
+.auth-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.google-button {
+  border-color: #dadce0;
+}
+
+.google-button:hover {
+  background-color: #f8f9fa;
+  border-color: #dadce0;
+}
+
+.github-button {
+  background-color: #24292e;
+  color: white;
+  border-color: #24292e;
+}
+
+.github-button:hover {
+  background-color: #2f363d;
+  border-color: #2f363d;
+  color: white;
+}
+
+.auth-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button Icon Styles */
+.auth-button svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Error message styling */
+.auth-error {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+}
+
+/* Registration form container */
+.registration-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.registration-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #111827;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.auth-divider span {
+  padding: 0 16px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* OAuth consent styling for auth forms */
+.oauth-consent-banner {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1e293b;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.oauth-consent-icon {
+  font-size: 1.4rem;
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.oauth-consent-content {
+  flex: 1;
+}
+
+.oauth-consent-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.oauth-consent-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.oauth-security-indicators {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.oauth-security-badge {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}

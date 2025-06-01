@@ -1,0 +1,745 @@
+/* Profile Completion Styles */
+.profile-completion-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-hero-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(91, 94, 244, 0.05), rgba(118, 75, 162, 0.05));
+  border-radius: 16px;
+  border: 1px solid rgba(91, 94, 244, 0.1);
+  box-sizing: border-box;
+}
+
+.profile-hero-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.profile-hero-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #5b5ef4, #667eea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.profile-hero-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.profile-main-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-main-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.profile-preview-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border-radius: 20px;
+  border: 2px dashed rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.profile-preview-section:hover {
+  border-color: rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+}
+
+.profile-avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #5b5ef4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+.profile-avatar-large:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.profile-avatar-large:hover .avatar-edit-overlay {
+  opacity: 1;
+}
+
+.avatar-edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  border-radius: 50% !important;
+  font-size: 0.8rem !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  z-index: 1001 !important;
+}
+
+.avatar-edit-text {
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.profile-display-info {
+  text-align: center;
+}
+
+.profile-display-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.profile-display-username {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #667eea;
+  font-weight: 600;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.profile-form-section {
+  margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.profile-section-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #5b5ef4, #7c3aed);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: white;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.enhanced-input-group {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.enhanced-input-field {
+  width: 100%;
+  padding: 1rem 3rem 1rem 2rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #1f2937;
+  font-weight: 500;
+  box-sizing: border-box;
+  padding: 1.2rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+  color: #1e293b;
+  outline: none;
+}
+
+.enhanced-input-field:focus {
+  outline: none;
+  border-color: #5b5ef4;
+  box-shadow: 0 0 0 3px rgba(91, 94, 244, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.enhanced-input-field.error {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.05);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.enhanced-input-field.has-value {
+  border-color: #10b981;
+  background-color: rgba(16, 185, 129, 0.02);
+  background: rgba(16, 185, 129, 0.02);
+}
+
+.username-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.username-prefix {
+  position: absolute;
+  left: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 1;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #667eea;
+  z-index: 2;
+}
+
+.username-input {
+  padding-left: 2rem;
+  padding-left: 2.5rem;
+}
+
+.input-success-icon {
+  position: absolute;
+  right: 12px;
+  color: #10b981;
+  font-weight: bold;
+  font-size: 1.1rem;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #10b981;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.bio-textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 120px;
+  padding: 1rem;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.character-counter {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.character-counter.warning {
+  color: #f59e0b;
+}
+
+.character-counter.danger {
+  color: #ef4444;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terms-acceptance-section {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.terms-checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.terms-checkbox-wrapper:hover {
+  background: #f1f5f9;
+  border-color: #5b5ef4;
+  background: rgba(91, 94, 244, 0.05);
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #5b5ef4;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.custom-checkbox.checked {
+  background: #5b5ef4;
+  color: white;
+  background: #5b5ef4;
+  border-color: #5b5ef4;
+}
+
+.checkbox-checkmark {
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.custom-checkbox.checked .checkbox-checkmark {
+  opacity: 1;
+  opacity: 1;
+}
+
+.terms-text {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.4;
+  flex: 1;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.terms-link {
+  color: #5b5ef4;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terms-link:hover {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+/* Complete Registration Button - Green Theme */
+.profile-completion-container .complete-registration-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.profile-completion-container .complete-registration-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.profile-completion-container .complete-registration-btn:disabled {
+  background: #9ca3af !important;
+  box-shadow: none !important;
+  opacity: 0.6 !important;
+}
+
+/* Complete Registration Button - Green Theme with Enhanced Specificity */
+.profile-completion-container .complete-registration-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.profile-completion-container .complete-registration-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.profile-completion-container .complete-registration-btn:disabled {
+  background: #9ca3af !important;
+  box-shadow: none !important;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+/* Force green styling regardless of other CSS */
+.complete-registration-container .complete-registration-btn:not(:disabled) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25) !important;
+}
+
+.complete-registration-container .complete-registration-btn:not(:disabled):hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Specific override for when terms are accepted */
+.terms-acceptance-section ~ .complete-registration-container .complete-registration-btn:not(:disabled) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Profile Modal specific styling for registration */
+.register-page .profile-modal-overlay,
+.register-container .profile-modal-overlay {
+  z-index: 80000 !important; /* Much higher than registration mockup */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  pointer-events: auto !important;
+}
+
+.register-page .profile-modal-container,
+.register-container .profile-modal-container {
+  z-index: 80001 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Force profile modal elements to be interactive */
+.register-page .profile-modal-overlay *,
+.register-container .profile-modal-overlay *,
+.register-page .profile-modal-container *,
+.register-container .profile-modal-container * {
+  pointer-events: auto !important;
+}
+
+/* Global override for profile modal */
+body .profile-modal-overlay {
+  position: fixed !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* OAuth consent indicator for profile modal */
+body .profile-modal-overlay[data-oauth-prompt="consent"] {
+  background: rgba(59, 130, 246, 0.1) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
+}
+
+body .profile-modal-container {
+  z-index: 80001 !important;
+  position: relative !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* OAuth consent styling for profile modal */
+body .profile-modal-container[data-oauth-prompt="consent"] {
+  border: 3px solid #3b82f6 !important;
+  box-shadow: 0 32px 64px rgba(59, 130, 246, 0.3) !important;
+  background: #ffffff !important;
+}
+body .profile-modal-overlay[data-oauth-prompt="consent"] {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(29, 78, 216, 0.1)) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
+  backdrop-filter: blur(12px) saturate(150%) !important;
+}
+
+/* OAuth consent container for profile */
+.profile-oauth-consent {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+  color: #1e293b;
+}
+
+.profile-oauth-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-oauth-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.profile-oauth-security {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.profile-oauth-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.profile-oauth-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  color: #3b82f6;
+}
+
+.profile-oauth-text {
+  flex: 1;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.profile-oauth-provider {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-completion-container {
+    padding: 1rem;
+  }
+
+  .profile-hero-section {
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-hero-title {
+    font-size: 1.6rem;
+    font-size: 2rem;
+  }
+
+  .profile-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .profile-main-card {
+    padding: 1.5rem;
+  }
+
+  .profile-avatar-large {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+
+  .enhanced-input-field {
+    padding: 0.9rem 2.5rem 0.9rem 1.8rem;
+    font-size: 0.95rem;
+  }
+
+  .username-input {
+    padding-left: 1.8rem;
+  }
+
+  .terms-checkbox-wrapper {
+    padding: 0.75rem;
+  }
+
+  .terms-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-hero-section {
+    padding: 1rem;
+  }
+
+  .profile-hero-title {
+    font-size: 1.4rem;
+  }
+
+  .profile-main-card {
+    padding: 1.2rem;
+  }
+
+  .profile-avatar-large {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .enhanced-input-field {
+    padding: 0.8rem 2rem 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .username-input {
+    padding-left: 1.5rem;
+  }
+
+  .terms-checkbox-wrapper {
+    padding: 0.8rem;
+  }
+
+  .terms-text {
+    font-size: 0.85rem;
+  }
+}

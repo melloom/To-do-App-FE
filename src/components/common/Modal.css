@@ -1,0 +1,233 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50000; /* High z-index for modal overlays but below legal modals */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.modal-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  animation: modal-appear 0.3s ease-out;
+  position: relative;
+  z-index: 50001; /* Modal content above overlay but below legal modals */
+}
+
+/* OAuth consent modal styling - Enhanced visibility */
+.modal-container.oauth-consent {
+  border: 3px solid #3b82f6;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.25);
+  background: #ffffff;
+}
+
+.modal-container.oauth-consent .modal-header {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  border-bottom: 2px solid #2563eb;
+}
+
+.modal-container.oauth-consent .modal-close-button {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+.modal-container.oauth-consent .modal-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Enhanced OAuth consent notice */
+.oauth-consent-notice {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.oauth-consent-notice .icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  color: #3b82f6;
+}
+
+/* OAuth consent details */
+.oauth-consent-details {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  color: #374151;
+}
+
+.oauth-provider-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+.oauth-provider-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: #4285f4;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.oauth-provider-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.oauth-security-badge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.modal-container.small {
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal-container.medium {
+  width: 600px;
+  max-width: 90%;
+}
+
+.modal-container.large {
+  width: 800px;
+  max-width: 90%;
+}
+
+.modal-container.full {
+  width: 90%;
+  height: 90vh;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.modal-close-button:hover {
+  background-color: #edf2f7;
+}
+
+.modal-content {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(90vh - 140px);
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ensure legal modals override other modals */
+.legal-modal-overlay {
+  z-index: 99999 !important;
+}
+
+.legal-modal-container {
+  z-index: 100000 !important;
+}
+
+/* Project modals - Medium priority */
+.project-modal-overlay {
+  z-index: 60000 !important;
+}
+
+.project-modal-container {
+  z-index: 60001 !important;
+}
+
+/* Media Queries */
+@media (max-width: 640px) {
+  .modal-container.small,
+  .modal-container.medium,
+  .modal-container.large {
+    width: 95%;
+    max-height: 80vh;
+  }
+
+  .modal-content {
+    padding: 16px;
+  }
+  
+  .oauth-consent-notice {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+}

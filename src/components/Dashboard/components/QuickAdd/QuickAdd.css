@@ -1,0 +1,741 @@
+.quick-add-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.quick-add-modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { 
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.quick-add-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f9fafb;
+}
+
+.quick-add-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.quick-add-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quick-add-form input,
+.quick-add-form textarea,
+.quick-add-form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.quick-add-form input:focus,
+.quick-add-form textarea:focus,
+.quick-add-form select:focus {
+  border-color: #5b5ef4;
+  box-shadow: 0 0 0 3px rgba(91, 94, 244, 0.1);
+}
+
+.quick-add-form input::placeholder,
+.quick-add-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+.quick-add-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.form-actions button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.form-actions button[type="button"] {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.form-actions button[type="button"]:hover {
+  background: #e5e7eb;
+}
+
+.form-actions button[type="submit"] {
+  background: #5b5ef4;
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+@media (max-width: 768px) {
+  .quick-add-modal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .quick-add-header {
+    padding: 16px 20px;
+  }
+  
+  .quick-add-form {
+    padding: 20px;
+    gap: 16px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .form-actions {
+    gap: 8px;
+  }
+  
+  .form-actions button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+/* Theme Icon Styling */
+.theme-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+/* Theme Motivational Text */
+.theme-motivational {
+  background: var(--accent-color, #f3f4f6);
+  color: var(--text-primary, #374151);
+  padding: 12px 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  font-style: italic;
+}
+
+/* Premium Theme Styles */
+
+/* Spider-Man Theme */
+.quick-add-modal.theme-spiderman {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid #e63946;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(230, 57, 70, 0.3);
+}
+
+.theme-spiderman .quick-add-header {
+  background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+  border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+  color: #ffffff;
+}
+
+.theme-spiderman .theme-motivational {
+  background: rgba(230, 57, 70, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+.theme-spiderman .quick-add-form input,
+.theme-spiderman .quick-add-form textarea,
+.theme-spiderman .quick-add-form select {
+  background: rgba(26, 33, 62, 0.8);
+  border: 2px solid rgba(230, 57, 70, 0.3);
+  color: #ffffff;
+}
+
+.theme-spiderman .quick-add-form input::placeholder,
+.theme-spiderman .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-spiderman .quick-add-form input:focus,
+.theme-spiderman .quick-add-form textarea:focus,
+.theme-spiderman .quick-add-form select:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.3);
+}
+
+.theme-spiderman .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+  color: #ffffff;
+}
+
+.theme-spiderman .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+/* Hulk Theme */
+.quick-add-modal.theme-hulk {
+  background: linear-gradient(135deg, #0d2818 0%, #1a472a 100%);
+  border: 2px solid #2ecc71;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(46, 204, 113, 0.3);
+}
+
+.theme-hulk .quick-add-header {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  border-bottom: 1px solid rgba(46, 204, 113, 0.3);
+  color: #ffffff;
+}
+
+.theme-hulk .theme-motivational {
+  background: rgba(46, 204, 113, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.theme-hulk .quick-add-form input,
+.theme-hulk .quick-add-form textarea,
+.theme-hulk .quick-add-form select {
+  background: rgba(26, 71, 42, 0.8);
+  border: 2px solid rgba(46, 204, 113, 0.3);
+  color: #ffffff;
+}
+
+.theme-hulk .quick-add-form input::placeholder,
+.theme-hulk .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-hulk .quick-add-form input:focus,
+.theme-hulk .quick-add-form textarea:focus,
+.theme-hulk .quick-add-form select:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.3);
+}
+
+.theme-hulk .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: #ffffff;
+}
+
+.theme-hulk .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Iron Man Theme */
+.quick-add-modal.theme-ironman {
+  background: linear-gradient(135deg, #2c0e0e 0%, #5c1616 100%);
+  border: 2px solid #e74c3c;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(231, 76, 60, 0.3);
+}
+
+.theme-ironman .quick-add-header {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+  color: #ffffff;
+}
+
+.theme-ironman .theme-motivational {
+  background: rgba(231, 76, 60, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.theme-ironman .quick-add-form input,
+.theme-ironman .quick-add-form textarea,
+.theme-ironman .quick-add-form select {
+  background: rgba(92, 22, 22, 0.8);
+  border: 2px solid rgba(231, 76, 60, 0.3);
+  color: #ffffff;
+}
+
+.theme-ironman .quick-add-form input::placeholder,
+.theme-ironman .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-ironman .quick-add-form input:focus,
+.theme-ironman .quick-add-form textarea:focus,
+.theme-ironman .quick-add-form select:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+.theme-ironman .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: #ffffff;
+}
+
+.theme-ironman .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Thor Theme */
+.quick-add-modal.theme-thor {
+  background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+  border: 2px solid #3498db;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(52, 152, 219, 0.3);
+}
+
+.theme-thor .quick-add-header {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+  color: #ffffff;
+}
+
+.theme-thor .theme-motivational {
+  background: rgba(52, 152, 219, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.theme-thor .quick-add-form input,
+.theme-thor .quick-add-form textarea,
+.theme-thor .quick-add-form select {
+  background: rgba(30, 55, 153, 0.8);
+  border: 2px solid rgba(52, 152, 219, 0.3);
+  color: #ffffff;
+}
+
+.theme-thor .quick-add-form input::placeholder,
+.theme-thor .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-thor .quick-add-form input:focus,
+.theme-thor .quick-add-form textarea:focus,
+.theme-thor .quick-add-form select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.theme-thor .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: #ffffff;
+}
+
+.theme-thor .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+/* Captain America Theme */
+.quick-add-modal.theme-captain {
+  background: linear-gradient(135deg, #0e1e3d 0%, #1e3a8a 100%);
+  border: 2px solid #ef4444;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+}
+
+.theme-captain .quick-add-header {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+}
+
+.theme-captain .theme-motivational {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.theme-captain .quick-add-form input,
+.theme-captain .quick-add-form textarea,
+.theme-captain .quick-add-form select {
+  background: rgba(30, 58, 138, 0.8);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+}
+
+.theme-captain .quick-add-form input::placeholder,
+.theme-captain .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-captain .quick-add-form input:focus,
+.theme-captain .quick-add-form textarea:focus,
+.theme-captain .quick-add-form select:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+.theme-captain .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+}
+
+.theme-captain .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Black Panther Theme */
+.quick-add-modal.theme-panther {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border: 2px solid #8b5cf6;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+}
+
+.theme-panther .quick-add-header {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+  color: #ffffff;
+}
+
+.theme-panther .theme-motivational {
+  background: rgba(139, 92, 246, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.theme-panther .quick-add-form input,
+.theme-panther .quick-add-form textarea,
+.theme-panther .quick-add-form select {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  color: #ffffff;
+}
+
+.theme-panther .quick-add-form input::placeholder,
+.theme-panther .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-panther .quick-add-form input:focus,
+.theme-panther .quick-add-form textarea:focus,
+.theme-panther .quick-add-form select:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+.theme-panther .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #ffffff;
+}
+
+.theme-panther .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* SpongeBob Theme */
+.quick-add-modal.theme-spongebob {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+  border: 2px solid #f1c40f;
+  color: #2c3e50;
+  box-shadow: 0 20px 40px rgba(241, 196, 15, 0.3);
+}
+
+.theme-spongebob .quick-add-header {
+  background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+  border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+  color: #2c3e50;
+}
+
+.theme-spongebob .theme-motivational {
+  background: rgba(241, 196, 15, 0.2);
+  color: #2c3e50;
+  border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.theme-spongebob .quick-add-form input,
+.theme-spongebob .quick-add-form textarea,
+.theme-spongebob .quick-add-form select {
+  background: rgba(255, 243, 205, 0.8);
+  border: 2px solid rgba(241, 196, 15, 0.3);
+  color: #2c3e50;
+}
+
+.theme-spongebob .quick-add-form input::placeholder,
+.theme-spongebob .quick-add-form textarea::placeholder {
+  color: rgba(44, 62, 80, 0.7);
+}
+
+.theme-spongebob .quick-add-form input:focus,
+.theme-spongebob .quick-add-form textarea:focus,
+.theme-spongebob .quick-add-form select:focus {
+  border-color: #f1c40f;
+  box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.3);
+}
+
+.theme-spongebob .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+  color: #2c3e50;
+}
+
+.theme-spongebob .form-actions button[type="button"] {
+  background: rgba(44, 62, 80, 0.1);
+  color: #2c3e50;
+  border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* Mickey Mouse Theme */
+.quick-add-modal.theme-mickey {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #ef4444;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+}
+
+.theme-mickey .quick-add-header {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+}
+
+.theme-mickey .theme-motivational {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.theme-mickey .quick-add-form input,
+.theme-mickey .quick-add-form textarea,
+.theme-mickey .quick-add-form select {
+  background: rgba(45, 45, 45, 0.8);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+}
+
+.theme-mickey .quick-add-form input::placeholder,
+.theme-mickey .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-mickey .quick-add-form input:focus,
+.theme-mickey .quick-add-form textarea:focus,
+.theme-mickey .quick-add-form select:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+.theme-mickey .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+}
+
+.theme-mickey .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Pikachu Theme */
+.quick-add-modal.theme-pikachu {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #fbbf24;
+  color: #1f2937;
+  box-shadow: 0 20px 40px rgba(251, 191, 36, 0.3);
+}
+
+.theme-pikachu .quick-add-header {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.3);
+  color: #1f2937;
+}
+
+.theme-pikachu .theme-motivational {
+  background: rgba(251, 191, 36, 0.2);
+  color: #1f2937;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.theme-pikachu .quick-add-form input,
+.theme-pikachu .quick-add-form textarea,
+.theme-pikachu .quick-add-form select {
+  background: rgba(254, 243, 199, 0.8);
+  border: 2px solid rgba(251, 191, 36, 0.3);
+  color: #1f2937;
+}
+
+.theme-pikachu .quick-add-form input::placeholder,
+.theme-pikachu .quick-add-form textarea::placeholder {
+  color: rgba(31, 41, 55, 0.7);
+}
+
+.theme-pikachu .quick-add-form input:focus,
+.theme-pikachu .quick-add-form textarea:focus,
+.theme-pikachu .quick-add-form select:focus {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+}
+
+.theme-pikachu .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1f2937;
+}
+
+.theme-pikachu .form-actions button[type="button"] {
+  background: rgba(31, 41, 55, 0.1);
+  color: #1f2937;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* Ninja Turtles Theme */
+.quick-add-modal.theme-turtles {
+  background: linear-gradient(135deg, #042f2e 0%, #064e3b 100%);
+  border: 2px solid #10b981;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+}
+
+.theme-turtles .quick-add-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+  color: #ffffff;
+}
+
+.theme-turtles .theme-motivational {
+  background: rgba(16, 185, 129, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.theme-turtles .quick-add-form input,
+.theme-turtles .quick-add-form textarea,
+.theme-turtles .quick-add-form select {
+  background: rgba(6, 78, 59, 0.8);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  color: #ffffff;
+}
+
+.theme-turtles .quick-add-form input::placeholder,
+.theme-turtles .quick-add-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-turtles .quick-add-form input:focus,
+.theme-turtles .quick-add-form textarea:focus,
+.theme-turtles .quick-add-form select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.theme-turtles .form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+}
+
+.theme-turtles .form-actions button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Theme-specific hover effects */
+.quick-add-modal[class*="theme-"] .form-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quick-add-modal[class*="theme-"] .close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile responsiveness for themed modals */
+@media (max-width: 768px) {
+  .quick-add-modal[class*="theme-"] {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .theme-motivational {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,557 @@
+.about-features-section {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-features-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--gray-900);
+  text-align: center;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.features-intro {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 60px;
+  color: var(--gray-600);
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+/* Feature Tabs */
+.features-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  background-color: var(--gray-50);
+  padding: 8px;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  text-align: center;
+}
+
+.feature-tab:hover {
+  background-color: var(--gray-100);
+}
+
+.feature-tab.active {
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.feature-tab-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.feature-tab-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--gray-800);
+}
+
+/* Feature Showcase */
+.feature-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 60px;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  padding: 48px;
+  min-height: 400px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--gray-100);
+}
+
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-content h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--gray-900);
+}
+
+.feature-description {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.feature-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-benefits li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+  color: var(--gray-700);
+}
+
+.benefit-checkmark {
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.feature-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.5s ease;
+}
+
+.feature-mockup-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--gray-200);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-origin: center;
+  animation: mockupFadeIn 0.5s ease-out;
+}
+
+@keyframes mockupFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Feature-specific styling for the mockups */
+.feature-tasks .task-mockup {
+  background-color: white;
+}
+
+.feature-categories .category-mockup {
+  background-color: white;
+}
+
+.feature-priority .priority-mockup {
+  background-color: white;
+}
+
+.feature-privacy .privacy-mockup {
+  background-color: white;
+}
+
+/* Task mockup styles */
+.mockup-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.mockup-title {
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 1.1rem;
+}
+
+.mockup-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.mockup-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--gray-300);
+}
+
+.mockup-content {
+  padding: 20px;
+}
+
+.mockup-task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-100);
+  transition: all 0.2s ease;
+}
+
+.mockup-task:hover {
+  background-color: var(--gray-50);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mockup-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--gray-400);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.mockup-checkbox.checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  position: relative;
+}
+
+.mockup-checkbox.checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+}
+
+.mockup-task-text {
+  color: var(--gray-800);
+  font-size: 1rem;
+}
+
+.mockup-task.completed .mockup-task-text {
+  text-decoration: line-through;
+  color: var(--gray-500);
+}
+
+/* Category mockup styles */
+.mockup-sidebar {
+  padding: 24px;
+  min-height: 300px;
+}
+
+.mockup-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: var(--gray-700);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.mockup-sidebar-item:hover {
+  background-color: var(--gray-50);
+}
+
+.mockup-sidebar-item.active {
+  background-color: var(--primary-light);
+  color: white;
+  font-weight: 500;
+}
+
+.category-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Priority mockup styles */
+.priority-mockup {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mockup-priority {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mockup-priority:hover {
+  transform: translateX(5px);
+}
+
+.priority-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mockup-priority.high {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.mockup-priority.high .priority-indicator {
+  background-color: var(--danger-color);
+}
+
+.mockup-priority.medium {
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.mockup-priority.medium .priority-indicator {
+  background-color: var(--warning-color);
+}
+
+.mockup-priority.low {
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.mockup-priority.low .priority-indicator {
+  background-color: var(--success-color);
+}
+
+/* Privacy mockup styles */
+.privacy-mockup {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  text-align: center;
+}
+
+.privacy-icon {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+}
+
+.privacy-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.privacy-line {
+  height: 10px;
+  background-color: var(--gray-200);
+  border-radius: 5px;
+}
+
+.privacy-device {
+  width: 140px;
+  height: 80px;
+  border-radius: 12px;
+  background-color: var(--gray-300);
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-device::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 15px;
+  background-color: var(--gray-400);
+  border-radius: 0 0 15px 15px;
+}
+
+.privacy-text {
+  color: var(--gray-800);
+  font-weight: 500;
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+/* Features Footer */
+.features-footer {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.features-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(120deg, var(--primary-light), var(--primary-color));
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  font-weight: 600;
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .feature-showcase {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .feature-content {
+    order: 1;
+  }
+
+  .feature-visual {
+    order: 0;
+    margin-bottom: 30px;
+  }
+
+  .about-features-section h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-features-section {
+    padding: 60px 15px;
+  }
+
+  .features-tabs {
+    flex-wrap: wrap;
+  }
+
+  .feature-tab {
+    flex-basis: calc(50% - 8px);
+    padding: 12px 10px;
+  }
+
+  .feature-tab-icon {
+    font-size: 1.5rem;
+  }
+
+  .feature-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .feature-description {
+    font-size: 1rem;
+  }
+
+  .features-intro {
+    font-size: 1.1rem;
+  }
+}
+
+/* ...existing code... */
+
+.features-cta {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.1));
+  border-radius: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.features-cta h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--gray-800);
+}
+
+.features-cta p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.try-tasklio-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #5b5ef4 0%, #4f46e5 50%, #4341e0 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(91, 94, 244, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.try-tasklio-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.try-tasklio-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(91, 94, 244, 0.35);
+  background: linear-gradient(135deg, #4f46e5 0%, #4341e0 50%, #3730a3 100%);
+}
+
+.try-tasklio-button:hover::before {
+  left: 100%;
+}
+
+.try-tasklio-button:active {
+  transform: translateY(-1px);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.try-tasklio-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+/* ...existing code... */
